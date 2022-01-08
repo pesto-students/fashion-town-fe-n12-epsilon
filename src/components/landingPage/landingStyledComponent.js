@@ -27,35 +27,53 @@ const ActionButtonContainer = styled.div`
 `;
 
 const MenWomenSection = styled.section`
-display: flex;
-flex-wrap: nowrap;
+margin: 10px 0  ;
 height: 60vh;
 `
 const MenBlock = styled.div`
-width: 70%;
+width: 100%;
 height: 100%;
-margin:10px;
-margin-right: 0;
 background-image: linear-gradient(#00000096, #00000096),url(${MenBannerImage});
 background-position: center;
 background-size: cover;
+position: relative;
 `
 const WomenBlock = styled.div`
-width: 30%;
+width: 100%;
 height: 100%;
-margin:10px;
 background-image: linear-gradient(#00000096, #00000096),url(${WomenBannerImage});
 background-position: center;
 background-size: cover;
+position: relative;
 `
 
 const AccessoriesSection = styled.section`
-   height: 60vh;
-  width: 100%;
-  background-image: linear-gradient(#0000001f, #0000001f),url(${AccessoriesBannerImage});
-  background-position: center;
-  background-size: cover;
-  margin:10px;
+  display: flex;
+  flex-wrap: nowrap;
+  height: 60vh;
+  margin-top: 10px;
+  position: relative;
 `
 
-export { HeroBanner, HeroText, ActionButtonContainer, MenWomenSection, MenBlock,WomenBlock,AccessoriesSection };
+const AccessoriesBlock = styled.div`
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(#0000001f, #00000096),url(${AccessoriesBannerImage});
+  background-position: center;
+  background-size: cover;
+  margin:0 5px;
+  position: relative;
+`
+const CategoryButtonsWrapper = styled.div`
+  position: absolute;
+  top:90%;
+  left:50%;
+  transform: translate(-50%,-50%);
+`
+const HorizontalLine = styled.div`
+    border: 1px solid #CACACA;
+    width: 100%;
+    height: 0px;
+`;
+
+export { HeroBanner, HeroText, ActionButtonContainer, MenWomenSection, MenBlock,WomenBlock,AccessoriesSection,AccessoriesBlock ,CategoryButtonsWrapper};
