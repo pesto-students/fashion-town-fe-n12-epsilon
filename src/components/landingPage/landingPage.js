@@ -9,8 +9,7 @@ import {
   WomenBlock,
   AccessoriesSection,
   AccessoriesBlock,
-  CategoryButtonsWrapper,
-  HorizontalLine,
+  CategoryButtonsWrapper
 } from "./landingStyledComponent";
 
 export class landingPage extends Component {
