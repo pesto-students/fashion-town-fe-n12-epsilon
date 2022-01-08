@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Header from "./header/header";
 import LandingPage from "./landingPage/landingPage";
 import SignIn from "./auth/signIn/signIn";
+import SignUp from "./auth/signUp/signUp";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 export class Main extends Component {
@@ -12,6 +13,7 @@ export class Main extends Component {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="signIn" element={<SignIn />} />
+          <Route path="SignUp" element={<SignUp />} />
         </Routes>
       </BrowserRouter>
     );
