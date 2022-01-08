@@ -5,12 +5,12 @@ import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
   apiKey: Config.googleAuthApi,
-  authDomain: "fashion-town-frontend.firebaseapp.com",
-  projectId: "fashion-town-frontend",
-  storageBucket: "fashion-town-frontend.appspot.com",
-  messagingSenderId: "783705846773",
-  appId: "1:783705846773:web:f6fc1a66bc6f9ef5cfa6bc",
-  measurementId: "G-GJCK956BCV",
+  authDomain: "fashion-town.firebaseapp.com",
+  projectId: "fashion-town",
+  storageBucket: "fashion-town.appspot.com",
+  messagingSenderId: "132781947118",
+  appId: "1:132781947118:web:a1b88c5747e7aefa2b1bff",
+  measurementId: "G-5RYMXJX4GD"
 };
 
 // Initialize Firebase
