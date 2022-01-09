@@ -1,12 +1,12 @@
 import styled from "styled-components"
 
 const FooterContainer = styled.section`
-    height: 30vh;
+    height: 20vh;
     margin: 5px;
     padding: 2%;
     border-top: 1px solid black;
 `
-const QuickLinksText = styled.p`
+const QuickLinksText = styled.span`
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
