@@ -2,8 +2,8 @@ import { gql } from "@apollo/client";
 export const FILTER_QUERY = gql`
   query getProduct(
     $brand: [String]
-    $productCategory: String
-    $idealFor: String
+    $productCategory: [String]
+    $idealFor: [String]
     $dominantColor: [String]
   ) {
     productByFilters(

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { Card, Skeleton, Image, Carousel } from "antd";
-import { BrandText,TitleText,PriceText } from "./productCardStyledComponents";
+import { BrandText, TitleText, PriceText } from "./productCardStyledComponents";
 
 function ProductCard(props) {
   const { isLoading, productData } = props;
@@ -12,9 +12,6 @@ function ProductCard(props) {
     setAutoPlayFlag(!autoPlayFlag);
   };
 
-  const generateTitle = (text) => {
-    return text;
-  };
   return (
     <Card
       onMouseOver={handleAutoPlay}
@@ -26,7 +23,7 @@ function ProductCard(props) {
           {productData.images.map((image, index) => {
             return (
               <div key={index}>
-                {index == 0 ? (
+                {index === 0 ? (
                   <Image
                     preview={false}
                     width={200}
