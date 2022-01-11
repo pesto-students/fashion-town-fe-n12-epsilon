@@ -45,7 +45,7 @@ function Filter() {
   };
 
   useEffect(() => {
-    applyFilters("brand", brandFilters);
+    applyFilters("brand", brandFilters);  
   }, [brandFilters]);
 
   useEffect(() => {
@@ -63,9 +63,9 @@ function Filter() {
   return (
     <Space direction="vertical" size={"large"}>
 
-      {filterListArray.map((filter) => {
+      {filterListArray.map((filter,index) => {
         return (
-          <Row xs={6} sm={6} md={24} lg={24}>
+          <Row xs={6} sm={6} md={24} lg={24} key={index}>
             <FilterHeading>{filter.title}</FilterHeading>
             <FilterCheckboxWrapper>
               <Checkbox.Group
