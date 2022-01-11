@@ -1,6 +1,6 @@
 import React from "react";
 import Search from "../search/search";
-import { Space, Row, Col } from "antd";
+import { Space, Row, Col, Badge } from "antd";
 import { NavLink, Link } from "react-router-dom";
 import {
   NavBar,
@@ -69,12 +69,16 @@ function header() {
               </Col>
               <Col>
                 <NavBarActionItems>
+                  <Badge>
                   <Wishlist />
+                  </Badge>
                 </NavBarActionItems>
               </Col>
               <Col>
                 <NavBarActionItems>
+                  
                   <Cart />
+                 
                 </NavBarActionItems>
               </Col>
             </Row>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Row, Col, Image, Space, Input } from "antd";
+import { Row, Col, Image, Space, Input, message } from "antd";
 import {
   ProductDetailsWrapper,
   ProductDescriptionWrapper,
@@ -13,6 +13,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { PRODUCT_BY_ID_FILTER_QUERY } from "../../graphQlQueries/filterQuery";
 import { Typography, Button } from "antd";
+import config from "../../config/config";
 
 const { Title, Text } = Typography;
 const { Search } = Input;
@@ -25,9 +26,50 @@ function ProductDetailsPage(props) {
     variables: { productId: id },
   });
   const onSearch = (value) => console.log(value);
+  const isCartFull = (cart) =>{
+      if(cart.length < config.maxCartSize){
+          return false
+      }
+      return true
+  }
+
+  const getIndexOfProductInCart = (cartArray, product) => {
+    console.log(cartArray);
+    let indexOfProductInCart = null;
+    cartArray.forEach((cartProduct, index) => {
+      if (
+        cartProduct.productId === product.productId &&
+        cartProduct.size === product.size
+      ) {
+        indexOfProductInCart = index;
+      }
+    });
+    return indexOfProductInCart;
+  };
+
+  const getUpdatedCart = (cart, product) => {
+      if(isCartFull(cart)){
+        message.error(`Cart Full`);
+        return
+      }
+    const cartArray = [...cart];
+
+    const indexOfProductInCart = getIndexOfProductInCart(
+      cartArray,
+      product
+    );
+    if (indexOfProductInCart !== null) {
+      const quantity = cartArray[indexOfProductInCart].qty++;
+      message.success(`Item Quantity increased to ${quantity+1}`);
+    } else {
+      cartArray.push(product);
+      message.success('Item added to cart');
+    }
+    return cartArray;
+  };
 
   if (loading) {
-    console.log("loding ..");
+    console.log("loading ..");
   }
   if (error) {
     console.log(error);
@@ -35,6 +77,35 @@ function ProductDetailsPage(props) {
   if (data) {
     console.log(data);
     const productDetails = data.productByFilters[0];
+    const product = {
+      productId: productDetails.product_id,
+      brand: productDetails.brand,
+      title: productDetails.title,
+      price: productDetails.price,
+      qty: 1,
+      size: sizeSelected,
+    };
+    const isSizeSelected = () => {
+      if (
+        productDetails.product_category === "Clothing" &&
+        sizeSelected === null
+      ) {
+        message.error("Please Select Size");
+        return false;
+      }
+      return true;
+    };
+
+    const addToCart = () => {
+      if (isSizeSelected()) {
+        const { dispatch,cart} = props;
+        //const cart = localStorage.getItem("cart")
+        const addToCartPayload = getUpdatedCart(cart, product);
+        //localStorage.setItem("cart", addToCartPayload)
+        dispatch({ type: "CART_ITEM_LIST", payload: addToCartPayload });
+      }
+    };
+
     return (
       <ProductDetailsWrapper>
         <Row>
@@ -100,6 +171,7 @@ function ProductDetailsPage(props) {
                     <Col xs={24} sm={24} md={12} lg={12}>
                       <Button
                         block
+                        onClick={addToCart}
                         style={{
                           background: "#FF7F3F",
                           borderRadius: "5px",
@@ -147,25 +219,7 @@ function ProductDetailsPage(props) {
   }
   return <div></div>;
 }
-
 function mapStateToProps(state) {
-  return { productIdDetailsMap: state.Product.productIdDetailsMap };
+  return { cart: state.Cart.cart };
 }
-
 export default connect(mapStateToProps)(ProductDetailsPage);
-
-// __typename: "Product"
-// ​​​
-// brand: "Manyavar"
-// ​​​
-// dominant_color: "Yellow"
-// ​​​
-// ideal_for: "Men"
-// ​​​
-// images: Array [ "http://assets.myntassets.com/v1/assets/images/7705322/2018/1…Fit-Banded-Collar-Kurta--Churidar-Set-4991540807741431-1.jpg" ]
-// ​​​
-// price: "2999"
-// ​​​
-// product_id: "7705322"
-// ​​​
-// title: "Manyavar Men Yellow & White Self Design Kurta with Churidar"
