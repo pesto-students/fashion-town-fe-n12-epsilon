@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Avatar, Image, Row, Col, Typography, Space } from "antd";
+import { List, Image, Row, Col, Typography, Space } from "antd";
 import { CartBox } from "./cardStyledComponent";
 const { Text } = Typography;
 

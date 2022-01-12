@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Badge, Dropdown } from "antd";
-import { connect } from "react-redux";
 import CartList from "./cartList";
 
 function Cart(props) {
-  const { dispatch, isCartUpdated } = props;
+  const {isCartUpdated } = props;
   const [cartCount, setCartCount] = useState(0);
   const [cart, setCart] = useState([]);
 
@@ -34,8 +33,6 @@ function Cart(props) {
     </div>
   );
 }
-function mapStateToProps(state) {
-  return { isCartUpdated: state.Cart.isCartUpdated };
-}
 
-export default connect(mapStateToProps)(Cart);
+
+export default Cart;
