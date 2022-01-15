@@ -1,5 +1,6 @@
+import React from 'react';
 import styled from "styled-components";
-
+import { Button as AntButton } from 'antd';
 const ProductDetailsWrapper = styled.div`
   min-height: 90vh;
   width: 100%;
@@ -30,4 +31,10 @@ const HorizontalLine = styled.div`
 const ActionButtonWrapper = styled.div`
     margin-top: 3%;
 `
-export { ProductDetailsWrapper, ProductDescriptionWrapper,TaxText,HorizontalLine,ActionButtonWrapper,ProductSubText};
+const SizeButton = styled(AntButton)`
+  height: 60px;
+  width: 60px;
+  border-color: ${props => (props.selected === props.size ? "orange" : "")};
+  color: ${props => (props.selected === props.size ? "orange" : "")};
+`;
+export { ProductDetailsWrapper, ProductDescriptionWrapper,TaxText,HorizontalLine,ActionButtonWrapper,ProductSubText,SizeButton};

@@ -14,7 +14,6 @@ function SignUp(props) {
   const { dispatch } = props;
 
   const registerUser = async () => {
-    //e.preventDefault();
     try {
       await setPersistence(auth,inMemoryPersistence)
       const authResponse = await createUserWithEmailAndPassword(

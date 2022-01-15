@@ -35,7 +35,7 @@ function ProductListing(props) {
   if (data) {
     console.log(data.productByFilters);
     saveProductListDataToStore(data.productByFilters);
-    return (
+    return (  
       <List
         grid={{
           xs: 2,

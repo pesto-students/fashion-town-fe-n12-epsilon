@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
-const ListingContainer = styled.section`
+const FilterAndListingContainer = styled.section`
   padding: 10px 5%;
+  min-height: 70vh;
 `;
 
 const LoadingContainer = styled.section`
@@ -18,10 +19,13 @@ const FilterCheckboxWrapper = styled.div`
   overflow-y: scroll;
   width: 100%;
 `;
-
+const ListingBox = styled.div`
+  min-height: 70vh;
+`
 
 export {
-  ListingContainer,
+  FilterAndListingContainer,
+  ListingBox,
   LoadingContainer,
   FilterHeading,
   FilterCheckboxWrapper,

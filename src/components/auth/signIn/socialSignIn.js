@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Row, Button, Space,} from "antd";
+import { Row, Button, Space } from "antd";
 import { GoogleOutlined, FacebookFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { IconHolder } from "./signInStyledComponent";
@@ -25,7 +25,7 @@ export const SocialSignIn = (props) => {
       await setPersistence(auth, inMemoryPersistence);
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-     
+
       dispatch({ type: "USER_NAME", payload: user.displayName });
     } catch (error) {
       console.log(error);

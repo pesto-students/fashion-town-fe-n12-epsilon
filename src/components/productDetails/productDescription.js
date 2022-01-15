@@ -8,6 +8,7 @@ import {
   HorizontalLine,
   ActionButtonWrapper,
   ProductSubText,
+  SizeButton,
 } from "./productDetailsStyledComponent";
 
 import { Row, Col, Space, Input, message, Typography, Button } from "antd";
@@ -17,7 +18,7 @@ const { Search } = Input;
 function ProductDescription(props) {
   const [sizeSelected, setSizeSelected] = useState(null);
   const { productDetails } = props;
-  const sizeArray = ["s", "m", "l"];
+  const sizeArray = config.sizeArray;
 
   const product = {
     productId: productDetails.product_id,
@@ -55,7 +56,7 @@ function ProductDescription(props) {
   const getUpdatedCart = (cart, product) => {
     if (isCartFull(cart)) {
       message.error(`Cart Full`);
-      return;
+      return cart;
     }
     const cartArray = [...cart];
 
@@ -83,21 +84,19 @@ function ProductDescription(props) {
 
   const addToCart = () => {
     if (isSizeSelected()) {
-      const { dispatch, isCartUpdated } = props;
-      let cart = localStorage.getItem("cart");
+      const { dispatch } = props;
+      let { cart } = props;
 
-      if (!cart) {
-        localStorage.setItem("cart", JSON.stringify([product]));
+      if (cart === "undefined" || cart === null) {
+        cart = [product];
         message.success("Item added to cart");
       } else {
-        cart = JSON.parse(cart);
-        const updatedCart = getUpdatedCart(cart, product);
-        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        cart = getUpdatedCart(cart, product);
       }
-
-      dispatch({ type: "CART_UPDATED", payload: !isCartUpdated });
+      dispatch({ type: "CART", payload: cart });
     }
   };
+
   return (
     <ProductDescriptionWrapper>
       <Space direction="vertical">
@@ -114,20 +113,16 @@ function ProductDescription(props) {
               <Space size={"large"}>
                 {sizeArray.map((size, index) => {
                   return (
-                    <Button
+                    <SizeButton
                       key={index}
                       shape="circle"
                       size="large"
                       onClick={() => setSizeSelected(size)}
-                      style={{
-                        borderColor: sizeSelected === size ? "orange" : "",
-                        color: sizeSelected === size ? "orange" : "",
-                        height: "60px",
-                        width: "60px",
-                      }}
+                      selected={sizeSelected}
+                      size={size}
                     >
                       {size.toUpperCase()}
-                    </Button>
+                    </SizeButton>
                   );
                 })}
               </Space>
@@ -180,6 +175,6 @@ function ProductDescription(props) {
 }
 
 function mapStateToProps(state) {
-  return { isCartUpdated: state.Cart.isCartUpdated };
+  return { cart: state.Cart.cart };
 }
 export default connect(mapStateToProps)(ProductDescription);

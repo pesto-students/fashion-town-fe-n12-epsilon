@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Footer from "./footer/footer";
 import FilterAndProductListing from "./productListing/filterAndProductListing";
 import ProductDetailsPage from "./productDetails/productDetailsPage.js";
+import CheckOutPage from "./cart/checkOutPage";
 
 export class Main extends Component {
   render() {
@@ -19,6 +20,7 @@ export class Main extends Component {
           <Route path="SignUp" element={<SignUp />} />
           <Route path="shop" element={<FilterAndProductListing />} />
           <Route path="product/:id" element={<ProductDetailsPage />} />
+          <Route path="checkout" element={<CheckOutPage />} />
           <Route
             path="*"
             element={

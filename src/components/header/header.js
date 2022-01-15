@@ -27,7 +27,7 @@ function header() {
 
         <Col className="gutter-row" span={5}>
           <NavBarGroup>
-            <Space size={"large"}>
+            <Space size={"SMALL"}>
               <NavBarItems>
                 <NavLink to={`/shop?idealFor=Men&productCategory=Clothing`}>
                   <NavText>MEN</NavText>
@@ -45,7 +45,7 @@ function header() {
               </NavBarItems>
               <NavBarItems>
                 <NavLink to={`/shop?productCategory=Home`}>
-                  <NavText>HOME</NavText>
+                  <NavText>LIVING</NavText>
                 </NavLink>
               </NavBarItems>
             </Space>

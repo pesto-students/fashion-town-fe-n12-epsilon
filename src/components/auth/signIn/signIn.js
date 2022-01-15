@@ -13,7 +13,6 @@ import { SocialSignIn } from "./socialSignIn";
 
 
 function SignIn(props) {
-  
   return (
     <SignInContainer>
       <SignInBox>
