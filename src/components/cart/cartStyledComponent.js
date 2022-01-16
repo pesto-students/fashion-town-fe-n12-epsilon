@@ -1,21 +1,33 @@
-import { Button } from "antd";
+import { Button, Steps } from "antd";
 import styled from "styled-components";
 
 const CartBox = styled.div`
   border-radius: 5px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  max-height: 500px;
-  overflow-y: scroll;
 `;
 const CheckoutButtonWrapper = styled.div`
-  margin: 0% 10% 5% 10%;
+  margin: 5% 10% 5% 10%;
 `;
 const NextButton = styled(Button)`
   background: #ff7f3f;
   border-radius: 5px;
   color: white;
   margin-top: 15px;
+  width: 100%;
+  &:hover {
+    background: #ff7f3f;
+    color: white;
+  }
+  &:active{
+    background: #ff7f3f;
+    color: white;
+  }
+  &:focus{
+    background: #ff7f3f;
+    color: white;
+  }
 `;
+
 const CheckoutPageWrapper = styled.div`
   min-height: 70vh;
 `;
@@ -27,4 +39,16 @@ const HorizontalLine = styled.div`
   margin-bottom: 5%;
 `;
 
-export { CartBox, CheckoutButtonWrapper, CheckoutPageWrapper, HorizontalLine ,NextButton};
+const CheckOutStepsWrapper = styled(Steps)`
+  margin-top: 2%;
+  margin-bottom: 2%;
+`;
+
+export {
+  CartBox,
+  CheckoutButtonWrapper,
+  CheckoutPageWrapper,
+  HorizontalLine,
+  NextButton,
+  CheckOutStepsWrapper,
+};

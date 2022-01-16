@@ -4,8 +4,11 @@ import { RAZORPAY_ORDER_QUERY } from "../../graphQlQueries/razorPayOdrer";
 import moment from "moment";
 import useRazorpay, { RazorpayOptions } from "react-razorpay";
 import config from "../../config/config";
+import { NextButton } from "../cart/cartStyledComponent";
+import { connect } from "react-redux";
 
 function Payment(props) {
+  const {dispatch,address} = props
   const Razorpay = useRazorpay();
   const amount = parseInt(Math.floor(props.calculateTotalMRP()) + "00");
   const orderId = "P" + moment().format("YYYYMMDDHHmmss");
@@ -20,14 +23,19 @@ function Payment(props) {
       image: "https://example.com/your_logo",
       order_id: OrderPrams.id, //This is a sample Order ID. Pass the `id` obtained in the response of createOrder().
       handler: function (response) {
-        alert(response.razorpay_payment_id);
-        alert(response.razorpay_order_id);
-        alert(response.razorpay_signature);
+        console.log(response)
+        dispatch({ type: "CART", payload: [] });
+        dispatch({ type: "STEP", payload: 3 });
+        dispatch({ type: "ORDER_ID", payload: orderId });
+        dispatch({ type: "PAYMENT_DETAILS", payload: response });
+        // alert(response.razorpay_payment_id);
+        // alert(response.razorpay_order_id);
+        // alert(response.razorpay_signature);
       },
       prefill: {
-        name: "Piyush Garg",
+        name: address.name,
         email: "piyushgarg.dev@gmail.com",
-        contact: "9999999999",
+        contact: address.phone,
       },
       notes: {
         address: "Razorpay Corporate Office",
@@ -62,7 +70,12 @@ function Payment(props) {
     handlePayment(data.createRazorPayOrder);
   }
 
-  return <button onClick={getRazorPayOrder}>Pay</button>;
+  return (
+    <NextButton onClick={getRazorPayOrder}>CONTINUE</NextButton>
+  )
+}
+function mapStateToProps(state) {
+  return { address: state.Cart.address };
 }
 
-export default Payment;
+export default connect(mapStateToProps)(Payment);

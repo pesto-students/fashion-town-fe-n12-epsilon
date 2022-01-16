@@ -112,8 +112,8 @@ function SignUp(props) {
     </SignUpContainer>
   );
 }
-function mapStateToPropsAuth(state) {
+function mapStateToProps(state) {
   return { userName: state.Auth.userName };
 }
 
-export default connect(mapStateToPropsAuth)(SignUp);
+export default connect(mapStateToProps)(SignUp);

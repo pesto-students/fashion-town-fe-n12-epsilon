@@ -1,13 +1,17 @@
 import React from "react";
+import { connect } from "react-redux";
+
 import { CartBox, CheckoutButtonWrapper } from "./cartStyledComponent";
 import { Link } from "react-router-dom";
 import CartList from "./cartList";
 import { Button, Row, Col } from "antd";
 
-function CartPopUp() {
+function CartPopUp(props) {
+  const {dispatch} = props
+
   return (
     <CartBox>
-      <Row>
+      <Row style={{maxHeight:"350px",overflowY:"scroll"}}>
         <Col xs={24} sm={24} md={24} lg={24}>
           <CartList />
         </Col>
@@ -23,7 +27,7 @@ function CartPopUp() {
                 color: "white",
               }}
             >
-              <Link to={`/checkout`}>CHECKOUT</Link>
+              <Link to={`/checkout`} onClick={()=> dispatch({ type: "STEP", payload: 0 })}>CHECKOUT</Link>
             </Button>
           </CheckoutButtonWrapper>
         </Col>
@@ -31,5 +35,4 @@ function CartPopUp() {
     </CartBox>
   );
 }
-
-export default CartPopUp;
+ export default connect(null, null)(CartPopUp);

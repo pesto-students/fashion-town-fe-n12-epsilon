@@ -9,6 +9,7 @@ import FilterAndProductListing from "./productListing/filterAndProductListing";
 import ProductDetailsPage from "./productDetails/productDetailsPage.js";
 import CheckOutPage from "./cart/checkOutPage";
 
+
 export class Main extends Component {
   render() {
     return (
