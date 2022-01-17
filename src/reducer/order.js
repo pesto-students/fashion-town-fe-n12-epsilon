@@ -1,6 +1,7 @@
 const initialState = {
   id: null,
   paymentDetails: null,
+  OrderItems: [],
 };
 
 export default function OrderReducer(state = initialState, action) {
@@ -19,6 +20,13 @@ export default function OrderReducer(state = initialState, action) {
         paymentDetails: action.payload,
       };
     }
+    case "ORDER_ITEMS": {
+        return {
+          // Again, one less level of nesting to copy
+          ...state,
+          OrderItems: action.payload,
+        };
+      }
     default:
       return state;
   }

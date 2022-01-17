@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { DisplayText, NameInitialBox } from "./authStyledComponent";
 import { Link } from "react-router-dom";
 import { Dropdown } from "antd";
@@ -13,6 +14,8 @@ function Auth(props) {
   const [userName, setUserName] = useState(null);
   const { dispatch } = props;
   const auth = getAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const generateUserInitial = (fullName) => {
     const nameArray = fullName.split(" ");
@@ -32,6 +35,13 @@ function Auth(props) {
       dispatch({ type: "USER_NAME", payload: currentUser.displayName });
     }
   });
+
+  const goToLogInPage = () => {
+    console.log(location)
+    const currentPath = location.pathname + location.search
+    dispatch({ type: "CURRENT_PATH", payload: currentPath });
+    navigate("signIn");
+  };
 
   useEffect(() => {
     console.log(props.userName);
@@ -54,11 +64,7 @@ function Auth(props) {
           <NameInitialBox>{userInitial}</NameInitialBox>
         </Dropdown>
       )}
-      {!isLogin && (
-        <Link to={`signIn`}>
-          <DisplayText>LOGIN</DisplayText>
-        </Link>
-      )}
+      {!isLogin && <DisplayText onClick={goToLogInPage}>LOGIN</DisplayText>}
     </div>
   );
 }

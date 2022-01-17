@@ -13,7 +13,7 @@ function PaymentResult(props) {
       extra={[
         <Link to={"/"}>
           <Button type="primary" key="console">
-            Buy Again
+            Continue Shopping
           </Button>
         </Link>,
       ]}

@@ -3,11 +3,13 @@ import AuthReducer from "./auth";
 import CartReducer from "./cart";
 import ProductReducer from "./product";
 import OrderReducer from "./order"
+import RedirectReducer from "./redirect";
+
 const rootReducer = combineReducers({
-  // Define a top-level state field named `todos`, handled by `todosReducer`
   Auth: AuthReducer,
   Product: ProductReducer,
   Cart: CartReducer,
-  Order: OrderReducer
+  Order: OrderReducer,
+  Redirect: RedirectReducer
 });
 export default rootReducer;

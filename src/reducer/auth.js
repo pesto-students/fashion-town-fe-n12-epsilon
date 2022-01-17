@@ -1,5 +1,6 @@
 const initialState = {
     userName: null,
+    storeAuth:null
 }
 
 export default function AuthReducer(state = initialState, action) {
@@ -9,6 +10,13 @@ export default function AuthReducer(state = initialState, action) {
                 // Again, one less level of nesting to copy
                 ...state,
                 userName: action.payload
+            }
+        }
+        case 'STORE_AUTH': {
+            return {
+                // Again, one less level of nesting to copy
+                ...state,
+                storeAuth: action.payload
             }
         }
         default:

@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import {useNavigate } from "react-router-dom";
 import { Row, Button, Space } from "antd";
 import { GoogleOutlined, FacebookFilled } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -17,7 +18,9 @@ import {
 } from "firebase/auth";
 
 export const SocialSignIn = (props) => {
-  const { dispatch } = props;
+  const { dispatch,redirectPath} = props;
+
+  const navigate = useNavigate();
 
   const handleSocialAuth = async (provider) => {
     const auth = getAuth();
@@ -27,6 +30,9 @@ export const SocialSignIn = (props) => {
       const user = result.user;
 
       dispatch({ type: "USER_NAME", payload: user.displayName });
+      dispatch({ type: "STORE_AUTH", payload: result});
+      navigate(redirectPath,{ replace: true })
+
     } catch (error) {
       console.log(error);
     }
@@ -81,7 +87,7 @@ export const SocialSignIn = (props) => {
 };
 
 function mapStateToProps(state) {
-  return { userName: state.Auth.userName };
+  return { userName: state.Auth.userName,redirectPath: state.Redirect.path };
 }
 
 export default connect(mapStateToProps)(SocialSignIn);

@@ -1,28 +1,46 @@
 import React from "react";
+
+import { useNavigate, useLocation } from "react-router-dom";
+
+import { getAuth } from "firebase/auth";
+import { connect } from "react-redux";
+
+
+
 import Payment from "../payment/payment";
 import { Row, Col, Typography, Card } from "antd";
 import { HorizontalLine, NextButton } from "./cartStyledComponent";
 
-import { connect } from "react-redux";
 const { Title, Text } = Typography;
 
 function OrderSummary(props) {
-  const { cart, dispatch, step } = props;
-  const DeliveryCharge = 50;
+ 
+  const { cart, address, order, dispatch, step, storeAuth,calculateTotalMRP } = props;
+  const location = useLocation();
+  let navigate = useNavigate();
+  const auth = getAuth();
+  
+  const goToLogInPage = () => {
+    console.log(location);
+    const currentPath = location.pathname + location.search;
+    dispatch({ type: "CURRENT_PATH", payload: currentPath });
+    navigate("/signIn");
+  };
+
+  
+
+
 
   const nextStep = () => {
-    dispatch({ type: "STEP", payload: 1 });
+    console.log(storeAuth && storeAuth.email);
+    if (storeAuth && storeAuth.email) {
+      dispatch({ type: "STEP", payload: 1 });
+    } else {
+      goToLogInPage();
+    }
   };
 
-  const calculateTotalMRP = () => {
-    let totalMRP = 0;
-    cart.forEach((product) => {
-      const productTotalPrice = product.price * product.qty;
-      totalMRP += productTotalPrice;
-    });
-    return totalMRP + DeliveryCharge;
-  };
-
+ 
   // if cart has Items ? show summary
   if (cart.length) {
     return (
@@ -77,7 +95,13 @@ function OrderSummary(props) {
 }
 
 function mapStateToProps(state) {
-  return { cart: state.Cart.cart, step: state.Cart.step };
+  return {
+    cart: state.Cart.cart,
+    address: state.Cart.address,
+    step: state.Cart.step,
+    storeAuth: state.Auth.storeAuth,
+    order: state.Order,
+  };
 }
 
 export default connect(mapStateToProps)(OrderSummary);

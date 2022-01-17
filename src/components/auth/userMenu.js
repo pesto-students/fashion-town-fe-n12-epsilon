@@ -13,6 +13,7 @@ function UserMenu(props) {
     signOut(auth)
       .then(() => {
         dispatch({ type: "USER_NAME", payload: null });
+        dispatch({ type: "STORE_AUTH", payload: null });
         console.log("Sign-out successful")
       })
       .catch((error) => {

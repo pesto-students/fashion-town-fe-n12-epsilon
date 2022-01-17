@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import {useNavigate } from "react-router-dom";
 import { Input, Row, Button, Form, message } from "antd";
 import {
   signInWithEmailAndPassword,
@@ -8,14 +9,15 @@ import {
 } from "firebase/auth";
 import { connect } from "react-redux";
 message.config({
-    top: 100,
-    duration: 2,
-  });
+  top: 100,
+  duration: 2,
+});
 function EmailSignIn(props) {
   const [signInEmail, setSignInEmail] = useState(null);
   const [signInPassword, setSignInPassword] = useState(null);
   const auth = getAuth();
-  const { dispatch } = props;
+  const navigate = useNavigate();
+  const { dispatch,redirectPath } = props;
 
   const emailSignIn = async () => {
     try {
@@ -27,6 +29,9 @@ function EmailSignIn(props) {
       );
 
       dispatch({ type: "USER_NAME", payload: authResponse.user.displayName });
+      dispatch({ type: "STORE_AUTH", payload: authResponse.user });
+      navigate(redirectPath,{ replace: true })
+      
     } catch (error) {
       console.log(error.message);
       handleError(error.message);
@@ -97,7 +102,7 @@ function EmailSignIn(props) {
 }
 
 function mapStateToProps(state) {
-  return { userName: state.Auth.userName };
+  return { userName: state.Auth.userName,redirectPath: state.Redirect.path };
 }
 
 export default connect(mapStateToProps)(EmailSignIn);
