@@ -2,26 +2,23 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import { useMutation } from "@apollo/client";
-
-import CartList from "./cartList";
 import { ORDER_DETAILS_MUTATION } from "../../graphQlQueries/orderDetails";
 
-import { Row, Col, Typography, Space } from "antd";
-import { CheckoutPageWrapper } from "./cartStyledComponent";
+import { Row, Col } from "antd";
+import { CheckoutPageWrapper } from "./checkoutStyledComponent";
+
+import CartList from "../cart/cartList";
 import OrderSummary from "./orderSummary";
 import CheckOutSteps from "./checkOutSteps";
-import AddressDisplay from "./addressDisplay";
-import AddressForm from "./addressForm";
+import AddressDisplay from "../address/addressDisplay";
+import AddressForm from "../address/addressForm";
 import PaymentResult from "../payment/paymentResult";
 import config from "../../config/config";
-
-const { Title } = Typography;
+import { setStatus } from "../../redux/actions/cartActions";
 
 function CheckOutPage(props) {
-  const { cart, address, step, order, storeAuth, dispatch } = props;
+  const { cart, address, step, order, storeAuth } = props;
   const deliveryCharge = config.deliveryCharge;
-
-  let orderDetails;
 
   const calculateTotalMRP = () => {
     let totalMRP = 0;
@@ -31,16 +28,7 @@ function CheckOutPage(props) {
     });
     return parseInt(totalMRP + deliveryCharge);
   };
-  const createOrderDetailsObject = () => {
-    orderDetails = {
-      id: order.id,
-      orderByEmailId: storeAuth.email,
-      address: JSON.stringify(address),
-      items: order.OrderItems,
-      totalPrice: calculateTotalMRP(),
-      paymentDetails: JSON.stringify(order.paymentDetails),
-    };
-  };
+
   const [createNewOrder, { error, loading, data }] = useMutation(
     ORDER_DETAILS_MUTATION,
     {
@@ -56,18 +44,15 @@ function CheckOutPage(props) {
   );
 
   const pushOrderDetailsToBackend = () => {
-    createOrderDetailsObject();
-    alert("push to baCKEND");
-    dispatch({ type: "STEP", payload: null });
+    props.setStatus(4);
     createNewOrder();
   };
 
-  
   useEffect(() => {
     if (step === 3) {
       pushOrderDetailsToBackend();
     }
-  }, [step])
+  }, [step]);
 
   return (
     <CheckoutPageWrapper>
@@ -86,13 +71,15 @@ function CheckOutPage(props) {
                     {step === 1 && <AddressForm />}
                     {step === 2 && <AddressDisplay />}
                   </Col>
-                  <Col xs={24} sm={24} md={12} lg={12}>
-                    <OrderSummary calculateTotalMRP={calculateTotalMRP} />
-                  </Col>
+                  {step !== null && (
+                    <Col xs={24} sm={24} md={12} lg={12}>
+                      <OrderSummary calculateTotalMRP={calculateTotalMRP} />
+                    </Col>
+                  )}
                 </Row>
               </>
             )}
-            {step === 3 && (
+            {step === 4 && (
               <Row>
                 <Col xs={24} sm={24} md={24} lg={24}>
                   <PaymentResult />
@@ -106,7 +93,7 @@ function CheckOutPage(props) {
     </CheckoutPageWrapper>
   );
 }
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
     cart: state.Cart.cart,
     address: state.Cart.address,
@@ -114,6 +101,14 @@ function mapStateToProps(state) {
     storeAuth: state.Auth.storeAuth,
     order: state.Order,
   };
-}
+};
 
-export default connect(mapStateToProps)(CheckOutPage);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setStatus: (status) => {
+      dispatch(setStatus(status));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CheckOutPage);

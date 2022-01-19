@@ -7,8 +7,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Footer from "./footer/footer";
 import FilterAndProductListing from "./productListing/filterAndProductListing";
 import ProductDetailsPage from "./productDetails/productDetailsPage.js";
-import CheckOutPage from "./cart/checkOutPage";
-
+import CheckOutPage from "./checkout/checkOutPage";
 
 export class Main extends Component {
   render() {

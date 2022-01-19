@@ -1,7 +1,7 @@
 import React from 'react'
 import { Steps } from 'antd';
 import { connect } from 'react-redux';
-import { CheckOutStepsWrapper } from "./cartStyledComponent";
+import { CheckOutStepsWrapper } from "./checkoutStyledComponent";
 const { Step } = Steps;
 
 function CheckOutSteps(props) {
@@ -15,7 +15,7 @@ function CheckOutSteps(props) {
     )
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return { step: state.Cart.step};
 }
 

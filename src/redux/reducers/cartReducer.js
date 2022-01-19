@@ -14,7 +14,7 @@ export default function CartReducer(state = initialState, action) {
         cart: action.payload,
       };
     }
-    case "STEP": {
+    case "STATUS": {
       console.log(action.payload)
       return {
         // Again, one less level of nesting to copy

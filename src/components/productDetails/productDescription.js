@@ -12,6 +12,7 @@ import {
 } from "./productDetailsStyledComponent";
 
 import { Row, Col, Space, Input, message, Typography, Button } from "antd";
+import { setCart } from "../../redux/actions/cartActions";
 const { Title, Text } = Typography;
 const { Search } = Input;
 
@@ -84,8 +85,7 @@ function ProductDescription(props) {
 
   const addToCart = () => {
     if (isSizeSelected()) {
-      const { dispatch } = props;
-      let { cart } = props;
+      let cart = props.cart;
 
       if (cart === "undefined" || cart === null) {
         cart = [product];
@@ -93,7 +93,7 @@ function ProductDescription(props) {
       } else {
         cart = getUpdatedCart(cart, product);
       }
-      dispatch({ type: "CART", payload: cart });
+      props.setCart(cart);
     }
   };
 
@@ -116,7 +116,6 @@ function ProductDescription(props) {
                     <SizeButton
                       key={index}
                       shape="circle"
-                      size="large"
                       onClick={() => setSizeSelected(size)}
                       selected={sizeSelected}
                       size={size}
@@ -174,7 +173,15 @@ function ProductDescription(props) {
   );
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return { cart: state.Cart.cart };
-}
-export default connect(mapStateToProps)(ProductDescription);
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUserName: (cart) => {
+      dispatch(setCart(cart));
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDescription);

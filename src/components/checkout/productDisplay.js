@@ -1,8 +1,7 @@
 import React from "react";
-
-import { CloseOutlined } from "@ant-design/icons";
 import { connect } from "react-redux";
 import config from "../../config/config";
+
 import {
   Image,
   Row,
@@ -14,20 +13,20 @@ import {
   Select,
   Card,
 } from "antd";
+import { MinusOutlined, PlusOutlined, CloseOutlined } from "@ant-design/icons";
+import { setCart } from "../../redux/actions/cartActions";
 
-import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 const { Text } = Typography;
 const { Option } = Select;
 
 function ProductDisplay(props) {
-    
-  const { product, dispatch, cart } = props;
+  const { product, cart } = props;
 
   const removeProductFromCart = (productId, size) => {
     const updatedCart = cart.filter(
       (product) => product.productId !== productId || product.size !== size
     );
-    dispatch({ type: "CART", payload: updatedCart });
+    props.setCart(updatedCart);
   };
 
   const changeProductAttribute = (productId, attribute, value) => {
@@ -37,7 +36,7 @@ function ProductDisplay(props) {
       }
     });
     const updatedCart = [...cart];
-    dispatch({ type: "CART", payload: updatedCart });
+    props.setCart(updatedCart);
   };
 
   return (
@@ -94,11 +93,16 @@ function ProductDisplay(props) {
                   {product.size && (
                     <Space>
                       <Text>Size: </Text>
-                      <Select defaultValue={product.size} onChange={(value)=>changeProductAttribute(
+                      <Select
+                        defaultValue={product.size}
+                        onChange={(value) =>
+                          changeProductAttribute(
                             product.productId,
                             "size",
                             value
-                          )}>
+                          )
+                        }
+                      >
                         {config.sizeArray.map((size) => (
                           <Option value={size}>{size.toUpperCase()}</Option>
                         ))}
@@ -130,8 +134,16 @@ function ProductDisplay(props) {
   );
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return { cart: state.Cart.cart };
-}
+};
 
-export default connect(mapStateToProps)(ProductDisplay);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUserName: (cart) => {
+      dispatch(setCart(cart));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDisplay);

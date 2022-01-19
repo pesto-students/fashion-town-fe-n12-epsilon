@@ -1,7 +1,8 @@
 import React, { useRef, useState } from "react";
+import { Link } from "react-router-dom";
+
 import { Card, Skeleton, Image, Carousel } from "antd";
 import { BrandText, TitleText, PriceText } from "./productCardStyledComponents";
-import { Link } from "react-router-dom";
 
 function ProductCard(props) {
   const { isLoading, productData } = props;

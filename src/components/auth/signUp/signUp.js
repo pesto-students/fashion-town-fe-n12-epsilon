@@ -1,30 +1,34 @@
 import React, { useState } from "react";
-import { SignUpContainer, SignUpBox } from "./signUpStyledComponent";
-import { createUserWithEmailAndPassword,setPersistence,inMemoryPersistence } from "firebase/auth";
-import { auth } from "../../../config/firebase-config";
-import { Input, Row, Button,Form } from "antd";
 import { connect } from "react-redux";
+
 import { updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  setPersistence,
+  inMemoryPersistence,
+} from "firebase/auth";
+import { auth } from "../../../config/firebase-config";
+
+import { SignUpContainer, SignUpBox } from "./signUpStyledComponent";
+import { Input, Row, Button, Form } from "antd";
+
+import { setUserName } from "../../../redux/actions/authActions";
 
 function SignUp(props) {
   const [registerEmail, setRegisterEmail] = useState(null);
   const [registerPassword, setRegisterPassword] = useState(null);
   const [registerName, setRegisterName] = useState(null);
 
-  const { dispatch } = props;
-
   const registerUser = async () => {
     try {
-      await setPersistence(auth,inMemoryPersistence)
-      const authResponse = await createUserWithEmailAndPassword(
+      await setPersistence(auth, inMemoryPersistence);
+      await createUserWithEmailAndPassword(
         auth,
         registerEmail,
         registerPassword
       );
-      console.log(authResponse.user.displayName);
-      console.log(auth.currentUser);
       await addUserNameToProfile(auth.currentUser);
-      dispatch({ type: "USER_NAME", payload: registerName });
+      props.setUserName(registerName);
     } catch (error) {
       console.log(error);
     }
@@ -38,10 +42,11 @@ function SignUp(props) {
       console.log(error);
     }
   };
+
   return (
     <SignUpContainer>
       <SignUpBox>
-        <Form autoComplete="off"  onFinish={registerUser}>
+        <Form autoComplete="off" onFinish={registerUser}>
           <Row>
             <h2>Signup</h2>
           </Row>
@@ -112,8 +117,17 @@ function SignUp(props) {
     </SignUpContainer>
   );
 }
-function mapStateToProps(state) {
-  return { userName: state.Auth.userName };
-}
 
-export default connect(mapStateToProps)(SignUp);
+const mapStateToProps = (state) => {
+  return { userName: state.Auth.userName };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUserName: (userName) => {
+      dispatch(setUserName(userName));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

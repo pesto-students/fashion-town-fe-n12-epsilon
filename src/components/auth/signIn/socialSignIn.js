@@ -1,10 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import {useNavigate } from "react-router-dom";
-import { Row, Button, Space } from "antd";
-import { GoogleOutlined, FacebookFilled } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { IconHolder } from "./signInStyledComponent";
+
 import {
   googleAuthProvider,
   facebookAuthProvider,
@@ -17,10 +15,15 @@ import {
   inMemoryPersistence,
 } from "firebase/auth";
 
-export const SocialSignIn = (props) => {
-  const { dispatch,redirectPath} = props;
+import { Row, Button, Space } from "antd";
+import { GoogleOutlined, FacebookFilled } from "@ant-design/icons";
 
+import { IconHolder } from "./signInStyledComponent";
+import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
+
+export const SocialSignIn = (props) => {
   const navigate = useNavigate();
+  const { redirectPath } = props;
 
   const handleSocialAuth = async (provider) => {
     const auth = getAuth();
@@ -28,11 +31,9 @@ export const SocialSignIn = (props) => {
       await setPersistence(auth, inMemoryPersistence);
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-
-      dispatch({ type: "USER_NAME", payload: user.displayName });
-      dispatch({ type: "STORE_AUTH", payload: result});
-      navigate(redirectPath,{ replace: true })
-
+      props.setUserName(user.displayName);
+      props.setStoreAuth(user);
+      navigate(redirectPath, { replace: true });
     } catch (error) {
       console.log(error);
     }
@@ -86,8 +87,18 @@ export const SocialSignIn = (props) => {
   );
 };
 
-function mapStateToProps(state) {
-  return { userName: state.Auth.userName,redirectPath: state.Redirect.path };
-}
+const mapStateToProps = (state) => {
+  return { redirectPath: state.Redirect.path };
+};
 
-export default connect(mapStateToProps)(SocialSignIn);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUserName: (userName) => {
+      dispatch(setUserName(userName));
+    },
+    setStoreAuth: (auth) => {
+      dispatch(setStoreAuth(auth));
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(SocialSignIn);

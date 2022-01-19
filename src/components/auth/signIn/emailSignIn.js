@@ -1,23 +1,28 @@
 import React, { useState } from "react";
-import {useNavigate } from "react-router-dom";
-import { Input, Row, Button, Form, message } from "antd";
+import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import {
   signInWithEmailAndPassword,
   getAuth,
   setPersistence,
   inMemoryPersistence,
 } from "firebase/auth";
-import { connect } from "react-redux";
+
+import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
+
+import { Input, Row, Button, Form, message } from "antd";
 message.config({
   top: 100,
   duration: 2,
 });
+
 function EmailSignIn(props) {
   const [signInEmail, setSignInEmail] = useState(null);
   const [signInPassword, setSignInPassword] = useState(null);
   const auth = getAuth();
   const navigate = useNavigate();
-  const { dispatch,redirectPath } = props;
+  const { redirectPath } = props;
 
   const emailSignIn = async () => {
     try {
@@ -27,11 +32,9 @@ function EmailSignIn(props) {
         signInEmail,
         signInPassword
       );
-
-      dispatch({ type: "USER_NAME", payload: authResponse.user.displayName });
-      dispatch({ type: "STORE_AUTH", payload: authResponse.user });
-      navigate(redirectPath,{ replace: true })
-      
+      props.setUserName(authResponse.user.displayName);
+      props.setStoreAuth(authResponse.user);
+      navigate(redirectPath, { replace: true });
     } catch (error) {
       console.log(error.message);
       handleError(error.message);
@@ -101,8 +104,18 @@ function EmailSignIn(props) {
   );
 }
 
-function mapStateToProps(state) {
-  return { userName: state.Auth.userName,redirectPath: state.Redirect.path };
-}
+const mapStateToProps = (state) => {
+  return { userName: state.Auth.userName, redirectPath: state.Redirect.path };
+};
 
-export default connect(mapStateToProps)(EmailSignIn);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUserName: (userName) => {
+      dispatch(setUserName(userName));
+    },
+    setStoreAuth: (auth) => {
+      dispatch(setStoreAuth(auth));
+    }
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(EmailSignIn);

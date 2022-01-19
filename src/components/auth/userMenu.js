@@ -1,24 +1,23 @@
 import React from "react";
-import { Menu } from "antd";
-import { getAuth, signOut } from "firebase/auth";
-import { UserNameCapitalize } from "./authStyledComponent";
 import { connect } from "react-redux";
+import { getAuth, signOut } from "firebase/auth";
+
+import { Menu } from "antd";
+import { UserNameCapitalize } from "./authStyledComponent";
+
+import { setStoreAuth, setUserName } from "../../redux/actions/authActions";
 
 function UserMenu(props) {
-
-  const { dispatch } = props;
-
-  const logout = () => {
+  
+  const logout = async () => {
     const auth = getAuth();
-    signOut(auth)
-      .then(() => {
-        dispatch({ type: "USER_NAME", payload: null });
-        dispatch({ type: "STORE_AUTH", payload: null });
-        console.log("Sign-out successful")
-      })
-      .catch((error) => {
-        console.log(error)
-      });
+    try {
+      await signOut(auth);
+      props.setUserName(null);
+      props.setStoreAuth(null);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   if (props) {
@@ -37,8 +36,19 @@ function UserMenu(props) {
     );
   }
 }
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return { userName: state.Auth.userName };
-}
+};
 
-export default  connect(mapStateToProps)(UserMenu);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUserName: (userName) => {
+      dispatch(setUserName(userName));
+    },
+    setStoreAuth: (auth) => {
+      dispatch(setStoreAuth(auth));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserMenu);

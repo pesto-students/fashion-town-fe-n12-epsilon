@@ -2,45 +2,36 @@ import React from "react";
 
 import { useNavigate, useLocation } from "react-router-dom";
 
-import { getAuth } from "firebase/auth";
 import { connect } from "react-redux";
-
-
 
 import Payment from "../payment/payment";
 import { Row, Col, Typography, Card } from "antd";
-import { HorizontalLine, NextButton } from "./cartStyledComponent";
+import { HorizontalLine, NextButton } from "./checkoutStyledComponent";
+import { setStatus } from "../../redux/actions/cartActions";
+import { setCurrentPath } from "../../redux/actions/redirectActions";
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 function OrderSummary(props) {
- 
-  const { cart, address, order, dispatch, step, storeAuth,calculateTotalMRP } = props;
+  const { cart, step, storeAuth, calculateTotalMRP } = props;
   const location = useLocation();
-  let navigate = useNavigate();
-  const auth = getAuth();
-  
+  const navigate = useNavigate();
+
   const goToLogInPage = () => {
     console.log(location);
     const currentPath = location.pathname + location.search;
-    dispatch({ type: "CURRENT_PATH", payload: currentPath });
+    props.setCurrentPath(currentPath);
     navigate("/signIn");
   };
 
-  
-
-
-
   const nextStep = () => {
-    console.log(storeAuth && storeAuth.email);
     if (storeAuth && storeAuth.email) {
-      dispatch({ type: "STEP", payload: 1 });
+      props.setStatus(1);
     } else {
       goToLogInPage();
     }
   };
 
- 
   // if cart has Items ? show summary
   if (cart.length) {
     return (
@@ -85,7 +76,6 @@ function OrderSummary(props) {
             CONTINUE
           </NextButton>
         )}
-
         {step === 2 && <Payment calculateTotalMRP={calculateTotalMRP} />}
       </Card>
     );
@@ -94,7 +84,7 @@ function OrderSummary(props) {
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return {
     cart: state.Cart.cart,
     address: state.Cart.address,
@@ -102,6 +92,17 @@ function mapStateToProps(state) {
     storeAuth: state.Auth.storeAuth,
     order: state.Order,
   };
-}
+};
 
-export default connect(mapStateToProps)(OrderSummary);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUserName: (currentPath) => {
+      dispatch(setCurrentPath(currentPath));
+    },
+    setStoreAuth: (status) => {
+      dispatch(setStatus(status));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderSummary);

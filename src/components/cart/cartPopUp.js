@@ -1,17 +1,24 @@
 import React from "react";
 import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { CartBox, CheckoutButtonWrapper } from "./cartStyledComponent";
-import { Link } from "react-router-dom";
-import CartList from "./cartList";
 import { Button, Row, Col } from "antd";
 
+import CartList from "./cartList";
+import { setStatus } from "../../redux/actions/cartActions";
+
 function CartPopUp(props) {
-  const {dispatch} = props
+  const navigate = useNavigate();
+  
+  const onClickCheckoutHandler = () => {
+    props.setStatus(0);
+    navigate("/checkout");
+  };
 
   return (
     <CartBox>
-      <Row style={{maxHeight:"350px",overflowY:"scroll"}}>
+      <Row style={{ maxHeight: "350px", overflowY: "scroll" }}>
         <Col xs={24} sm={24} md={24} lg={24}>
           <CartList />
         </Col>
@@ -21,13 +28,14 @@ function CartPopUp(props) {
           <CheckoutButtonWrapper>
             <Button
               block
+              onClick={onClickCheckoutHandler}
               style={{
                 background: "#FF7F3F",
                 borderRadius: "5px",
                 color: "white",
               }}
             >
-              <Link to={`/checkout`} onClick={()=> dispatch({ type: "STEP", payload: 0 })}>CHECKOUT</Link>
+              CHECKOUT
             </Button>
           </CheckoutButtonWrapper>
         </Col>
@@ -35,4 +43,12 @@ function CartPopUp(props) {
     </CartBox>
   );
 }
- export default connect(null, null)(CartPopUp);
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setStatus: (status) => {
+      dispatch(setStatus(status));
+    },
+  };
+};
+export default connect(null, mapDispatchToProps)(CartPopUp);

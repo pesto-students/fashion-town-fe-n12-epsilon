@@ -6,13 +6,12 @@ import {
 } from "./signInStyledComponent";
 
 import { Row,Space} from "antd";
-import { connect } from "react-redux";
 import EmailSignIn from "./emailSignIn";
 import { SocialSignIn } from "./socialSignIn";
 
 
 
-function SignIn(props) {
+function SignIn() {
   return (
     <SignInContainer>
       <SignInBox>
@@ -28,8 +27,6 @@ function SignIn(props) {
   );
 }
 
-function mapStateToProps(state) {
-  return { userName: state.Auth.userName };
-}
 
-export default connect(mapStateToProps)(SignIn);
+
+export default SignIn;

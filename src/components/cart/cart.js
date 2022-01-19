@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import { connect } from "react-redux";
 
@@ -25,8 +25,8 @@ function Cart(props) {
     </div>
   );
 }
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return { cart: state.Cart.cart };
-}
+};
 
 export default connect(mapStateToProps)(Cart);

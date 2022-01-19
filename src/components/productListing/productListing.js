@@ -1,9 +1,12 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import { useSearchParams } from "react-router-dom";
-import ProductCard from "../productCard/productCard";
-import { List } from "antd";
+
 import { FILTER_QUERY } from "../../graphQlQueries/filterQuery";
+import { List } from "antd";
+
+import ProductCard from "../productCard/productCard";
+
 import LoadingList from "./loadingList";
 import LoadingError from "./loadingError";
 import { connect } from "react-redux";
@@ -12,20 +15,18 @@ import {
   createProductIdDetailsMap,
 } from "./productUtilFunctions";
 
+import { setProductIdMapList } from "../../redux/actions/productActions";
+
 function ProductListing(props) {
   let [searchParams] = useSearchParams();
-  const { dispatch } = props;
 
   const { error, loading, data } = useQuery(FILTER_QUERY, {
     variables: getAppliedFilterArray(searchParams),
   });
 
   const saveProductListDataToStore = (productListData) => {
-    // dispatch({ type: "PRODUCT_LIST", payload: productListData });
-    dispatch({
-      type: "PRODUCT_ID_DETAILS_MAP",
-      payload: createProductIdDetailsMap(productListData),
-    });
+    const productIdMapList = createProductIdDetailsMap(productListData);
+    props.setProductIdMapList(productIdMapList);
   };
 
   if (loading) return <LoadingList />;
@@ -35,7 +36,7 @@ function ProductListing(props) {
   if (data) {
     console.log(data.productByFilters);
     saveProductListDataToStore(data.productByFilters);
-    return (  
+    return (
       <List
         grid={{
           xs: 2,
@@ -63,4 +64,12 @@ function ProductListing(props) {
   }
 }
 
-export default connect(null, null)(ProductListing);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setProductIdMapList: (productIdMapList) => {
+      dispatch(setProductIdMapList(productIdMapList));
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(ProductListing);

@@ -2,12 +2,9 @@ import React from "react";
 
 import { connect } from "react-redux";
 
-import { List, Row, Col, Typography, Select } from "antd";
+import { List, Row, Col } from "antd";
 
-import ProductDisplay from "./productDisplay";
-
-const { Text } = Typography;
-const { Option } = Select;
+import ProductDisplay from "../checkout/productDisplay";
 
 function CartList(props) {
   const { cart } = props;
@@ -31,8 +28,8 @@ function CartList(props) {
     </>
   );
 }
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return { cart: state.Cart.cart };
-}
+};
 
 export default connect(mapStateToProps)(CartList);

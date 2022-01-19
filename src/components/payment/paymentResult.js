@@ -1,27 +1,41 @@
 import React from "react";
-import { Result, Button } from "antd";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import { Result, Button } from "antd";
+import { setStatus } from "../../redux/actions/cartActions";
 
 function PaymentResult(props) {
   const { orderId } = props;
+  const navigate = useNavigate();
+
+  const redirectToHome = () => {
+    props.setStatus(null);
+    navigate("/", { replace: true });
+  };
   return (
     <Result
       status="success"
       title="Successfully Purchased !"
       subTitle={`Order number: ${orderId} will be dispatch soon`}
       extra={[
-        <Link to={"/"}>
-          <Button type="primary" key="console">
-            Continue Shopping
-          </Button>
-        </Link>,
+        <Button type="primary" key="console" onClick={redirectToHome}>
+          Continue Shopping
+        </Button>,
       ]}
     />
   );
 }
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return { orderId: state.Order.id };
-}
+};
 
-export default connect(mapStateToProps)(PaymentResult);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setStatus: (status) => {
+      dispatch(setStatus(status));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PaymentResult);
