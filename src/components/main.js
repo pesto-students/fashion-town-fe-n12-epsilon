@@ -9,29 +9,26 @@ import FilterAndProductListing from "./productListing/filterAndProductListing";
 import ProductDetailsPage from "./productDetails/productDetailsPage.js";
 import CheckOutPage from "./checkout/checkOutPage";
 import OrderHistory from "./orderHistory/orderHistory";
+import InvalidRoute from "./invalidRoute/invalidRoute";
+import { ContentSectionWrapper } from "./contentSection/contentSectionStyledComponent";
 
 export class Main extends Component {
   render() {
     return (
       <BrowserRouter>
         <Header />
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="signIn" element={<SignIn />} />
-          <Route path="SignUp" element={<SignUp />} />
-          <Route path="shop" element={<FilterAndProductListing />} />
-          <Route path="product/:id" element={<ProductDetailsPage />} />
-          <Route path="checkout" element={<CheckOutPage />} />
-          <Route path="orderHistory" element={<OrderHistory />} />
-          <Route
-            path="*"
-            element={
-              <main style={{ padding: "1rem" }}>
-                <p>There's nothing here!</p>
-              </main>
-            }
-          />
-        </Routes>
+        <ContentSectionWrapper>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="signIn" element={<SignIn />} />
+            <Route path="SignUp" element={<SignUp />} />
+            <Route path="shop" element={<FilterAndProductListing />} />
+            <Route path="product/:id" element={<ProductDetailsPage />} />
+            <Route path="checkout" element={<CheckOutPage />} />
+            <Route path="orderHistory" element={<OrderHistory />} />
+            <Route path="*" element={<InvalidRoute />} />
+          </Routes>
+        </ContentSectionWrapper>
         <Footer />
       </BrowserRouter>
     );
