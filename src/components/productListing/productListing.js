@@ -7,7 +7,6 @@ import { List } from "antd";
 
 import ProductCard from "../productCard/productCard";
 
-import LoadingList from "./loadingList";
 import LoadingError from "./loadingError";
 import { connect } from "react-redux";
 import {
@@ -16,6 +15,7 @@ import {
 } from "./productUtilFunctions";
 
 import { setProductIdMapList } from "../../redux/actions/productActions";
+import ProductListLoading from "../loadingSkeleton/productListLoading";
 
 function ProductListing(props) {
   let [searchParams] = useSearchParams();
@@ -29,7 +29,7 @@ function ProductListing(props) {
     props.setProductIdMapList(productIdMapList);
   };
 
-  if (loading) return <LoadingList />;
+  if (loading) return <ProductListLoading />;
 
   if (error) return <LoadingError error={error} />;
 

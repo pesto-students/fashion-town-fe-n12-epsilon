@@ -5,12 +5,13 @@ import { useQuery } from "@apollo/client";
 import moment from "moment";
 import { ORDER_HISTORY_QUERY } from "../../graphQlQueries/orderHistory";
 
-import { List, Skeleton,Row, Col, Image, Typography, Space } from "antd";
-import { ListCart,OrderHistoryCard } from "./orderHistoryStyledComponent";
+import { List, Skeleton, Row, Col, Image, Typography, Space } from "antd";
+import { ListCart, OrderHistoryCard } from "./orderHistoryStyledComponent";
+import OrderHistoryLoading from "../loadingSkeleton/orderHistoryLoading";
 const { Text } = Typography;
 
 function OrderHistory(props) {
-  console.log(props.storeAuth.email);
+  
   const { error, loading, data } = useQuery(ORDER_HISTORY_QUERY, {
     variables: { orderByEmailId: props.storeAuth.email },
   });
@@ -19,7 +20,7 @@ function OrderHistory(props) {
     return moment(parseInt(utcString)).format("dddd, MMMM Do YYYY, h:mm A");
   };
   if (loading) {
-    <Skeleton active />;
+    <OrderHistoryLoading/>;
   }
 
   if (data) {
@@ -65,7 +66,7 @@ function OrderHistory(props) {
                                       </Text>
                                     )}
                                   </Space>
-                                  <Text>Rs. {item.price}</Text>
+                                  <Text>Rs. {item.price * item.qty}</Text>
                                 </Space>
                               </Col>
                             </Row>
@@ -82,7 +83,7 @@ function OrderHistory(props) {
       </OrderHistoryCard>
     );
   } else {
-    return <div></div>;
+    return <OrderHistoryLoading/>;
   }
 }
 const mapStateToProps = (state) => {
@@ -91,17 +92,4 @@ const mapStateToProps = (state) => {
 
 export default connect(mapStateToProps)(OrderHistory);
 
-// items: Array(2)
-// 0:
-// brand: "Global Desi"
-// image: "http://assets.myntassets.com/v1/assets/images/8882871/2019/3/18/88ebe5ff-f212-4395-b10a-5c5d4ca8f2f61552898253021-Global-Desi-Black-Solid-Sling-Bag-5781552898251905-1.jpg"
-// productId: "8882871"
-// qty: 1
-// size: null
-// title: "Global Desi Black Solid Sling Bag"
-// __typename: "Item"
-// [[Prototype]]: Object
-// 1: {__typename: 'Item', productId: '7692580', brand: 'Global Desi', title: 'Global Desi Black & White Striped Handheld Bag', image: 'http://assets.myntassets.com/v1/assets/images/7692…--White-Striped-Handheld-Bag-55215458920837-1.jpg', …}
-// length: 2
-// [[Prototype]]: Array(0)
-// orderByEmailId: "vikram.obend1@gmail.com"
+
