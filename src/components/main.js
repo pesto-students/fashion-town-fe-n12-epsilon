@@ -8,6 +8,7 @@ import Footer from "./footer/footer";
 import FilterAndProductListing from "./productListing/filterAndProductListing";
 import ProductDetailsPage from "./productDetails/productDetailsPage.js";
 import CheckOutPage from "./checkout/checkOutPage";
+import OrderHistory from "./orderHistory/orderHistory";
 
 export class Main extends Component {
   render() {
@@ -21,6 +22,7 @@ export class Main extends Component {
           <Route path="shop" element={<FilterAndProductListing />} />
           <Route path="product/:id" element={<ProductDetailsPage />} />
           <Route path="checkout" element={<CheckOutPage />} />
+          <Route path="orderHistory" element={<OrderHistory />} />
           <Route
             path="*"
             element={

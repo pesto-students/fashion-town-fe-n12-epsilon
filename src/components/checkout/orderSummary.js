@@ -13,7 +13,7 @@ import { setCurrentPath } from "../../redux/actions/redirectActions";
 const { Text } = Typography;
 
 function OrderSummary(props) {
-  const { cart, step, storeAuth, calculateTotalMRP } = props;
+  const { cart, status, storeAuth, calculateTotalMRP } = props;
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -26,7 +26,7 @@ function OrderSummary(props) {
 
   const nextStep = () => {
     if (storeAuth && storeAuth.email) {
-      props.setStatus(1);
+      props.setStatus("address");
     } else {
       goToLogInPage();
     }
@@ -71,12 +71,12 @@ function OrderSummary(props) {
           </Col>
         </Row>
 
-        {step === 0 && (
+        {status === "bag" && (
           <NextButton block onClick={nextStep}>
             CONTINUE
           </NextButton>
         )}
-        {step === 2 && <Payment calculateTotalMRP={calculateTotalMRP} />}
+        {status === "payment" && <Payment calculateTotalMRP={calculateTotalMRP} />}
       </Card>
     );
   } else {
@@ -88,7 +88,7 @@ const mapStateToProps = (state) => {
   return {
     cart: state.Cart.cart,
     address: state.Cart.address,
-    step: state.Cart.step,
+    status: state.Cart.status,
     storeAuth: state.Auth.storeAuth,
     order: state.Order,
   };
@@ -96,10 +96,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setUserName: (currentPath) => {
+    setCurrentPath: (currentPath) => {
       dispatch(setCurrentPath(currentPath));
     },
-    setStoreAuth: (status) => {
+    setStatus: (status) => {
       dispatch(setStatus(status));
     },
   };

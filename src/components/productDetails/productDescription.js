@@ -179,7 +179,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setUserName: (cart) => {
+    setCart: (cart) => {
       dispatch(setCart(cart));
     },
   };

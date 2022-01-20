@@ -1,14 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getAuth, signOut } from "firebase/auth";
-
+import { Link } from "react-router-dom";
 import { Menu } from "antd";
 import { UserNameCapitalize } from "./authStyledComponent";
 
 import { setStoreAuth, setUserName } from "../../redux/actions/authActions";
 
 function UserMenu(props) {
-  
   const logout = async () => {
     const auth = getAuth();
     try {
@@ -27,7 +26,9 @@ function UserMenu(props) {
           <UserNameCapitalize>Hello {props.userName} !</UserNameCapitalize>
         </Menu.Item>
         <Menu.Item>
-          <p>Orders</p>
+          <Link to={"/orderHistory"}>
+            <p>Orders</p>
+          </Link>
         </Menu.Item>
         <Menu.Item>
           <p onClick={logout}>Logout</p>

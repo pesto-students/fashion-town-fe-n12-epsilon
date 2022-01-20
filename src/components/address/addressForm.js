@@ -8,7 +8,7 @@ import { setAddress, setStatus } from "../../redux/actions/cartActions";
 function AddressForm(props) {
   const onFinish = (address) => {
     props.setAddress(address);
-    props.setStatus(2);
+    props.setStatus("payment");
   };
 
   const onFinishFailed = (errorInfo) => {

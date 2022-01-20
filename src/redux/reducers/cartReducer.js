@@ -1,6 +1,6 @@
 const initialState = {
   cart: [],
-  step:0,
+  status:0,
   address:null
 };
 
@@ -19,7 +19,7 @@ export default function CartReducer(state = initialState, action) {
       return {
         // Again, one less level of nesting to copy
         ...state,
-        step: action.payload,
+        status: action.payload,
       };
     }
     case "ADDRESS": {

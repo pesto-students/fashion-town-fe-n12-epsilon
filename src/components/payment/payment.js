@@ -36,10 +36,10 @@ function Payment(props) {
       handler: (response) => {
         console.log(response);
         props.setOrderItems(cart);
-        props.setCart(null);
+        props.setCart([]);
         props.setOrderId(orderId);
         props.setPaymentDetails(response);
-        props.setStatus(3);
+        props.setStatus("paymentSuccessful");
       },
       prefill: {
         name: address.name,

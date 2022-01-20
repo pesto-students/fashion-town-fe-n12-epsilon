@@ -7,13 +7,20 @@ import { Button, Row, Col } from "antd";
 
 import CartList from "./cartList";
 import { setStatus } from "../../redux/actions/cartActions";
+import { setCurrentPath } from "../../redux/actions/redirectActions";
 
 function CartPopUp(props) {
   const navigate = useNavigate();
-  
+  const {storeAuth} = props
   const onClickCheckoutHandler = () => {
-    props.setStatus(0);
-    navigate("/checkout");
+    props.setStatus("bag");
+    if(storeAuth && storeAuth.email){
+      navigate("/checkout");
+    }
+    else{
+      props.setCurrentPath("/checkout")
+      navigate("/signIn");
+    }
   };
 
   return (
@@ -44,11 +51,20 @@ function CartPopUp(props) {
   );
 }
 
+const mapStateToProps = (state) => {
+  return {
+    storeAuth: state.Auth.storeAuth,
+  };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return {
     setStatus: (status) => {
       dispatch(setStatus(status));
     },
+      setCurrentPath: (currentPath) => {
+        dispatch(setCurrentPath(currentPath));
+      }
   };
 };
-export default connect(null, mapDispatchToProps)(CartPopUp);
+export default connect(mapStateToProps, mapDispatchToProps)(CartPopUp);

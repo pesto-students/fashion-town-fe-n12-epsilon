@@ -5,9 +5,17 @@ import { CheckOutStepsWrapper } from "./checkoutStyledComponent";
 const { Step } = Steps;
 
 function CheckOutSteps(props) {
-  const {step} = props
+  const {status} = props
+
+  const stepsMap = {
+    "bag" : 0,
+    "address" : 1,
+    "payment" : 2,
+    "paymentSuccessful" : 3,
+    "orderPlaced" : 4
+  }
     return (
-        <CheckOutStepsWrapper current={step}>
+        <CheckOutStepsWrapper current={stepsMap[status]}>
         <Step title="BAG"  />
         <Step title="ADDRESS" />
         <Step title="PAYMENT"/>
@@ -16,7 +24,7 @@ function CheckOutSteps(props) {
 }
 
 const mapStateToProps = (state) => {
-  return { step: state.Cart.step};
+  return { status: state.Cart.status};
 }
 
 export default connect(mapStateToProps)(CheckOutSteps);

@@ -17,7 +17,7 @@ import config from "../../config/config";
 import { setStatus } from "../../redux/actions/cartActions";
 
 function CheckOutPage(props) {
-  const { cart, address, step, order, storeAuth } = props;
+  const { cart, address, status, order, storeAuth } = props;
   const deliveryCharge = config.deliveryCharge;
 
   const calculateTotalMRP = () => {
@@ -44,15 +44,15 @@ function CheckOutPage(props) {
   );
 
   const pushOrderDetailsToBackend = () => {
-    props.setStatus(4);
+    props.setStatus("orderPlaced");
     createNewOrder();
   };
 
   useEffect(() => {
-    if (step === 3) {
+    if (status === "paymentSuccessful") {
       pushOrderDetailsToBackend();
     }
-  }, [step]);
+  }, [status]);
 
   return (
     <CheckoutPageWrapper>
@@ -60,26 +60,25 @@ function CheckOutPage(props) {
         <Col xs={0} sm={4} md={4} lg={4}></Col>
         <Col xs={24} sm={8} md={8} lg={16}>
           <>
-            {step !== 3 && (
+            {(status === "bag" || status === "address" || status === "payment") && (
               <>
                 <Row>
                   <CheckOutSteps />
                 </Row>
                 <Row>
                   <Col xs={24} sm={24} md={12} lg={12}>
-                    {step === 0 && <CartList />}
-                    {step === 1 && <AddressForm />}
-                    {step === 2 && <AddressDisplay />}
+                    {status === "bag" && <CartList />}
+                    {status === "address" && <AddressForm />}
+                    {status === "payment" && <AddressDisplay />}
                   </Col>
-                  {step !== null && (
+                  
                     <Col xs={24} sm={24} md={12} lg={12}>
                       <OrderSummary calculateTotalMRP={calculateTotalMRP} />
                     </Col>
-                  )}
                 </Row>
               </>
             )}
-            {step === 4 && (
+            {status === "orderPlaced" && (
               <Row>
                 <Col xs={24} sm={24} md={24} lg={24}>
                   <PaymentResult />
@@ -97,7 +96,7 @@ const mapStateToProps = (state) => {
   return {
     cart: state.Cart.cart,
     address: state.Cart.address,
-    step: state.Cart.step,
+    status: state.Cart.status,
     storeAuth: state.Auth.storeAuth,
     order: state.Order,
   };
