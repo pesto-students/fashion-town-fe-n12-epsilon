@@ -2,48 +2,48 @@ import React from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { CartBox, CheckoutButtonWrapper } from "./cartStyledComponent";
-import { Button, Row, Col } from "antd";
+import {
+  CartBox,
+  CartBoxRow,
+  CheckoutButtonWrapper,
+} from "./cartStyledComponent";
+import { Row, Col } from "antd";
 
 import CartList from "./cartList";
 import { setStatus } from "../../redux/actions/cartActions";
 import { setCurrentPath } from "../../redux/actions/redirectActions";
+import { ActionButton } from "../globalStyledComponent/globalStyledComponents";
 
 function CartPopUp(props) {
   const navigate = useNavigate();
-  const {storeAuth} = props
+  const { storeAuth } = props;
   const onClickCheckoutHandler = () => {
     props.setStatus("bag");
-    if(storeAuth && storeAuth.email){
+    if (storeAuth && storeAuth.email) {
       navigate("/checkout");
-    }
-    else{
-      props.setCurrentPath("/checkout")
+    } else {
+      props.setCurrentPath("/checkout");
       navigate("/signIn");
     }
   };
 
   return (
     <CartBox>
-      <Row style={{ maxHeight: "350px", overflowY: "scroll" }}>
+      <CartBoxRow>
         <Col xs={24} sm={24} md={24} lg={24}>
           <CartList />
         </Col>
-      </Row>
+      </CartBoxRow>
       <Row>
         <Col xs={24} sm={24} md={24} lg={24}>
           <CheckoutButtonWrapper>
-            <Button
+            <ActionButton
               block
+              background={"#FF7F3F"}
               onClick={onClickCheckoutHandler}
-              style={{
-                background: "#FF7F3F",
-                borderRadius: "5px",
-                color: "white",
-              }}
             >
               CHECKOUT
-            </Button>
+            </ActionButton>
           </CheckoutButtonWrapper>
         </Col>
       </Row>
@@ -62,9 +62,9 @@ const mapDispatchToProps = (dispatch) => {
     setStatus: (status) => {
       dispatch(setStatus(status));
     },
-      setCurrentPath: (currentPath) => {
-        dispatch(setCurrentPath(currentPath));
-      }
+    setCurrentPath: (currentPath) => {
+      dispatch(setCurrentPath(currentPath));
+    },
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CartPopUp);

@@ -5,13 +5,13 @@ import { useQuery } from "@apollo/client";
 import moment from "moment";
 import { ORDER_HISTORY_QUERY } from "../../graphQlQueries/orderHistory";
 
-import { List, Skeleton, Row, Col, Image, Typography, Space } from "antd";
+import { List, Row, Col, Image, Typography, Space } from "antd";
 import { ListCart, OrderHistoryCard } from "./orderHistoryStyledComponent";
-import OrderHistoryLoading from "../loadingSkeleton/orderHistoryLoading";
+import OrderHistoryLoading from "../loadingAnimations/orderHistoryLoading";
+import ServerError from "../result/serverError";
 const { Text } = Typography;
 
 function OrderHistory(props) {
-  
   const { error, loading, data } = useQuery(ORDER_HISTORY_QUERY, {
     variables: { orderByEmailId: props.storeAuth.email },
   });
@@ -20,7 +20,10 @@ function OrderHistory(props) {
     return moment(parseInt(utcString)).format("dddd, MMMM Do YYYY, h:mm A");
   };
   if (loading) {
-    <OrderHistoryLoading/>;
+    <OrderHistoryLoading />;
+  }
+  if (error) {
+    <ServerError/>
   }
 
   if (data) {
@@ -83,7 +86,7 @@ function OrderHistory(props) {
       </OrderHistoryCard>
     );
   } else {
-    return <OrderHistoryLoading/>;
+    return <OrderHistoryLoading />;
   }
 }
 const mapStateToProps = (state) => {
@@ -91,5 +94,3 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(OrderHistory);
-
-

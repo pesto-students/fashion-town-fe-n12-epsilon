@@ -9,10 +9,11 @@ import {
 } from "firebase/auth";
 import { auth } from "../../../config/firebase-config";
 
-import { SignUpContainer, SignUpBox } from "./signUpStyledComponent";
-import { Input, Row, Button, Form } from "antd";
+import { SignUpContainer, SignUpBox, FormItem } from "../authStyledComponent";
+import { Input, Row, Form } from "antd";
 
 import { setUserName } from "../../../redux/actions/authActions";
+import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
 
 function SignUp(props) {
   const [registerEmail, setRegisterEmail] = useState(null);
@@ -52,8 +53,7 @@ function SignUp(props) {
           </Row>
 
           <Row>
-            <Form.Item
-              style={{ width: "100%" }}
+            <FormItem
               name="Name"
               rules={[{ required: true, message: "Please enter your name!" }]}
             >
@@ -63,11 +63,10 @@ function SignUp(props) {
                 type={"text"}
                 onChange={(e) => setRegisterName(e.target.value)}
               />
-            </Form.Item>
+            </FormItem>
           </Row>
           <Row>
-            <Form.Item
-              style={{ width: "100%" }}
+            <FormItem
               name="email"
               rules={[{ required: true, message: "Please enter your email!" }]}
             >
@@ -77,12 +76,11 @@ function SignUp(props) {
                 type={"email"}
                 onChange={(e) => setRegisterEmail(e.target.value)}
               />
-            </Form.Item>
+            </FormItem>
           </Row>
 
           <Row>
-            <Form.Item
-              style={{ width: "100%" }}
+            <FormItem
               name="password"
               rules={[
                 { required: true, message: "Please enter your password!" },
@@ -94,23 +92,15 @@ function SignUp(props) {
                 type={"password"}
                 onChange={(e) => setRegisterPassword(e.target.value)}
               />
-            </Form.Item>
+            </FormItem>
           </Row>
 
           <Row>
-            <Form.Item style={{ width: "100%" }}>
-              <Button
-                htmlType="submit"
-                block
-                style={{
-                  background: "#FF7F3F",
-                  borderRadius: "5px",
-                  color: "white",
-                }}
-              >
+            <FormItem>
+              <ActionButton htmlType="submit" block background={"#FF7F3F"}>
                 CREATE ACCOUNT
-              </Button>
-            </Form.Item>
+              </ActionButton>
+            </FormItem>
           </Row>
         </Form>
       </SignUpBox>

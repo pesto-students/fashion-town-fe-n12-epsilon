@@ -1,6 +1,6 @@
 import React from "react";
-import { Skeleton, Switch, List, Avatar } from "antd";
-import { ListCart } from "./loadingSkeletonStyledComponent";
+import { Skeleton, List } from "antd";
+import { ListCart } from "./loadingAnimationsStyledComponent";
 
 function OrderHistoryLoading() {
   const listData = [];
@@ -14,9 +14,9 @@ function OrderHistoryLoading() {
       dataSource={listData}
       renderItem={(item) => (
         <ListCart title>
-        <List.Item key={item.title}>
-          <Skeleton loading={true} active avatar></Skeleton>
-        </List.Item>
+          <List.Item key={item.title}>
+            <Skeleton loading={true} active avatar></Skeleton>
+          </List.Item>
         </ListCart>
       )}
     />

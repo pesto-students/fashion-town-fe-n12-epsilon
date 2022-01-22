@@ -1,4 +1,5 @@
-import { Button, Steps } from "antd";
+import { ShoppingCartOutlined } from "@ant-design/icons";
+import { Button, List, Row, Steps } from "antd";
 import styled from "styled-components";
 
 const CartBox = styled.div`
@@ -18,11 +19,11 @@ const NextButton = styled(Button)`
     background: #ff7f3f;
     color: white;
   }
-  &:active{
+  &:active {
     background: #ff7f3f;
     color: white;
   }
-  &:focus{
+  &:focus {
     background: #ff7f3f;
     color: white;
   }
@@ -43,7 +44,20 @@ const CheckOutStepsWrapper = styled(Steps)`
   margin-top: 2%;
   margin-bottom: 2%;
 `;
+const CartListContainer = styled(List)`
+  background: white;
+  width: 100%;
+  padding: 5%;
+`;
 
+const CartBoxRow = styled(Row)`
+  max-height: 350px;
+  overflow-y: scroll;
+`;
+
+const CartIcon = styled(ShoppingCartOutlined)`
+  font-size: 30px;
+`;
 export {
   CartBox,
   CheckoutButtonWrapper,
@@ -51,4 +65,7 @@ export {
   HorizontalLine,
   NextButton,
   CheckOutStepsWrapper,
+  CartListContainer,
+  CartBoxRow,
+  CartIcon,
 };

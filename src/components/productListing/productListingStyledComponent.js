@@ -1,3 +1,4 @@
+import { Checkbox } from "antd";
 import styled from "styled-components";
 
 const FilterAndListingContainer = styled.section`
@@ -21,12 +22,17 @@ const FilterCheckboxWrapper = styled.div`
 `;
 const ListingBox = styled.div`
   min-height: 70vh;
-`
-
+`;
+const FilterCheckBox = styled(Checkbox.Group)`
+  display: flex;
+  margin-left: 10px;
+  flex-direction: column;
+`;
 export {
   FilterAndListingContainer,
   ListingBox,
   LoadingContainer,
   FilterHeading,
   FilterCheckboxWrapper,
+  FilterCheckBox,
 };

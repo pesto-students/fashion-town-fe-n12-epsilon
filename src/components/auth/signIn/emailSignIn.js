@@ -11,12 +11,14 @@ import {
 
 import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
 
-import { Input, Row, Button, Form, message } from "antd";
+import { Input, Row, Form, message } from "antd";
+import { FormItem } from "../authStyledComponent";
+import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
 message.config({
   top: 100,
-  right:50,
+  right: 50,
   duration: 2,
-}); 
+});
 
 function EmailSignIn(props) {
   const [signInEmail, setSignInEmail] = useState(null);
@@ -57,8 +59,7 @@ function EmailSignIn(props) {
         <h2>Login</h2>
       </Row>
       <Row>
-        <Form.Item
-          style={{ width: "100%" }}
+        <FormItem
           name="email"
           rules={[{ required: true, message: "Please enter your email!" }]}
         >
@@ -68,12 +69,11 @@ function EmailSignIn(props) {
             type={"email"}
             onChange={(e) => setSignInEmail(e.target.value)}
           />
-        </Form.Item>
+        </FormItem>
       </Row>
 
       <Row>
-        <Form.Item
-          style={{ width: "100%" }}
+        <FormItem
           name="password"
           rules={[{ required: true, message: "Please enter your password!" }]}
         >
@@ -83,23 +83,15 @@ function EmailSignIn(props) {
             type={"password"}
             onChange={(e) => setSignInPassword(e.target.value)}
           />
-        </Form.Item>
+        </FormItem>
       </Row>
 
       <Row>
-        <Form.Item style={{ width: "100%" }}>
-          <Button
-            htmlType="submit"
-            block
-            style={{
-              background: "#38AF1A",
-              borderRadius: "5px",
-              color: "white",
-            }}
-          >
+        <FormItem>
+          <ActionButton htmlType="submit" block background={"#38AF1A"}>
             LOGIN
-          </Button>
-        </Form.Item>
+          </ActionButton>
+        </FormItem>
       </Row>
     </Form>
   );
@@ -116,7 +108,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     setStoreAuth: (auth) => {
       dispatch(setStoreAuth(auth));
-    }
+    },
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(EmailSignIn);

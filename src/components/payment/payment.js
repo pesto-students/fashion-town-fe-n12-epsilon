@@ -16,6 +16,8 @@ import {
   setPaymentDetails,
 } from "../../redux/actions/orderActions";
 import { setCart, setStatus } from "../../redux/actions/cartActions";
+import ServerError from "../result/serverError";
+import { Spin } from "antd";
 
 function Payment(props) {
   const { address, cart } = props;
@@ -72,7 +74,12 @@ function Payment(props) {
     console.log(data.createRazorPayOrder);
     handlePayment(data.createRazorPayOrder);
   }
-
+  if (loading) {
+    <Spin size="large" />;
+  }
+  if (error) {
+    <ServerError />;
+  }
   return <NextButton onClick={getRazorPayOrder}>CONTINUE</NextButton>;
 }
 

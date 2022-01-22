@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { List, Row, Col } from "antd";
 
 import ProductDisplay from "../checkout/productDisplay";
+import { CartListContainer } from "./cartStyledComponent";
 
 function CartList(props) {
   const { cart } = props;
@@ -13,8 +14,7 @@ function CartList(props) {
     <>
       <Row>
         <Col lg={24}>
-          <List
-            style={{ background: "white", width: "100%", padding: "5%" }}
+          <CartListContainer
             itemLayout="horizontal"
             dataSource={cart}
             renderItem={(product) => (

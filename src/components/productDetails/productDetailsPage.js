@@ -10,7 +10,7 @@ import ProductDescription from "./productDescription";
 import { Row, Col } from "antd";
 import { ProductDetailsWrapper } from "./productDetailsStyledComponent";
 import ServerError from "../result/serverError";
-import DefaultLoading from "../loadingSkeleton/defaultLoading";
+import DefaultLoading from "../loadingAnimations/defaultLoading";
 
 function ProductDetailsPage() {
   const { id } = useParams();

@@ -1,22 +1,23 @@
 import React from "react";
-import { Row, Col, Space, Button, Input } from "antd";
-import {
-  InstagramOutlined,
-  FacebookFilled,
-  TwitterOutlined,
-} from "@ant-design/icons";
+import { Row, Col, Space, Input } from "antd";
+
 import {
   FooterContainer,
   QuickLinksText,
   HorizontalLine,
   SocialMediaHandleWrapper,
+  SubscribeButton,
+  InstaGramIcon,
+  FacebookIcon,
+  TwitterIcon,
+  SocialMediaHandleCol,
 } from "./footerStyledComponent";
 
 function Footer() {
   return (
     <FooterContainer>
       <Row>
-        <Col  xs={0} sm={0} md={6} lg={6} align="center">
+        <Col xs={0} sm={0} md={6} lg={6} align="center">
           <Space direction="vertical" size={"large"} align="start">
             <QuickLinksText>MEN</QuickLinksText>
             <QuickLinksText>WOMEN</QuickLinksText>
@@ -34,25 +35,21 @@ function Footer() {
               <HorizontalLine />
             </QuickLinksText>
             <QuickLinksText>
-              <Button
-                size={"large"}
-                shape="round"
-                style={{ background: "black", color: "white" }}
-              >
+              <SubscribeButton size={"large"} shape="round">
                 Subscribe
-              </Button>
+              </SubscribeButton>
             </QuickLinksText>
           </Space>
         </Col>
-        <Col xs={24} sm={24} md={6} lg={6} style={{ position: "relative" }}>
-          <SocialMediaHandleWrapper >
+        <SocialMediaHandleCol xs={24} sm={24} md={6} lg={6}>
+          <SocialMediaHandleWrapper>
             <Space size={"large"} align="center">
-              <InstagramOutlined style={{ fontSize: "3em" }} />
-              <FacebookFilled style={{ fontSize: "3em" }} />
-              <TwitterOutlined style={{ fontSize: "3em" }} />
+              <InstaGramIcon />
+              <FacebookIcon />
+              <TwitterIcon />
             </Space>
           </SocialMediaHandleWrapper>
-        </Col>
+        </SocialMediaHandleCol>
       </Row>
     </FooterContainer>
   );

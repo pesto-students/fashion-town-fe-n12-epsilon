@@ -29,7 +29,7 @@ function CheckOutPage(props) {
     return parseInt(totalMRP + deliveryCharge);
   };
 
-  const [createNewOrder, { error, loading, data }] = useMutation(
+  const [createNewOrder] = useMutation(
     ORDER_DETAILS_MUTATION,
     {
       variables: {

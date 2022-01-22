@@ -15,23 +15,25 @@ import {
   inMemoryPersistence,
 } from "firebase/auth";
 
-import { Row, Button, Space } from "antd";
+import { Row, Button} from "antd";
 import { GoogleOutlined, FacebookFilled } from "@ant-design/icons";
 
-import { IconHolder } from "./signInStyledComponent";
+import {
+  FullWidthSpace,
+  IconHolder,
+} from "../authStyledComponent";
 import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
+import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
 
-function SocialSignIn  ({ redirectPath ,setUserName,setStoreAuth})  {
+function SocialSignIn({ redirectPath, setUserName, setStoreAuth }) {
   const navigate = useNavigate();
- 
-  debugger;
   const handleSocialAuth = async (provider) => {
     const auth = getAuth();
     try {
       await setPersistence(auth, inMemoryPersistence);
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      console.log(user.displayName)
+      console.log(user.displayName);
       setUserName(user.displayName);
       setStoreAuth(user);
       navigate(redirectPath, { replace: true });
@@ -41,7 +43,7 @@ function SocialSignIn  ({ redirectPath ,setUserName,setStoreAuth})  {
   };
 
   return (
-    <Space direction="vertical" size={"large"} style={{ width: "100%" }}>
+    <FullWidthSpace direction="vertical" size={"large"}>
       <Row style={{ position: "relative" }}>
         <IconHolder>
           <GoogleOutlined />
@@ -61,32 +63,18 @@ function SocialSignIn  ({ redirectPath ,setUserName,setStoreAuth})  {
       </Row>
 
       <Row>
-        <Button
-          block
-          style={{
-            background: "#FF7F3F",
-            borderRadius: "5px",
-            color: "white",
-          }}
-        >
+        <ActionButton background={"#FF7F3F"} block>
           <Link to={`/signUp`}>CREATE ACCOUNT</Link>
-        </Button>
+        </ActionButton>
       </Row>
       <Row>
-        <Button
-          block
-          style={{
-            background: "grey",
-            borderRadius: "5px",
-            color: "white",
-          }}
-        >
+        <ActionButton block background={"#808080"}>
           GUEST LOGIN
-        </Button>
+        </ActionButton>
       </Row>
-    </Space>
+    </FullWidthSpace>
   );
-};
+}
 
 const mapStateToProps = (state) => {
   return { redirectPath: state.Redirect.path };

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Checkbox, Space, Row } from "antd";
+import { Space, Row } from "antd";
 import {
+  FilterCheckBox,
   FilterCheckboxWrapper,
   FilterHeading,
 } from "./productListingStyledComponent";
@@ -73,12 +74,7 @@ function Filter() {
           <Row xs={6} sm={6} md={24} lg={24} key={index}>
             <FilterHeading>{filter.title}</FilterHeading>
             <FilterCheckboxWrapper>
-              <Checkbox.Group
-                style={{
-                  display: "flex",
-                  marginLeft: "10px",
-                  flexDirection: "column",
-                }}
+              <FilterCheckBox
                 options={filter.options}
                 defaultValue={filter.defaultValue}
                 onChange={(checkedValues) =>

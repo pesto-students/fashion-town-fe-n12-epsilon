@@ -2,10 +2,10 @@ import React from "react";
 import { Input } from "antd";
 import _ from "lodash";
 import { useSearchParams } from "react-router-dom";
-
+import { SearchInput } from "./searchStyledComponent";
 
 function Search() {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [setSearchParams] = useSearchParams();
   const handleSearchInputWithDebounce = _.debounce((searchInput) => {
     if (searchInput === "") {
       setSearchParams();
@@ -17,17 +17,14 @@ function Search() {
 
   return (
     <Input.Group>
-      <Input
+      <SearchInput
         size="large"
         allowClear
-        style={{ width: "100%", borderRadius: "10px" }}
         placeholder="Search..."
         onChange={(e) => handleSearchInputWithDebounce(e.target.value)}
       />
     </Input.Group>
   );
 }
-
-
 
 export default Search;

@@ -3,7 +3,11 @@ import { connect } from "react-redux";
 import { onAuthStateChanged, getAuth } from "firebase/auth";
 
 import { useLocation, useNavigate } from "react-router-dom";
-import { DisplayText, NameInitialBox } from "./authStyledComponent";
+import {
+  AuthHeaderWrapper,
+  DisplayText,
+  NameInitialBox,
+} from "./authStyledComponent";
 import { Dropdown } from "antd";
 
 import { setUserName } from "../../redux/actions/authActions";
@@ -55,7 +59,7 @@ function Auth(props) {
   }, [props]);
 
   return (
-    <div style={{ width: "45px" }}>
+    <AuthHeaderWrapper>
       {isLogin && userInitial && (
         <Dropdown
           overlay={<UserMenu userName={userName} />}
@@ -65,7 +69,7 @@ function Auth(props) {
         </Dropdown>
       )}
       {!isLogin && <DisplayText onClick={goToLogInPage}>LOGIN</DisplayText>}
-    </div>
+    </AuthHeaderWrapper>
   );
 }
 

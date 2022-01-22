@@ -1,6 +1,6 @@
 import React from "react";
 import { Skeleton } from "antd";
-import { DefaultLoadingWrapper } from "./loadingSkeletonStyledComponent";
+import { DefaultLoadingWrapper } from "./loadingAnimationsStyledComponent";
 
 function DefaultLoading() {
   return (

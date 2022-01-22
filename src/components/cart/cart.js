@@ -2,10 +2,10 @@ import React from "react";
 
 import { connect } from "react-redux";
 
-import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Badge, Dropdown } from "antd";
 
 import CartPopUp from "./cartPopUp";
+import { CartIcon } from "./cartStyledComponent";
 
 function Cart(props) {
   const { cart } = props;
@@ -19,7 +19,7 @@ function Cart(props) {
         overlayStyle={{ background: "white", width: "500px" }}
       >
         <Badge count={cart.length}>
-          <ShoppingCartOutlined style={{ fontSize: "30px" }} />
+          <CartIcon />
         </Badge>
       </Dropdown>
     </div>

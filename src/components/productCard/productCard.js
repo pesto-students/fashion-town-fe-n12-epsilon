@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { Card, Skeleton, Image, Carousel } from "antd";
+import { Card, Image, Carousel } from "antd";
 import { BrandText, TitleText, PriceText } from "./productCardStyledComponents";
 import config from "../../config/config";
 

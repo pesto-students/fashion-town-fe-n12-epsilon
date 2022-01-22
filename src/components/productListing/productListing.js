@@ -9,7 +9,7 @@ import { connect } from "react-redux";
 import { getAppliedFilterArray } from "./productUtilFunctions";
 
 import { setProductIdMapList } from "../../redux/actions/productActions";
-import ProductListLoading from "../loadingSkeleton/productListLoading";
+import ProductListLoading from "../loadingAnimations/productListLoading";
 import ServerError from "../result/serverError";
 import { SEARCH_TEXT_QUERY } from "../../graphQlQueries/searchQuery";
 

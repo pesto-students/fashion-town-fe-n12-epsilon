@@ -3,15 +3,12 @@ import { connect } from "react-redux";
 
 import { List } from "antd";
 import ProductCard from "../productCard/productCard";
-import {
-  getAppliedFilterArray,
-  createProductIdDetailsMap,
-} from "./productUtilFunctions";
+import { createProductIdDetailsMap } from "./productUtilFunctions";
 import { setProductIdMapList } from "../../redux/actions/productActions";
 
 function ProductList(props) {
   const { productListData } = props;
-    console.log(productListData);
+  console.log(productListData);
   const saveProductListDataToStore = (productListData) => {
     const productIdMapList = createProductIdDetailsMap(productListData);
     props.setProductIdMapList(productIdMapList);
