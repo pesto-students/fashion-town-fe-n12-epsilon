@@ -8,3 +8,7 @@ export const ListCart = styled(Card)`
 export const OrderHistoryCard = styled(Card)`
   min-height: 70vh;
 `;
+export const DefaultLoadingWrapper = styled.div`
+  width: 80%;
+  margin: 5%;
+`;

@@ -9,7 +9,7 @@ import { useSearchParams } from "react-router-dom";
 import { colorList } from "../../assets/data/color";
 
 function Filter() {
-  let [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [brandFilters, setBrandFilters] = useState([]);
   const [colorFilters, setColorFilters] = useState([]);
 

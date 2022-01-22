@@ -9,6 +9,8 @@ import ProductDescription from "./productDescription";
 
 import { Row, Col } from "antd";
 import { ProductDetailsWrapper } from "./productDetailsStyledComponent";
+import ServerError from "../result/serverError";
+import DefaultLoading from "../loadingSkeleton/defaultLoading";
 
 function ProductDetailsPage() {
   const { id } = useParams();
@@ -18,10 +20,10 @@ function ProductDetailsPage() {
   });
 
   if (loading) {
-    console.log("loading ..");
+    return (<DefaultLoading/>)
   }
   if (error) {
-    console.log(error);
+    return(<ServerError/>)
   }
   if (data) {
     console.log(data);

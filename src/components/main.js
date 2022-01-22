@@ -9,7 +9,7 @@ import FilterAndProductListing from "./productListing/filterAndProductListing";
 import ProductDetailsPage from "./productDetails/productDetailsPage.js";
 import CheckOutPage from "./checkout/checkOutPage";
 import OrderHistory from "./orderHistory/orderHistory";
-import InvalidRoute from "./invalidRoute/invalidRoute";
+import InvalidRoute from "./result/invalidRoute";
 import { ContentSectionWrapper } from "./contentSection/contentSectionStyledComponent";
 
 export class Main extends Component {

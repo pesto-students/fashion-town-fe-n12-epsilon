@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 import AuthReducer from "./authReducer";
 import CartReducer from "./cartReducer";
 import ProductReducer from "./productReducer";
-import OrderReducer from "./orderReducer"
+import OrderReducer from "./orderReducer";
 import RedirectReducer from "./redirectReducer";
 
 const rootReducer = combineReducers({
@@ -10,6 +10,6 @@ const rootReducer = combineReducers({
   Product: ProductReducer,
   Cart: CartReducer,
   Order: OrderReducer,
-  Redirect: RedirectReducer
+  Redirect: RedirectReducer,
 });
 export default rootReducer;
