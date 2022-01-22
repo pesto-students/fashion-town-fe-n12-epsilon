@@ -39,7 +39,7 @@ function ProductListing() {
   useEffect(() => {
     console.log(searchParams);
     const filterTypeValueArray = getAppliedFilterArray(searchParams);
-
+    console.log("filterTypeValueArray",filterTypeValueArray)
     if (isSearchParamHasSearchInput(filterTypeValueArray)) {
       const searchInput = filterTypeValueArray["searchInput"][0];
       setResultType("searchInput");

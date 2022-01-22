@@ -18,12 +18,14 @@ function Filter() {
       name: "brand",
       options: brandList,
       defaultValue: brandFilters,
+      setFilterCallback: setBrandFilters,
       title: "BRAND",
     },
     {
       name: "color",
       defaultValue: colorFilters,
       options: colorList,
+      setFilterCallback: setColorFilters,
       title: "COLOR",
     },
   ];
@@ -31,14 +33,18 @@ function Filter() {
   const getAppliedFilterValueMap = () => {
     let filterTypeValueMap = {};
     searchParams.forEach((filter, keys) => {
-      filterTypeValueMap[keys] = filter;
+      if (filterTypeValueMap[keys]) {
+        filterTypeValueMap[keys].push(filter);
+      } else {
+        filterTypeValueMap[keys] = [filter];
+      }
     });
     return filterTypeValueMap;
   };
 
   const applyFilters = (filterType, selectedValueArray) => {
     if (Array.isArray(selectedValueArray)) {
-      let filterTypeValueMap = getAppliedFilterValueMap();
+      const filterTypeValueMap = getAppliedFilterValueMap();
       filterTypeValueMap[filterType] = selectedValueArray;
       setSearchParams(filterTypeValueMap);
     }

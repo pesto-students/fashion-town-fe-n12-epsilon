@@ -21,18 +21,19 @@ import { GoogleOutlined, FacebookFilled } from "@ant-design/icons";
 import { IconHolder } from "./signInStyledComponent";
 import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
 
-export const SocialSignIn = (props) => {
+function SocialSignIn  ({ redirectPath ,setUserName,setStoreAuth})  {
   const navigate = useNavigate();
-  const { redirectPath } = props;
-
+ 
+  debugger;
   const handleSocialAuth = async (provider) => {
     const auth = getAuth();
     try {
       await setPersistence(auth, inMemoryPersistence);
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      props.setUserName(user.displayName);
-      props.setStoreAuth(user);
+      console.log(user.displayName)
+      setUserName(user.displayName);
+      setStoreAuth(user);
       navigate(redirectPath, { replace: true });
     } catch (error) {
       console.log(error);

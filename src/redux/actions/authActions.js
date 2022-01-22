@@ -1,4 +1,5 @@
 export const setUserName = (userName) => {
+    console.log(userName)
     return {
         type : "USER_NAME",
         payload: userName
