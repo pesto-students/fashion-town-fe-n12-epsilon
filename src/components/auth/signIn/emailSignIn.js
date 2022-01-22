@@ -14,8 +14,9 @@ import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
 import { Input, Row, Button, Form, message } from "antd";
 message.config({
   top: 100,
+  right:50,
   duration: 2,
-});
+}); 
 
 function EmailSignIn(props) {
   const [signInEmail, setSignInEmail] = useState(null);

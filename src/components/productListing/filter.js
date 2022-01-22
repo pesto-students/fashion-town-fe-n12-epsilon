@@ -37,7 +37,7 @@ function Filter() {
   };
 
   const applyFilters = (filterType, selectedValueArray) => {
-    if (selectedValueArray.length > 0) {
+    if (Array.isArray(selectedValueArray)) {
       let filterTypeValueMap = getAppliedFilterValueMap();
       filterTypeValueMap[filterType] = selectedValueArray;
       setSearchParams(filterTypeValueMap);
@@ -45,7 +45,7 @@ function Filter() {
   };
 
   useEffect(() => {
-    applyFilters("brand", brandFilters);  
+    applyFilters("brand", brandFilters);
   }, [brandFilters]);
 
   useEffect(() => {
@@ -62,8 +62,7 @@ function Filter() {
 
   return (
     <Space direction="vertical" size={"large"}>
-
-      {filterListArray.map((filter,index) => {
+      {filterListArray.map((filter, index) => {
         return (
           <Row xs={6} sm={6} md={24} lg={24} key={index}>
             <FilterHeading>{filter.title}</FilterHeading>
@@ -84,7 +83,6 @@ function Filter() {
           </Row>
         );
       })}
-
     </Space>
   );
 }

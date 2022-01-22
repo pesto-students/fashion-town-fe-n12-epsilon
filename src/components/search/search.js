@@ -17,7 +17,7 @@ function Search() {
 
   return (
     <Input.Group>
-      <Input.Search
+      <Input
         size="large"
         allowClear
         style={{ width: "100%", borderRadius: "10px" }}
