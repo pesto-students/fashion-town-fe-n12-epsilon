@@ -10,7 +10,9 @@ import { PersistGate } from "redux-persist/integration/react";
 const App = () => (
   <ApolloProvider client={client}>
     <Provider store={store}>
-      <Main />
+      <PersistGate persistor={persistor}>
+        <Main />
+      </PersistGate>
     </Provider>
   </ApolloProvider>
 );

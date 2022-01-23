@@ -25,9 +25,9 @@ function ProductDetailsPage() {
       {data && (
         <ProductDetailsWrapper>
           <Row>
-            <ProductImages productDetails={data.productDetails} />
+            <ProductImages productDetails={data.productByFilters[0]} />
             <Col xs={24} sm={24} md={12} lg={12}>
-              <ProductDescription productDetails={data.productDetails} />
+              <ProductDescription productDetails={data.productByFilters[0]} />
             </Col>
           </Row>
         </ProductDetailsWrapper>
