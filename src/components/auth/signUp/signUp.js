@@ -15,7 +15,7 @@ import { Input, Row, Form } from "antd";
 import { setUserName } from "../../../redux/actions/authActions";
 import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
 
-function SignUp(props) {
+function SignUp({ setUserName }) {
   const [registerEmail, setRegisterEmail] = useState(null);
   const [registerPassword, setRegisterPassword] = useState(null);
   const [registerName, setRegisterName] = useState(null);
@@ -29,7 +29,7 @@ function SignUp(props) {
         registerPassword
       );
       await addUserNameToProfile(auth.currentUser);
-      props.setUserName(registerName);
+      setUserName(registerName);
     } catch (error) {
       console.log(error);
     }
@@ -38,7 +38,6 @@ function SignUp(props) {
   const addUserNameToProfile = async (user) => {
     try {
       await updateProfile(user, { displayName: registerName });
-      console.log("user name added");
     } catch (error) {
       console.log(error);
     }

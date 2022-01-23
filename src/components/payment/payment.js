@@ -20,9 +20,27 @@ import ServerError from "../result/serverError";
 import { Spin } from "antd";
 
 function Payment(props) {
-  const { address, cart } = props;
+  const {
+    address,
+    cart,
+    setOrderItems,
+    setCart,
+    setOrderId,
+    setPaymentDetails,
+    setStatus,
+    calculateTotalMRP,
+  } = props;
+
   const Razorpay = useRazorpay();
-  const amount = parseInt(Math.floor(props.calculateTotalMRP()) + "00");
+
+  const [getRazorPayOrder, { error, loading, data }] = useMutation(
+    RAZORPAY_ORDER_QUERY,
+    {
+      variables: { amount: amount, orderId: orderId },
+    }
+  );
+  
+  const amount = parseInt(Math.floor(calculateTotalMRP()) + "00");
   const orderId = "P" + moment().format("YYYYMMDDHHmmss");
 
   const handlePayment = async (OrderPrams) => {
@@ -37,11 +55,11 @@ function Payment(props) {
 
       handler: (response) => {
         console.log(response);
-        props.setOrderItems(cart);
-        props.setCart([]);
-        props.setOrderId(orderId);
-        props.setPaymentDetails(response);
-        props.setStatus("paymentSuccessful");
+        setOrderItems(cart);
+        setCart([]);
+        setOrderId(orderId);
+        setPaymentDetails(response);
+        setStatus("paymentSuccessful");
       },
       prefill: {
         name: address.name,
@@ -64,23 +82,18 @@ function Payment(props) {
 
     rzp1.open();
   };
-  const [getRazorPayOrder, { error, loading, data }] = useMutation(
-    RAZORPAY_ORDER_QUERY,
-    {
-      variables: { amount: amount, orderId: orderId },
-    }
-  );
+  
   if (data) {
     console.log(data.createRazorPayOrder);
     handlePayment(data.createRazorPayOrder);
   }
-  if (loading) {
-    <Spin size="large" />;
-  }
-  if (error) {
-    <ServerError />;
-  }
-  return <NextButton onClick={getRazorPayOrder}>CONTINUE</NextButton>;
+  return (
+    <>
+      {loading && <Spin size="large" />}
+      {error && <ServerError />}
+      <NextButton onClick={getRazorPayOrder}>CONTINUE</NextButton>
+    </>
+  );
 }
 
 const mapStateToProps = (state) => {

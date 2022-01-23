@@ -19,28 +19,22 @@ function ProductDetailsPage() {
     variables: { productId: id },
   });
 
-  if (loading) {
-    return (<DefaultLoading/>)
-  }
-  if (error) {
-    return(<ServerError/>)
-  }
-  if (data) {
-    console.log(data);
-    const productDetails = data.productByFilters[0];
-
-    return (
-      <ProductDetailsWrapper>
-        <Row>
-          <ProductImages productDetails={productDetails} />
-          <Col xs={24} sm={24} md={12} lg={12}>
-            <ProductDescription productDetails={productDetails} />
-          </Col>
-        </Row>
-      </ProductDetailsWrapper>
-    );
-  }
-  return <div></div>;
+  return (
+    <>
+      {loading && <DefaultLoading />}
+      {data && (
+        <ProductDetailsWrapper>
+          <Row>
+            <ProductImages productDetails={data.productDetails} />
+            <Col xs={24} sm={24} md={12} lg={12}>
+              <ProductDescription productDetails={data.productDetails} />
+            </Col>
+          </Row>
+        </ProductDetailsWrapper>
+      )}
+      {error && <ServerError />}
+    </>
+  );
 }
 
 export default ProductDetailsPage;

@@ -6,12 +6,11 @@ import { Result, Button } from "antd";
 import { setStatus } from "../../redux/actions/cartActions";
 import links from "../../config/routeLinks";
 
-function PaymentResult(props) {
-  const { orderId } = props;
+function PaymentResult({ setStatus, orderId }) {
   const navigate = useNavigate();
 
   const redirectToHome = () => {
-    props.setStatus(null);
+    setStatus(null);
     navigate(links.home, { replace: true });
   };
   return (

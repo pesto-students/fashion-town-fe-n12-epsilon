@@ -6,9 +6,7 @@ import { BrandText, TitleText, PriceText } from "./productCardStyledComponents";
 import config from "../../config/config";
 import links from "../../config/routeLinks";
 
-function ProductCard(props) {
-  const { isLoading, productData } = props;
-
+function ProductCard({ isLoading, productData }) {
   const carousel = useRef();
   const [autoPlayFlag, setAutoPlayFlag] = useState(false);
 

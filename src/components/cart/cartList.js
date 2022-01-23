@@ -7,9 +7,7 @@ import { List, Row, Col } from "antd";
 import ProductDisplay from "../checkout/productDisplay";
 import { CartListContainer } from "./cartStyledComponent";
 
-function CartList(props) {
-  const { cart } = props;
-
+function CartList({ cart }) {
   return (
     <>
       <Row>

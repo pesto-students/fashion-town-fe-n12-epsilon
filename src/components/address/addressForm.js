@@ -5,10 +5,10 @@ import { Card, Input, Form } from "antd";
 import { NextButton } from "./addressStyledComponent";
 import { setAddress, setStatus } from "../../redux/actions/cartActions";
 
-function AddressForm(props) {
+function AddressForm({ setAddress, setStatus }) {
   const onFinish = (address) => {
-    props.setAddress(address);
-    props.setStatus("payment");
+    setAddress(address);
+    setStatus("payment");
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -35,7 +35,7 @@ function AddressForm(props) {
           rules={[
             {
               required: true,
-              message: "Please input your name!",
+              message: "Please input your name",
             },
           ]}
         >

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import config from "../../config/config";
 
+import _ from "lodash";
 import {
   ProductDescriptionWrapper,
   TaxText,
@@ -16,9 +17,8 @@ import { setCart } from "../../redux/actions/cartActions";
 const { Title, Text } = Typography;
 const { Search } = Input;
 
-function ProductDescription(props) {
+function ProductDescription({ productDetails, setCart, cart }) {
   const [sizeSelected, setSizeSelected] = useState(null);
-  const { productDetails } = props;
   const sizeArray = config.sizeArray;
 
   const product = {
@@ -85,15 +85,16 @@ function ProductDescription(props) {
 
   const addToCart = () => {
     if (isSizeSelected()) {
-      let cart = props.cart;
+      let cartItems = cart;
 
-      if (cart === "undefined" || cart === null) {
-        cart = [product];
+      if (_.isEmpty(cart)) {
+        cartItems = [product];
         message.success("Item added to cart");
       } else {
-        cart = getUpdatedCart(cart, product);
+        cartItems = getUpdatedCart(cartItems, product);
       }
-      props.setCart(cart);
+
+      setCart(cartItems);
     }
   };
 

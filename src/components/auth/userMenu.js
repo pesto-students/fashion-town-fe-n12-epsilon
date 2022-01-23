@@ -9,34 +9,38 @@ import { setStoreAuth, setUserName } from "../../redux/actions/authActions";
 import links from "../../config/routeLinks";
 
 function UserMenu(props) {
+  const { setUserName, setStoreAuth, userName } = props;
+
   const logout = async () => {
     const auth = getAuth();
     try {
       await signOut(auth);
-      props.setUserName(null);
-      props.setStoreAuth(null);
+      setUserName(null);
+      setStoreAuth(null);
     } catch (error) {
       console.log(error);
     }
   };
 
-  if (props) {
-    return (
-      <Menu>
-        <Menu.Item disabled>
-          <UserNameCapitalize>Hello {props.userName} !</UserNameCapitalize>
-        </Menu.Item>
-        <Menu.Item>
-          <Link to={links.orderHistory}>
-            <p>Orders</p>
-          </Link>
-        </Menu.Item>
-        <Menu.Item>
-          <p onClick={logout}>Logout</p>
-        </Menu.Item>
-      </Menu>
-    );
-  }
+  return (
+    <>
+      {userName && (
+        <Menu>
+          <Menu.Item disabled>
+            <UserNameCapitalize>Hello {userName} !</UserNameCapitalize>
+          </Menu.Item>
+          <Menu.Item>
+            <Link to={links.orderHistory}>
+              <p>Orders</p>
+            </Link>
+          </Menu.Item>
+          <Menu.Item>
+            <p onClick={logout}>Logout</p>
+          </Menu.Item>
+        </Menu>
+      )}
+    </>
+  );
 }
 const mapStateToProps = (state) => {
   return { userName: state.Auth.userName };

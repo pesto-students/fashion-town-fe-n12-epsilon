@@ -16,14 +16,13 @@ import { SEARCH_TEXT_QUERY } from "../../graphQlQueries/searchQuery";
 function ProductListing() {
   const [searchParams] = useSearchParams();
   const [resultType, setResultType] = useState(null);
-  console.log("search params", searchParams);
 
-  let [
+  const [
     productByFilters,
     { error: filterError, loading: filterLoading, data: filterData },
   ] = useLazyQuery(FILTER_QUERY);
 
-  let [
+  const [
     productBySearchInput,
     {
       error: searchQueryError,
@@ -33,44 +32,34 @@ function ProductListing() {
   ] = useLazyQuery(SEARCH_TEXT_QUERY);
 
   const isSearchParamHasSearchInput = (filterTypeValueArray) => {
-    return filterTypeValueArray.hasOwnProperty("searchInput");
+    return filterTypeValueArray.hasOwnProperty("search");
   };
 
   useEffect(() => {
-    console.log(searchParams);
     const filterTypeValueArray = getAppliedFilterArray(searchParams);
-    console.log("filterTypeValueArray",filterTypeValueArray)
+
     if (isSearchParamHasSearchInput(filterTypeValueArray)) {
-      const searchInput = filterTypeValueArray["searchInput"][0];
+      const searchInput = filterTypeValueArray["search"][0];
       setResultType("searchInput");
       productBySearchInput({ variables: { searchInput: searchInput } });
     } else {
-      console.log(searchQueryData, searchQueryLoading);
       setResultType("filter");
       productByFilters({ variables: filterTypeValueArray });
     }
   }, [searchParams]);
 
-  if (filterLoading || searchQueryLoading) return <ProductListLoading />;
-
-  if (filterError || searchQueryError) return <ServerError />;
-
-  if (
-    resultType === "searchInput" &&
-    searchQueryData &&
-    searchQueryData.productBySearchInput
-  ) {
-    const productListData = searchQueryData.productBySearchInput;
-    return <ProductList productListData={productListData} />;
-  } else if (
-    resultType === "filter" &&
-    filterData &&
-    filterData.productByFilters
-  ) {
-    const productListData = filterData.productByFilters;
-    return <ProductList productListData={productListData} />;
-  }
-  return <></>;
+  return (
+    <>
+      {resultType === "searchInput" && searchQueryData && (
+        <ProductList productListData={searchQueryData.productBySearchInput} />
+      )}
+      {resultType === "filter" && filterData && (
+        <ProductList productListData={filterData.productByFilters} />
+      )}
+      {(filterLoading || searchQueryLoading) && <ProductListLoading />}
+      {(filterError || searchQueryError) && <ServerError />}
+    </>
+  );
 }
 
 const mapDispatchToProps = (dispatch) => {

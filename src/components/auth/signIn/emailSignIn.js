@@ -20,12 +20,12 @@ message.config({
   duration: 2,
 });
 
-function EmailSignIn(props) {
+function EmailSignIn({ redirectPath, setUserName, setStoreAuth }) {
   const [signInEmail, setSignInEmail] = useState(null);
   const [signInPassword, setSignInPassword] = useState(null);
+
   const auth = getAuth();
   const navigate = useNavigate();
-  const { redirectPath } = props;
 
   const emailSignIn = async () => {
     try {
@@ -35,8 +35,8 @@ function EmailSignIn(props) {
         signInEmail,
         signInPassword
       );
-      props.setUserName(authResponse.user.displayName);
-      props.setStoreAuth(authResponse.user);
+      setUserName(authResponse.user.displayName);
+      setStoreAuth(authResponse.user);
       navigate(redirectPath, { replace: true });
     } catch (error) {
       console.log(error.message);
@@ -53,6 +53,7 @@ function EmailSignIn(props) {
       message.error("Too many attempts! try after sometime");
     }
   };
+
   return (
     <Form autoComplete="off" onFinish={emailSignIn}>
       <Row>

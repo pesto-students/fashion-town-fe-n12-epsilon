@@ -5,14 +5,14 @@ import { useSearchParams } from "react-router-dom";
 import { SearchInput } from "./searchStyledComponent";
 
 function Search() {
-  const [setSearchParams] = useSearchParams();
-  const handleSearchInputWithDebounce = _.debounce((searchInput) => {
-    if (searchInput === "") {
+  const [searchPrams, setSearchParams] = useSearchParams();
+
+  const handleSearchInputWithDebounce = _.debounce((search) => {
+    if (_.isEmpty(search)) {
       setSearchParams();
     } else {
-      setSearchParams({ searchInput });
+      setSearchParams({ search });
     }
-    console.log("deb", searchInput);
   }, 500);
 
   return (

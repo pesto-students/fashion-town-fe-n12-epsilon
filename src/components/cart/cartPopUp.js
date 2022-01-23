@@ -15,15 +15,15 @@ import { setCurrentPath } from "../../redux/actions/redirectActions";
 import { ActionButton } from "../globalStyledComponent/globalStyledComponents";
 import links from "../../config/routeLinks";
 
-function CartPopUp(props) {
+function CartPopUp({ storeAuth, setStatus, setCurrentPath }) {
   const navigate = useNavigate();
-  const { storeAuth } = props;
+
   const onClickCheckoutHandler = () => {
-    props.setStatus("bag");
+    setStatus("bag");
     if (storeAuth && storeAuth.email) {
       navigate(links.checkout);
     } else {
-      props.setCurrentPath("/" + links.checkout);
+      setCurrentPath("/" + links.checkout);
       navigate(links.signIn);
     }
   };

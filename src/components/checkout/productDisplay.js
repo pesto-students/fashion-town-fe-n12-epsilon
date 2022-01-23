@@ -19,9 +19,7 @@ import { setCart } from "../../redux/actions/cartActions";
 const { Text } = Typography;
 const { Option } = Select;
 
-function ProductDisplay(props) {
-  const { product, cart, setCart } = props;
-
+function ProductDisplay({ product, cart, setCart }) {
   const removeProductFromCart = (productId, size) => {
     const updatedCart = cart.filter(
       (product) => product.productId !== productId || product.size !== size

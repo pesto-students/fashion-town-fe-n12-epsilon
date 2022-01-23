@@ -18,11 +18,11 @@ const NextButton = styled(Button)`
     background: #ff7f3f;
     color: white;
   }
-  &:active{
+  &:active {
     background: #ff7f3f;
     color: white;
   }
-  &:focus{
+  &:focus {
     background: #ff7f3f;
     color: white;
   }

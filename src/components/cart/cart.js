@@ -7,9 +7,7 @@ import { Badge, Dropdown } from "antd";
 import CartPopUp from "./cartPopUp";
 import { CartIcon } from "./cartStyledComponent";
 
-function Cart(props) {
-  const { cart } = props;
-
+function Cart({ cart }) {
   return (
     <div>
       <Dropdown

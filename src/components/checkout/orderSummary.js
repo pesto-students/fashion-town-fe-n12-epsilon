@@ -14,20 +14,28 @@ import links from "../../config/routeLinks";
 const { Text } = Typography;
 
 function OrderSummary(props) {
-  const { cart, status, storeAuth, calculateTotalMRP } = props;
+  const {
+    cart,
+    status,
+    storeAuth,
+    calculateTotalMRP,
+    setCurrentPath,
+    setStatus,
+  } = props;
+
   const location = useLocation();
   const navigate = useNavigate();
 
   const goToLogInPage = () => {
     console.log(location);
     const currentPath = location.pathname + location.search;
-    props.setCurrentPath(currentPath);
+    setCurrentPath(currentPath);
     navigate(links.signIn);
   };
 
   const nextStep = () => {
     if (storeAuth && storeAuth.email) {
-      props.setStatus("address");
+      setStatus("address");
     } else {
       goToLogInPage();
     }
@@ -77,7 +85,9 @@ function OrderSummary(props) {
             CONTINUE
           </NextButton>
         )}
-        {status === "payment" && <Payment calculateTotalMRP={calculateTotalMRP} />}
+        {status === "payment" && (
+          <Payment calculateTotalMRP={calculateTotalMRP} />
+        )}
       </Card>
     );
   } else {

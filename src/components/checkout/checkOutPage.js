@@ -16,8 +16,7 @@ import PaymentResult from "../payment/paymentResult";
 import config from "../../config/config";
 import { setStatus } from "../../redux/actions/cartActions";
 
-function CheckOutPage(props) {
-  const { cart, address, status, order, storeAuth } = props;
+function CheckOutPage({ cart, address, status, order, storeAuth, setStatus }) {
   const deliveryCharge = config.deliveryCharge;
 
   const calculateTotalMRP = () => {
@@ -29,22 +28,19 @@ function CheckOutPage(props) {
     return parseInt(totalMRP + deliveryCharge);
   };
 
-  const [createNewOrder] = useMutation(
-    ORDER_DETAILS_MUTATION,
-    {
-      variables: {
-        id: order.id,
-        orderByEmailId: storeAuth.email,
-        address: JSON.stringify(address),
-        items: order.OrderItems,
-        totalPrice: calculateTotalMRP(),
-        paymentDetails: JSON.stringify(order.paymentDetails),
-      },
-    }
-  );
+  const [createNewOrder] = useMutation(ORDER_DETAILS_MUTATION, {
+    variables: {
+      id: order.id,
+      orderByEmailId: storeAuth.email,
+      address: JSON.stringify(address),
+      items: order.OrderItems,
+      totalPrice: calculateTotalMRP(),
+      paymentDetails: JSON.stringify(order.paymentDetails),
+    },
+  });
 
   const pushOrderDetailsToBackend = () => {
-    props.setStatus("orderPlaced");
+    setStatus("orderPlaced");
     createNewOrder();
   };
 
@@ -60,7 +56,9 @@ function CheckOutPage(props) {
         <Col xs={0} sm={4} md={4} lg={4}></Col>
         <Col xs={24} sm={8} md={8} lg={16}>
           <>
-            {(status === "bag" || status === "address" || status === "payment") && (
+            {(status === "bag" ||
+              status === "address" ||
+              status === "payment") && (
               <>
                 <Row>
                   <CheckOutSteps />
@@ -71,10 +69,10 @@ function CheckOutPage(props) {
                     {status === "address" && <AddressForm />}
                     {status === "payment" && <AddressDisplay />}
                   </Col>
-                  
-                    <Col xs={24} sm={24} md={12} lg={12}>
-                      <OrderSummary calculateTotalMRP={calculateTotalMRP} />
-                    </Col>
+
+                  <Col xs={24} sm={24} md={12} lg={12}>
+                    <OrderSummary calculateTotalMRP={calculateTotalMRP} />
+                  </Col>
                 </Row>
               </>
             )}

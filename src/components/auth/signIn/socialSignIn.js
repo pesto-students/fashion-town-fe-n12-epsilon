@@ -15,26 +15,23 @@ import {
   inMemoryPersistence,
 } from "firebase/auth";
 
-import { Row, Button} from "antd";
+import { Row, Button } from "antd";
 import { GoogleOutlined, FacebookFilled } from "@ant-design/icons";
 
-import {
-  FullWidthSpace,
-  IconHolder,
-} from "../authStyledComponent";
+import { FullWidthSpace, IconHolder } from "../authStyledComponent";
 import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
 import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
 import links from "../../../config/routeLinks";
 
 function SocialSignIn({ redirectPath, setUserName, setStoreAuth }) {
   const navigate = useNavigate();
+
   const handleSocialAuth = async (provider) => {
     const auth = getAuth();
     try {
       await setPersistence(auth, inMemoryPersistence);
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      console.log(user.displayName);
       setUserName(user.displayName);
       setStoreAuth(user);
       navigate(redirectPath, { replace: true });

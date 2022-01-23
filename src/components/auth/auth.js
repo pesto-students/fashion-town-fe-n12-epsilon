@@ -12,13 +12,13 @@ import { Dropdown } from "antd";
 
 import { setUserName } from "../../redux/actions/authActions";
 import { setCurrentPath } from "../../redux/actions/redirectActions";
-import links  from "../../config/routeLinks";
+import links from "../../config/routeLinks";
 import UserMenu from "./userMenu";
 
-function Auth(props) {
+function Auth({ setUserName, setCurrentPath, userName }) {
   const [isLogin, setLogin] = useState(false);
   const [userInitial, setUserInitial] = useState(null);
-  const [userName, setUserName] = useState(null);
+  // const [userName, setUserDisplayName] = useState(null);
 
   const auth = getAuth();
   const location = useLocation();
@@ -38,25 +38,25 @@ function Auth(props) {
 
   onAuthStateChanged(auth, (currentUser) => {
     if (currentUser) {
-      props.setUserName(currentUser.displayName);
+      setUserName(currentUser.displayName);
     }
   });
 
   const goToLogInPage = () => {
     const currentPath = location.pathname + location.search;
-    props.setCurrentPath(currentPath);
+    setCurrentPath(currentPath);
     navigate(links.signIn);
   };
 
   useEffect(() => {
-    if (props.userName) {
-      setUserInitial(generateUserInitial(props.userName));
-      setUserName(props.userName);
+    if (userName) {
+      setUserInitial(generateUserInitial(userName));
+      setUserName(userName);
       setLogin(true);
     } else {
       setLogin(false);
     }
-  }, [props]);
+  }, [userName]);
 
   return (
     <AuthHeaderWrapper>
