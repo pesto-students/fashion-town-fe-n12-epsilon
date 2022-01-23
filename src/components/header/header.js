@@ -30,22 +30,22 @@ function header() {
           <NavBarGroup>
             <Space size={"SMALL"}>
               <NavBarItems>
-                <NavLink to={`/shop?idealFor=Men&productCategory=Clothing`}>
+                <NavLink to={links.shop + links.menSection}>
                   <NavText>MEN</NavText>
                 </NavLink>
               </NavBarItems>
               <NavBarItems>
-                <NavLink to={`/shop?idealFor=Women&productCategory=Clothing`}>
+                <NavLink to={links.shop + links.womenSection}>
                   <NavText>WOMEN</NavText>
                 </NavLink>
               </NavBarItems>
               <NavBarItems>
-                <NavLink to={`/shop?productCategory=Accessories`}>
+                <NavLink to={links.shop + links.accessoriesSection}>
                   <NavText>ACCESSORIES</NavText>
                 </NavLink>
               </NavBarItems>
               <NavBarItems>
-                <NavLink to={`/shop?productCategory=Home`}>
+                <NavLink to={links.shop + links.livingSections}>
                   <NavText>LIVING</NavText>
                 </NavLink>
               </NavBarItems>
