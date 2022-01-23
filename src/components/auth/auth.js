@@ -12,7 +12,7 @@ import { Dropdown } from "antd";
 
 import { setUserName } from "../../redux/actions/authActions";
 import { setCurrentPath } from "../../redux/actions/redirectActions";
-
+import links  from "../../config/routeLinks";
 import UserMenu from "./userMenu";
 
 function Auth(props) {
@@ -45,7 +45,7 @@ function Auth(props) {
   const goToLogInPage = () => {
     const currentPath = location.pathname + location.search;
     props.setCurrentPath(currentPath);
-    navigate("signIn");
+    navigate(links.signIn);
   };
 
   useEffect(() => {

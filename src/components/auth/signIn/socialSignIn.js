@@ -24,6 +24,7 @@ import {
 } from "../authStyledComponent";
 import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
 import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
+import links from "../../../config/routeLinks";
 
 function SocialSignIn({ redirectPath, setUserName, setStoreAuth }) {
   const navigate = useNavigate();
@@ -64,7 +65,7 @@ function SocialSignIn({ redirectPath, setUserName, setStoreAuth }) {
 
       <Row>
         <ActionButton background={"#FF7F3F"} block>
-          <Link to={`/signUp`}>CREATE ACCOUNT</Link>
+          <Link to={links.signUp}>CREATE ACCOUNT</Link>
         </ActionButton>
       </Row>
       <Row>

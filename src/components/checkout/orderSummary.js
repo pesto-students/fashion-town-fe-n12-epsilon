@@ -9,6 +9,7 @@ import { Row, Col, Typography, Card } from "antd";
 import { HorizontalLine, NextButton } from "./checkoutStyledComponent";
 import { setStatus } from "../../redux/actions/cartActions";
 import { setCurrentPath } from "../../redux/actions/redirectActions";
+import links from "../../config/routeLinks";
 
 const { Text } = Typography;
 
@@ -21,7 +22,7 @@ function OrderSummary(props) {
     console.log(location);
     const currentPath = location.pathname + location.search;
     props.setCurrentPath(currentPath);
-    navigate("/signIn");
+    navigate(links.signIn);
   };
 
   const nextStep = () => {

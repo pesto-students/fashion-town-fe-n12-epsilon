@@ -11,6 +11,7 @@ import CheckOutPage from "./checkout/checkOutPage";
 import OrderHistory from "./orderHistory/orderHistory";
 import InvalidRoute from "./result/invalidRoute";
 import { ContentSectionWrapper } from "./contentSection/contentSectionStyledComponent";
+import links from "../config/routeLinks";
 
 export class Main extends Component {
   render() {
@@ -20,12 +21,15 @@ export class Main extends Component {
         <ContentSectionWrapper>
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="signIn" element={<SignIn />} />
-            <Route path="SignUp" element={<SignUp />} />
-            <Route path="shop" element={<FilterAndProductListing />} />
-            <Route path="product/:id" element={<ProductDetailsPage />} />
-            <Route path="checkout" element={<CheckOutPage />} />
-            <Route path="orderHistory" element={<OrderHistory />} />
+            <Route path={links.signIn} element={<SignIn />} />
+            <Route path={links.signUp} element={<SignUp />} />
+            <Route path={links.shop} element={<FilterAndProductListing />} />
+            <Route
+              path={`${links.product}/:id`}
+              element={<ProductDetailsPage />}
+            />
+            <Route path={links.checkout} element={<CheckOutPage />} />
+            <Route path={links.orderHistory} element={<OrderHistory />} />
             <Route path="*" element={<InvalidRoute />} />
           </Routes>
         </ContentSectionWrapper>

@@ -13,6 +13,7 @@ import CartList from "./cartList";
 import { setStatus } from "../../redux/actions/cartActions";
 import { setCurrentPath } from "../../redux/actions/redirectActions";
 import { ActionButton } from "../globalStyledComponent/globalStyledComponents";
+import links from "../../config/routeLinks";
 
 function CartPopUp(props) {
   const navigate = useNavigate();
@@ -20,10 +21,10 @@ function CartPopUp(props) {
   const onClickCheckoutHandler = () => {
     props.setStatus("bag");
     if (storeAuth && storeAuth.email) {
-      navigate("/checkout");
+      navigate(links.checkout);
     } else {
-      props.setCurrentPath("/checkout");
-      navigate("/signIn");
+      props.setCurrentPath("/" + links.checkout);
+      navigate(links.signIn);
     }
   };
 

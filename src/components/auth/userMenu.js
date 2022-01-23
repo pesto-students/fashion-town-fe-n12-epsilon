@@ -6,6 +6,7 @@ import { Menu } from "antd";
 import { UserNameCapitalize } from "./authStyledComponent";
 
 import { setStoreAuth, setUserName } from "../../redux/actions/authActions";
+import links from "../../config/routeLinks";
 
 function UserMenu(props) {
   const logout = async () => {
@@ -26,7 +27,7 @@ function UserMenu(props) {
           <UserNameCapitalize>Hello {props.userName} !</UserNameCapitalize>
         </Menu.Item>
         <Menu.Item>
-          <Link to={"/orderHistory"}>
+          <Link to={links.orderHistory}>
             <p>Orders</p>
           </Link>
         </Menu.Item>

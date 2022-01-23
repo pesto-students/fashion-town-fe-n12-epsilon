@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Card, Image, Carousel } from "antd";
 import { BrandText, TitleText, PriceText } from "./productCardStyledComponents";
 import config from "../../config/config";
+import links from "../../config/routeLinks";
 
 function ProductCard(props) {
   const { isLoading, productData } = props;
@@ -16,7 +17,7 @@ function ProductCard(props) {
   };
 
   return (
-    <Link to={`/product/${productData.product_id}`}>
+    <Link to={`/${links.product}/${productData.product_id}`}>
       <Card
         onMouseOver={handleAutoPlay}
         onMouseOut={handleAutoPlay}

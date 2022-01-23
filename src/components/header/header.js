@@ -14,13 +14,14 @@ import {
 import Wishlist from "../wishlist/wishlist";
 import Cart from "../cart/cart";
 import Auth from "../auth/auth";
+import links from "../../config/routeLinks";
 
 function header() {
   return (
     <NavBar>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
         <Col className="gutter-row" span={3}>
-          <Link to={`/`}>
+          <Link to={links.home}>
             <Logo>Fashion Town</Logo>
           </Link>
         </Col>

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { Result, Button } from "antd";
 import { setStatus } from "../../redux/actions/cartActions";
+import links from "../../config/routeLinks";
 
 function PaymentResult(props) {
   const { orderId } = props;
@@ -11,7 +12,7 @@ function PaymentResult(props) {
 
   const redirectToHome = () => {
     props.setStatus(null);
-    navigate("/", { replace: true });
+    navigate(links.home, { replace: true });
   };
   return (
     <Result
