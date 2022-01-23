@@ -20,13 +20,13 @@ const { Text } = Typography;
 const { Option } = Select;
 
 function ProductDisplay(props) {
-  const { product, cart } = props;
+  const { product, cart, setCart } = props;
 
   const removeProductFromCart = (productId, size) => {
     const updatedCart = cart.filter(
       (product) => product.productId !== productId || product.size !== size
     );
-    props.setCart(updatedCart);
+    setCart(updatedCart);
   };
 
   const changeProductAttribute = (productId, attribute, value) => {
@@ -36,7 +36,7 @@ function ProductDisplay(props) {
       }
     });
     const updatedCart = [...cart];
-    props.setCart(updatedCart);
+    setCart(updatedCart);
   };
 
   return (
@@ -140,7 +140,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    setUserName: (cart) => {
+    setCart: (cart) => {
       dispatch(setCart(cart));
     },
   };
