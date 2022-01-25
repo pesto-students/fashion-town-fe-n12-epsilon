@@ -6,7 +6,6 @@ import { Badge, Col, Dropdown } from "antd";
 
 import CartPopUp from "./cartPopUp";
 import { CartIcon, CartText } from "./cartStyledComponent";
-import Text from "antd/lib/typography/Text";
 
 function Cart({ cart }) {
   return (

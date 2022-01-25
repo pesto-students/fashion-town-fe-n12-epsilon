@@ -8,7 +8,7 @@ function FilterAndProductListing() {
     <FilterAndListingContainer>
       <Row></Row>
       <Row>
-        <Col xs={24} sm={6} md={6} lg={4}>
+        <Col xs={0} sm={6} md={6} lg={4}>
           <Row>
             <h3>
               <strong>Filters</strong>

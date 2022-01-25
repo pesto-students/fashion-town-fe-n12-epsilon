@@ -71,7 +71,7 @@ function Filter() {
     <Space direction="vertical" size={"large"}>
       {filterListArray.map((filter, index) => {
         return (
-          <Row xs={6} sm={6} md={24} lg={24} key={index}>
+          <Row key={index}>
             <FilterHeading>{filter.title}</FilterHeading>
             <FilterCheckboxWrapper>
               <FilterCheckBox

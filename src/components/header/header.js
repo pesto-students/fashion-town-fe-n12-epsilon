@@ -102,6 +102,7 @@ function Header() {
           </HamburgerIconCol>
         </Row>
       </NavBar>
+      
       <Drawer
         title="MENU"
         placement="right"
