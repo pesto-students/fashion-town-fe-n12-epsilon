@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Search from "../search/search";
-import { Space, Row, Col, Badge, Typography, Drawer, Button } from "antd";
+import { Space, Row, Col, Typography, Drawer } from "antd";
 import { NavLink, Link } from "react-router-dom";
 import {
   NavBar,
@@ -16,6 +16,7 @@ import {
 import Cart from "../cart/cart";
 import Auth from "../auth/auth";
 import links from "../../config/routeLinks";
+import DrawerMenu from "./drawerMenu";
 
 const { Title, Text } = Typography;
 
@@ -102,14 +103,13 @@ function Header() {
         </Row>
       </NavBar>
       <Drawer
-        title="Basic Drawer"
+        title="MENU"
         placement="right"
         onClose={onClose}
         visible={visible}
+        width={250}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <DrawerMenu />
       </Drawer>
     </>
   );

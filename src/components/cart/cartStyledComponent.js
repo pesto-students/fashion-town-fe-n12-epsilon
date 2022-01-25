@@ -58,6 +58,13 @@ const CartBoxRow = styled(Row)`
 const CartIcon = styled(ShoppingCartOutlined)`
   font-size: 30px;
 `;
+const CartText = styled.p`
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  cursor: pointer;
+  color: black;
+`;
 export {
   CartBox,
   CheckoutButtonWrapper,
@@ -68,4 +75,5 @@ export {
   CartListContainer,
   CartBoxRow,
   CartIcon,
+  CartText,
 };
