@@ -27,12 +27,12 @@ function LandingPage() {
           <Space size={"large"}>
             <NavLink to={links.shop}>
               <Button size={"large"} shape="round">
-                BUY NOW
+                SHOP NOW
               </Button>
             </NavLink>
-            <Button size={"large"} shape="round">
-              SELL NOW
-            </Button>
+            {/* <Button size={"large"} shape="round">
+              SELL NOW               yet to implement this feature
+            </Button> */}
           </Space>
         </ActionButtonContainer>
       </HeroBanner>

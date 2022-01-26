@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { Row, Col, Space, Input, Drawer } from "antd";
 
 import {
@@ -40,10 +40,16 @@ function Footer() {
           <Row>
             <Col xs={0} sm={0} md={6} lg={6} align="center">
               <Space direction="vertical" size={"large"} align="start">
-                <QuickLinksText>MEN</QuickLinksText>
-                <QuickLinksText>WOMEN</QuickLinksText>
-                <QuickLinksText>ACCESSORIES</QuickLinksText>
-                <QuickLinksText>ADMIN</QuickLinksText>
+                <NavLink to={links.shop + links.menSection}>
+                  <QuickLinksText>MEN</QuickLinksText>
+                </NavLink>
+                <NavLink to={links.shop + links.womenSection}>
+                  <QuickLinksText>WOMEN</QuickLinksText>
+                </NavLink>
+                <NavLink to={links.shop + links.accessoriesSection}>
+                  <QuickLinksText>ACCESSORIES</QuickLinksText>
+                </NavLink>
+                {/* <QuickLinksText>ADMIN</QuickLinksText>  yet to implement this feature*/}
               </Space>
             </Col>
             <Col xs={24} sm={24} md={12} lg={12} align="center">
@@ -74,7 +80,7 @@ function Footer() {
           </Row>
         </FooterContainer>
       </Col>
-      {pathname === `/${shop}`  && (
+      {pathname === `/${shop}` && (
         <Col xs={24} sm={0} md={0} lg={0} xl={0}>
           <BottomFilterBox onClick={showDrawer}>
             <Space>
