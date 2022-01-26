@@ -11,6 +11,8 @@ import {
   AccessoriesBlock,
   CategoryButtonsWrapper,
 } from "./landingStyledComponent";
+import links from "../../config/routeLinks";
+import { NavLink } from "react-router-dom";
 
 function LandingPage() {
   return (
@@ -23,9 +25,11 @@ function LandingPage() {
         </HeroText>
         <ActionButtonContainer>
           <Space size={"large"}>
-            <Button size={"large"} shape="round">
-              BUY NOW
-            </Button>
+            <NavLink to={links.shop}>
+              <Button size={"large"} shape="round">
+                BUY NOW
+              </Button>
+            </NavLink>
             <Button size={"large"} shape="round">
               SELL NOW
             </Button>
@@ -44,18 +48,22 @@ function LandingPage() {
           >
             <MenBlock>
               <CategoryButtonsWrapper>
-                <Button size={"large"} shape="round">
-                  MEN
-                </Button>
+                <NavLink to={links.shop + links.menSection}>
+                  <Button size={"large"} shape="round">
+                    MEN
+                  </Button>
+                </NavLink>
               </CategoryButtonsWrapper>
             </MenBlock>
           </Col>
           <Col xs={24} sm={12} md={12} lg={6} xl={6} style={{ padding: "5px" }}>
             <WomenBlock>
               <CategoryButtonsWrapper>
-                <Button size={"large"} shape="round">
-                  WOMEN
-                </Button>
+                <NavLink to={links.shop + links.womenSection}>
+                  <Button size={"large"} shape="round">
+                    WOMEN
+                  </Button>
+                </NavLink>
               </CategoryButtonsWrapper>
             </WomenBlock>
           </Col>
@@ -64,9 +72,11 @@ function LandingPage() {
       <AccessoriesSection>
         <AccessoriesBlock>
           <CategoryButtonsWrapper>
-            <Button size={"large"} shape="round">
-              ACCESSORIES
-            </Button>
+            <NavLink to={links.shop + links.accessoriesSection}>
+              <Button size={"large"} shape="round">
+                ACCESSORIES
+              </Button>
+            </NavLink>
           </CategoryButtonsWrapper>
         </AccessoriesBlock>
       </AccessoriesSection>
