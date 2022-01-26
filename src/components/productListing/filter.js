@@ -53,11 +53,11 @@ function Filter() {
 
   useEffect(() => {
     applyFilters("brand", brandFilters);
-  }, [brandFilters]);
+  }, [brandFilters]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     applyFilters("dominantColor", colorFilters);
-  }, [colorFilters]);
+  }, [colorFilters]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const checkBoxToggleHandler = (checkedValues, filterType) => {
     if (filterType === "brand") {

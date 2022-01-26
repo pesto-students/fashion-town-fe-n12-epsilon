@@ -46,7 +46,7 @@ function ProductListing() {
       setResultType("filter");
       productByFilters({ variables: filterTypeValueArray });
     }
-  }, [searchParams]);
+  }, [searchParams]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <>

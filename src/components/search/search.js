@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import links from "../../config/routeLinks";
 
 function Search() {
-  const [searchPrams, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams(); 
   const location = useLocation();
   const navigate = useNavigate();
   const { pathname } = location;

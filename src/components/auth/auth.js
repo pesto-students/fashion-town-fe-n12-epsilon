@@ -56,7 +56,7 @@ function Auth({ setUserName, setCurrentPath, userName }) {
     } else {
       setLogin(false);
     }
-  }, [userName]);
+  }, [userName, setUserName]);
 
   return (
     <>

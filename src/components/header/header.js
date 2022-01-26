@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Search from "../search/search";
-import { Space, Row, Col, Typography, Drawer } from "antd";
+import { Space, Row, Col, Drawer } from "antd";
 import { NavLink, Link } from "react-router-dom";
 import {
   NavBar,
@@ -16,8 +16,6 @@ import Cart from "../cart/cart";
 import Auth from "../auth/auth";
 import links from "../../config/routeLinks";
 import DrawerMenu from "./drawerMenu";
-
-const { Title, Text } = Typography;
 
 function Header() {
   const [visible, setVisible] = useState(false);
