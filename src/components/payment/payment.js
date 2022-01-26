@@ -33,15 +33,15 @@ function Payment(props) {
 
   const Razorpay = useRazorpay();
 
+  const amount = parseInt(Math.floor(calculateTotalMRP()) + "00");
+  const orderId = "P" + moment().format("YYYYMMDDHHmmss");
+
   const [getRazorPayOrder, { error, loading, data }] = useMutation(
     RAZORPAY_ORDER_QUERY,
     {
       variables: { amount: amount, orderId: orderId },
     }
   );
-  
-  const amount = parseInt(Math.floor(calculateTotalMRP()) + "00");
-  const orderId = "P" + moment().format("YYYYMMDDHHmmss");
 
   const handlePayment = async (OrderPrams) => {
     const options = {
@@ -82,7 +82,7 @@ function Payment(props) {
 
     rzp1.open();
   };
-  
+
   if (data) {
     console.log(data.createRazorPayOrder);
     handlePayment(data.createRazorPayOrder);

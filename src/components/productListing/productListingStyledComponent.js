@@ -4,6 +4,7 @@ import styled from "styled-components";
 const FilterAndListingContainer = styled.section`
   padding: 10px 5%;
   min-height: 70vh;
+  margin-bottom: 50px;
 `;
 
 const LoadingContainer = styled.section`

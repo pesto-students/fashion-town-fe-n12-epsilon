@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Row, Col, Space, Input,Drawer } from "antd";
+import { useLocation } from "react-router-dom";
+import { Row, Col, Space, Input, Drawer } from "antd";
 
 import {
   FooterContainer,
@@ -19,6 +20,9 @@ import Filter from "../productListing/filter";
 
 function Footer() {
   const [visible, setVisible] = useState(false);
+
+  const location = useLocation();
+  const { pathname } = location;
 
   const showDrawer = () => {
     setVisible(true);
@@ -68,20 +72,22 @@ function Footer() {
           </Row>
         </FooterContainer>
       </Col>
-      <Col xs={24} sm={0} md={0} lg={0} xl={0}>
-        <BottomFilterBox onClick={showDrawer}>
-          <Space>
-            <FilterOutlined />
-            <Text>FILTERS</Text>
-          </Space>
-        </BottomFilterBox>
-      </Col>
+      {pathname === "/shop" && (
+        <Col xs={24} sm={0} md={0} lg={0} xl={0}>
+          <BottomFilterBox onClick={showDrawer}>
+            <Space>
+              <FilterOutlined />
+              <Text>FILTERS</Text>
+            </Space>
+          </BottomFilterBox>
+        </Col>
+      )}
       <Drawer
         title="FILTERS"
         placement="bottom"
         onClose={onClose}
         visible={visible}
-        height={'100%'}
+        height={"100%"}
       >
         <Filter />
       </Drawer>
