@@ -1,5 +1,5 @@
 import { image } from "../assets/images/fallbackImage"
-
+import "dotenv/config"
 const config = {};
 config.themeColor = "#FF7F3F";
 config.googleAuthApi = process.env.REACT_APP_GOOGLE_AUTH_API;
