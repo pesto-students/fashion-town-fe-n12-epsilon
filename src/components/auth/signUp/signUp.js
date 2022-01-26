@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 import { updateProfile } from "firebase/auth";
 import {
   createUserWithEmailAndPassword,
@@ -15,10 +15,11 @@ import { Input, Row, Form } from "antd";
 import { setUserName } from "../../../redux/actions/authActions";
 import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
 
-function SignUp({ setUserName }) {
+function SignUp({ setUserName, redirectPath }) {
   const [registerEmail, setRegisterEmail] = useState(null);
   const [registerPassword, setRegisterPassword] = useState(null);
   const [registerName, setRegisterName] = useState(null);
+  const navigate = useNavigate();
 
   const registerUser = async () => {
     try {
@@ -30,6 +31,7 @@ function SignUp({ setUserName }) {
       );
       await addUserNameToProfile(auth.currentUser);
       setUserName(registerName);
+      navigate(redirectPath, { replace: true });
     } catch (error) {
       console.log(error);
     }
@@ -108,7 +110,7 @@ function SignUp({ setUserName }) {
 }
 
 const mapStateToProps = (state) => {
-  return { userName: state.Auth.userName };
+  return { userName: state.Auth.userName, redirectPath: state.Redirect.path };
 };
 
 const mapDispatchToProps = (dispatch) => {
