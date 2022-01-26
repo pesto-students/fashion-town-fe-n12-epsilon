@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Checkbox, Space, Row } from "antd";
+import { Space, Row } from "antd";
 import {
+  FilterCheckBox,
   FilterCheckboxWrapper,
   FilterHeading,
 } from "./productListingStyledComponent";
@@ -9,7 +10,7 @@ import { useSearchParams } from "react-router-dom";
 import { colorList } from "../../assets/data/color";
 
 function Filter() {
-  let [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [brandFilters, setBrandFilters] = useState([]);
   const [colorFilters, setColorFilters] = useState([]);
 
@@ -18,12 +19,14 @@ function Filter() {
       name: "brand",
       options: brandList,
       defaultValue: brandFilters,
+      setFilterCallback: setBrandFilters,
       title: "BRAND",
     },
     {
       name: "color",
       defaultValue: colorFilters,
       options: colorList,
+      setFilterCallback: setColorFilters,
       title: "COLOR",
     },
   ];
@@ -31,14 +34,18 @@ function Filter() {
   const getAppliedFilterValueMap = () => {
     let filterTypeValueMap = {};
     searchParams.forEach((filter, keys) => {
-      filterTypeValueMap[keys] = filter;
+      if (filterTypeValueMap[keys]) {
+        filterTypeValueMap[keys].push(filter);
+      } else {
+        filterTypeValueMap[keys] = [filter];
+      }
     });
     return filterTypeValueMap;
   };
 
   const applyFilters = (filterType, selectedValueArray) => {
-    if (selectedValueArray.length > 0) {
-      let filterTypeValueMap = getAppliedFilterValueMap();
+    if (Array.isArray(selectedValueArray)) {
+      const filterTypeValueMap = getAppliedFilterValueMap();
       filterTypeValueMap[filterType] = selectedValueArray;
       setSearchParams(filterTypeValueMap);
     }
@@ -62,18 +69,12 @@ function Filter() {
 
   return (
     <Space direction="vertical" size={"large"}>
-
-      {filterListArray.map((filter) => {
+      {filterListArray.map((filter, index) => {
         return (
-          <Row xs={6} sm={6} md={24} lg={24}>
+          <Row xs={6} sm={6} md={24} lg={24} key={index}>
             <FilterHeading>{filter.title}</FilterHeading>
             <FilterCheckboxWrapper>
-              <Checkbox.Group
-                style={{
-                  display: "flex",
-                  marginLeft: "10px",
-                  flexDirection: "column",
-                }}
+              <FilterCheckBox
                 options={filter.options}
                 defaultValue={filter.defaultValue}
                 onChange={(checkedValues) =>
@@ -84,7 +85,6 @@ function Filter() {
           </Row>
         );
       })}
-
     </Space>
   );
 }

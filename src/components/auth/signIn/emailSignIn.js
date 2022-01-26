@@ -1,21 +1,31 @@
 import React, { useState } from "react";
-import { Input, Row, Button, Form, message } from "antd";
+import { connect } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import {
   signInWithEmailAndPassword,
   getAuth,
   setPersistence,
   inMemoryPersistence,
 } from "firebase/auth";
-import { connect } from "react-redux";
+
+import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
+
+import { Input, Row, Form, message } from "antd";
+import { FormItem } from "../authStyledComponent";
+import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
 message.config({
-    top: 100,
-    duration: 2,
-  });
-function EmailSignIn(props) {
+  top: 100,
+  right: 50,
+  duration: 2,
+});
+
+function EmailSignIn({ redirectPath, setUserName, setStoreAuth }) {
   const [signInEmail, setSignInEmail] = useState(null);
   const [signInPassword, setSignInPassword] = useState(null);
+
   const auth = getAuth();
-  const { dispatch } = props;
+  const navigate = useNavigate();
 
   const emailSignIn = async () => {
     try {
@@ -25,8 +35,9 @@ function EmailSignIn(props) {
         signInEmail,
         signInPassword
       );
-
-      dispatch({ type: "USER_NAME", payload: authResponse.user.displayName });
+      setUserName(authResponse.user.displayName);
+      setStoreAuth(authResponse.user);
+      navigate(redirectPath, { replace: true });
     } catch (error) {
       console.log(error.message);
       handleError(error.message);
@@ -42,14 +53,14 @@ function EmailSignIn(props) {
       message.error("Too many attempts! try after sometime");
     }
   };
+
   return (
     <Form autoComplete="off" onFinish={emailSignIn}>
       <Row>
         <h2>Login</h2>
       </Row>
       <Row>
-        <Form.Item
-          style={{ width: "100%" }}
+        <FormItem
           name="email"
           rules={[{ required: true, message: "Please enter your email!" }]}
         >
@@ -59,12 +70,11 @@ function EmailSignIn(props) {
             type={"email"}
             onChange={(e) => setSignInEmail(e.target.value)}
           />
-        </Form.Item>
+        </FormItem>
       </Row>
 
       <Row>
-        <Form.Item
-          style={{ width: "100%" }}
+        <FormItem
           name="password"
           rules={[{ required: true, message: "Please enter your password!" }]}
         >
@@ -74,30 +84,32 @@ function EmailSignIn(props) {
             type={"password"}
             onChange={(e) => setSignInPassword(e.target.value)}
           />
-        </Form.Item>
+        </FormItem>
       </Row>
 
       <Row>
-        <Form.Item style={{ width: "100%" }}>
-          <Button
-            htmlType="submit"
-            block
-            style={{
-              background: "#38AF1A",
-              borderRadius: "5px",
-              color: "white",
-            }}
-          >
+        <FormItem>
+          <ActionButton htmlType="submit" block background={"#38AF1A"}>
             LOGIN
-          </Button>
-        </Form.Item>
+          </ActionButton>
+        </FormItem>
       </Row>
     </Form>
   );
 }
 
-function mapStateToProps(state) {
-  return { userName: state.Auth.userName };
-}
+const mapStateToProps = (state) => {
+  return { userName: state.Auth.userName, redirectPath: state.Redirect.path };
+};
 
-export default connect(mapStateToProps)(EmailSignIn);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUserName: (userName) => {
+      dispatch(setUserName(userName));
+    },
+    setStoreAuth: (auth) => {
+      dispatch(setStoreAuth(auth));
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(EmailSignIn);

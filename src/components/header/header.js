@@ -1,6 +1,6 @@
 import React from "react";
 import Search from "../search/search";
-import { Space, Row, Col } from "antd";
+import { Space, Row, Col, Badge } from "antd";
 import { NavLink, Link } from "react-router-dom";
 import {
   NavBar,
@@ -14,38 +14,39 @@ import {
 import Wishlist from "../wishlist/wishlist";
 import Cart from "../cart/cart";
 import Auth from "../auth/auth";
+import links from "../../config/routeLinks";
 
 function header() {
   return (
     <NavBar>
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
         <Col className="gutter-row" span={3}>
-          <Link to={`/`}>
+          <Link to={links.home}>
             <Logo>Fashion Town</Logo>
           </Link>
         </Col>
 
         <Col className="gutter-row" span={5}>
           <NavBarGroup>
-            <Space size={"large"}>
+            <Space size={"SMALL"}>
               <NavBarItems>
-                <NavLink to={`/shop?idealFor=Men&productCategory=Clothing`}>
+                <NavLink to={links.shop + links.menSection}>
                   <NavText>MEN</NavText>
                 </NavLink>
               </NavBarItems>
               <NavBarItems>
-                <NavLink to={`/shop?idealFor=Women&productCategory=Clothing`}>
+                <NavLink to={links.shop + links.womenSection}>
                   <NavText>WOMEN</NavText>
                 </NavLink>
               </NavBarItems>
               <NavBarItems>
-                <NavLink to={`/shop?productCategory=Accessories`}>
+                <NavLink to={links.shop + links.accessoriesSection}>
                   <NavText>ACCESSORIES</NavText>
                 </NavLink>
               </NavBarItems>
               <NavBarItems>
-                <NavLink to={`/shop?productCategory=Home`}>
-                  <NavText>HOME</NavText>
+                <NavLink to={links.shop + links.livingSections}>
+                  <NavText>LIVING</NavText>
                 </NavLink>
               </NavBarItems>
             </Space>
@@ -69,12 +70,16 @@ function header() {
               </Col>
               <Col>
                 <NavBarActionItems>
+                  <Badge>
                   <Wishlist />
+                  </Badge>
                 </NavBarActionItems>
               </Col>
               <Col>
                 <NavBarActionItems>
+                  
                   <Cart />
+                 
                 </NavBarActionItems>
               </Col>
             </Row>

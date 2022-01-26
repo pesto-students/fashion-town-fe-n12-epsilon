@@ -1,15 +1,30 @@
-import React from 'react'
+import React from "react";
 import { Input } from "antd";
-function search() {
-    return (
-        <Input.Group>
-            <Input.Search size="large"
-              allowClear
-              style={{ width: "100%",borderRadius:"10px"}}
-              placeholder='Search...'
-            />
-          </Input.Group>
-    )
+import _ from "lodash";
+import { useSearchParams } from "react-router-dom";
+import { SearchInput } from "./searchStyledComponent";
+
+function Search() {
+  const [searchPrams, setSearchParams] = useSearchParams();
+
+  const handleSearchInputWithDebounce = _.debounce((search) => {
+    if (_.isEmpty(search)) {
+      setSearchParams();
+    } else {
+      setSearchParams({ search });
+    }
+  }, 500);
+
+  return (
+    <Input.Group>
+      <SearchInput
+        size="large"
+        allowClear
+        placeholder="Search..."
+        onChange={(e) => handleSearchInputWithDebounce(e.target.value)}
+      />
+    </Input.Group>
+  );
 }
 
-export default search
+export default Search;

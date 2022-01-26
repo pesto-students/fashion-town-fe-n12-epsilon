@@ -1,9 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Row, Button, Space,} from "antd";
-import { GoogleOutlined, FacebookFilled } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { IconHolder } from "./signInStyledComponent";
+
 import {
   googleAuthProvider,
   facebookAuthProvider,
@@ -16,8 +15,16 @@ import {
   inMemoryPersistence,
 } from "firebase/auth";
 
-export const SocialSignIn = (props) => {
-  const { dispatch } = props;
+import { Row, Button } from "antd";
+import { GoogleOutlined, FacebookFilled } from "@ant-design/icons";
+
+import { FullWidthSpace, IconHolder } from "../authStyledComponent";
+import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
+import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
+import links from "../../../config/routeLinks";
+
+function SocialSignIn({ redirectPath, setUserName, setStoreAuth }) {
+  const navigate = useNavigate();
 
   const handleSocialAuth = async (provider) => {
     const auth = getAuth();
@@ -25,15 +32,16 @@ export const SocialSignIn = (props) => {
       await setPersistence(auth, inMemoryPersistence);
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-     
-      dispatch({ type: "USER_NAME", payload: user.displayName });
+      setUserName(user.displayName);
+      setStoreAuth(user);
+      navigate(redirectPath, { replace: true });
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <Space direction="vertical" size={"large"} style={{ width: "100%" }}>
+    <FullWidthSpace direction="vertical" size={"large"}>
       <Row style={{ position: "relative" }}>
         <IconHolder>
           <GoogleOutlined />
@@ -53,35 +61,31 @@ export const SocialSignIn = (props) => {
       </Row>
 
       <Row>
-        <Button
-          block
-          style={{
-            background: "#FF7F3F",
-            borderRadius: "5px",
-            color: "white",
-          }}
-        >
-          <Link to={`/signUp`}>CREATE ACCOUNT</Link>
-        </Button>
+        <ActionButton background={"#FF7F3F"} block>
+          <Link to={links.signUp}>CREATE ACCOUNT</Link>
+        </ActionButton>
       </Row>
       <Row>
-        <Button
-          block
-          style={{
-            background: "grey",
-            borderRadius: "5px",
-            color: "white",
-          }}
-        >
+        <ActionButton block background={"#808080"}>
           GUEST LOGIN
-        </Button>
+        </ActionButton>
       </Row>
-    </Space>
+    </FullWidthSpace>
   );
-};
-
-function mapStateToProps(state) {
-  return { userName: state.Auth.userName };
 }
 
-export default connect(mapStateToProps)(SocialSignIn);
+const mapStateToProps = (state) => {
+  return { redirectPath: state.Redirect.path };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUserName: (userName) => {
+      dispatch(setUserName(userName));
+    },
+    setStoreAuth: (auth) => {
+      dispatch(setStoreAuth(auth));
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(SocialSignIn);

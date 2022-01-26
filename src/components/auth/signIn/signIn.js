@@ -3,34 +3,27 @@ import {
   SignInContainer,
   SignInBox,
   HorizontalLine,
-} from "./signInStyledComponent";
+  FullWidthSpace,
+} from "../authStyledComponent";
 
-import { Row,Space} from "antd";
-import { connect } from "react-redux";
+import { Row } from "antd";
 import EmailSignIn from "./emailSignIn";
-import { SocialSignIn } from "./socialSignIn";
+import SocialSignIn from "./socialSignIn";
 
-
-
-function SignIn(props) {
-  
+function SignIn() {
   return (
     <SignInContainer>
       <SignInBox>
         <EmailSignIn />
-        <Space direction="vertical" size={"large"} style={{ width: "100%" }}>
+        <FullWidthSpace direction="vertical" size={"large"}>
           <Row>
             <HorizontalLine></HorizontalLine>
           </Row>
-            <SocialSignIn/>
-        </Space>
+          <SocialSignIn />
+        </FullWidthSpace>
       </SignInBox>
     </SignInContainer>
   );
 }
 
-function mapStateToProps(state) {
-  return { userName: state.Auth.userName };
-}
-
-export default connect(mapStateToProps)(SignIn);
+export default SignIn;

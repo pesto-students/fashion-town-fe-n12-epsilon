@@ -1,11 +1,30 @@
 import React from "react";
-import { ShoppingCartOutlined } from "@ant-design/icons";
-function cart() {
+
+import { connect } from "react-redux";
+
+import { Badge, Dropdown } from "antd";
+
+import CartPopUp from "./cartPopUp";
+import { CartIcon } from "./cartStyledComponent";
+
+function Cart({ cart }) {
   return (
     <div>
-      <ShoppingCartOutlined style={{ fontSize: "30px" }} />
+      <Dropdown
+        overlay={<CartPopUp cart={cart} />}
+        placement="bottomLeft"
+        disabled={cart.length <= 0}
+        overlayStyle={{ background: "white", width: "500px" }}
+      >
+        <Badge count={cart.length}>
+          <CartIcon />
+        </Badge>
+      </Dropdown>
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  return { cart: state.Cart.cart };
+};
 
-export default cart;
+export default connect(mapStateToProps)(Cart);

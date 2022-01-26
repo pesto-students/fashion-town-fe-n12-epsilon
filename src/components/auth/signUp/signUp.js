@@ -1,31 +1,35 @@
 import React, { useState } from "react";
-import { SignUpContainer, SignUpBox } from "./signUpStyledComponent";
-import { createUserWithEmailAndPassword,setPersistence,inMemoryPersistence } from "firebase/auth";
-import { auth } from "../../../config/firebase-config";
-import { Input, Row, Button,Form } from "antd";
 import { connect } from "react-redux";
-import { updateProfile } from "firebase/auth";
 
-function SignUp(props) {
+import { updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  setPersistence,
+  inMemoryPersistence,
+} from "firebase/auth";
+import { auth } from "../../../config/firebase-config";
+
+import { SignUpContainer, SignUpBox, FormItem } from "../authStyledComponent";
+import { Input, Row, Form } from "antd";
+
+import { setUserName } from "../../../redux/actions/authActions";
+import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
+
+function SignUp({ setUserName }) {
   const [registerEmail, setRegisterEmail] = useState(null);
   const [registerPassword, setRegisterPassword] = useState(null);
   const [registerName, setRegisterName] = useState(null);
 
-  const { dispatch } = props;
-
   const registerUser = async () => {
-    //e.preventDefault();
     try {
-      await setPersistence(auth,inMemoryPersistence)
-      const authResponse = await createUserWithEmailAndPassword(
+      await setPersistence(auth, inMemoryPersistence);
+      await createUserWithEmailAndPassword(
         auth,
         registerEmail,
         registerPassword
       );
-      console.log(authResponse.user.displayName);
-      console.log(auth.currentUser);
       await addUserNameToProfile(auth.currentUser);
-      dispatch({ type: "USER_NAME", payload: registerName });
+      setUserName(registerName);
     } catch (error) {
       console.log(error);
     }
@@ -34,22 +38,21 @@ function SignUp(props) {
   const addUserNameToProfile = async (user) => {
     try {
       await updateProfile(user, { displayName: registerName });
-      console.log("user name added");
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <SignUpContainer>
       <SignUpBox>
-        <Form autoComplete="off"  onFinish={registerUser}>
+        <Form autoComplete="off" onFinish={registerUser}>
           <Row>
             <h2>Signup</h2>
           </Row>
 
           <Row>
-            <Form.Item
-              style={{ width: "100%" }}
+            <FormItem
               name="Name"
               rules={[{ required: true, message: "Please enter your name!" }]}
             >
@@ -59,11 +62,10 @@ function SignUp(props) {
                 type={"text"}
                 onChange={(e) => setRegisterName(e.target.value)}
               />
-            </Form.Item>
+            </FormItem>
           </Row>
           <Row>
-            <Form.Item
-              style={{ width: "100%" }}
+            <FormItem
               name="email"
               rules={[{ required: true, message: "Please enter your email!" }]}
             >
@@ -73,12 +75,11 @@ function SignUp(props) {
                 type={"email"}
                 onChange={(e) => setRegisterEmail(e.target.value)}
               />
-            </Form.Item>
+            </FormItem>
           </Row>
 
           <Row>
-            <Form.Item
-              style={{ width: "100%" }}
+            <FormItem
               name="password"
               rules={[
                 { required: true, message: "Please enter your password!" },
@@ -90,31 +91,32 @@ function SignUp(props) {
                 type={"password"}
                 onChange={(e) => setRegisterPassword(e.target.value)}
               />
-            </Form.Item>
+            </FormItem>
           </Row>
 
           <Row>
-            <Form.Item style={{ width: "100%" }}>
-              <Button
-                htmlType="submit"
-                block
-                style={{
-                  background: "#FF7F3F",
-                  borderRadius: "5px",
-                  color: "white",
-                }}
-              >
+            <FormItem>
+              <ActionButton htmlType="submit" block background={"#FF7F3F"}>
                 CREATE ACCOUNT
-              </Button>
-            </Form.Item>
+              </ActionButton>
+            </FormItem>
           </Row>
         </Form>
       </SignUpBox>
     </SignUpContainer>
   );
 }
-function mapStateToPropsAuth(state) {
-  return { userName: state.Auth.userName };
-}
 
-export default connect(mapStateToPropsAuth)(SignUp);
+const mapStateToProps = (state) => {
+  return { userName: state.Auth.userName };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUserName: (userName) => {
+      dispatch(setUserName(userName));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

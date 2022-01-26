@@ -1,43 +1,60 @@
 import React from "react";
-import { Menu } from "antd";
-import { getAuth, signOut } from "firebase/auth";
-import { UserNameCapitalize } from "./authStyledComponent";
 import { connect } from "react-redux";
+import { getAuth, signOut } from "firebase/auth";
+import { Link } from "react-router-dom";
+import { Menu } from "antd";
+import { UserNameCapitalize } from "./authStyledComponent";
+
+import { setStoreAuth, setUserName } from "../../redux/actions/authActions";
+import links from "../../config/routeLinks";
 
 function UserMenu(props) {
+  const { setUserName, setStoreAuth, userName } = props;
 
-  const { dispatch } = props;
-
-  const logout = () => {
+  const logout = async () => {
     const auth = getAuth();
-    signOut(auth)
-      .then(() => {
-        dispatch({ type: "USER_NAME", payload: null });
-        console.log("Sign-out successful")
-      })
-      .catch((error) => {
-        console.log(error)
-      });
+    try {
+      await signOut(auth);
+      setUserName(null);
+      setStoreAuth(null);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  if (props) {
-    return (
-      <Menu>
-        <Menu.Item disabled>
-          <UserNameCapitalize>Hello {props.userName} !</UserNameCapitalize>
-        </Menu.Item>
-        <Menu.Item>
-          <p>Orders</p>
-        </Menu.Item>
-        <Menu.Item>
-          <p onClick={logout}>Logout</p>
-        </Menu.Item>
-      </Menu>
-    );
-  }
+  return (
+    <>
+      {userName && (
+        <Menu>
+          <Menu.Item disabled>
+            <UserNameCapitalize>Hello {userName} !</UserNameCapitalize>
+          </Menu.Item>
+          <Menu.Item>
+            <Link to={links.orderHistory}>
+              <p>Orders</p>
+            </Link>
+          </Menu.Item>
+          <Menu.Item>
+            <p onClick={logout}>Logout</p>
+          </Menu.Item>
+        </Menu>
+      )}
+    </>
+  );
 }
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return { userName: state.Auth.userName };
-}
+};
 
-export default  connect(mapStateToProps)(UserMenu);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUserName: (userName) => {
+      dispatch(setUserName(userName));
+    },
+    setStoreAuth: (auth) => {
+      dispatch(setStoreAuth(auth));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserMenu);

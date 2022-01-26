@@ -1,11 +1,11 @@
 import React from "react";
 import Filter from "./filter";
 import ProductListing from "./productListing";
-import { ListingContainer } from "./productListingStyledComponent";
+import { FilterAndListingContainer } from "./productListingStyledComponent";
 import { Row, Col } from "antd";
 function FilterAndProductListing() {
   return (
-    <ListingContainer>
+    <FilterAndListingContainer>
       <Row></Row>
       <Row>
         <Col xs={24} sm={6} md={6} lg={4}>
@@ -22,7 +22,7 @@ function FilterAndProductListing() {
           <ProductListing />
         </Col>
       </Row>
-    </ListingContainer>
+    </FilterAndListingContainer>
   );
 }
 

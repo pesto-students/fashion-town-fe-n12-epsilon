@@ -1,23 +1,35 @@
 import React, { useState, useEffect } from "react";
-import { DisplayText, NameInitialBox } from "./authStyledComponent";
-import { Link } from "react-router-dom";
-import { Dropdown } from "antd";
 import { connect } from "react-redux";
-import UserMenu from "./userMenu";
-import { onAuthStateChanged,getAuth } from "firebase/auth";
-//import { auth } from "../../config/firebase-config";
+import { onAuthStateChanged, getAuth } from "firebase/auth";
 
-function Auth(props) {
+import { useLocation, useNavigate } from "react-router-dom";
+import {
+  AuthHeaderWrapper,
+  DisplayText,
+  NameInitialBox,
+} from "./authStyledComponent";
+import { Dropdown } from "antd";
+
+import { setUserName } from "../../redux/actions/authActions";
+import { setCurrentPath } from "../../redux/actions/redirectActions";
+import links from "../../config/routeLinks";
+import UserMenu from "./userMenu";
+
+function Auth({ setUserName, setCurrentPath, userName }) {
   const [isLogin, setLogin] = useState(false);
   const [userInitial, setUserInitial] = useState(null);
-  const [userName, setUserName] = useState(null);
-  const { dispatch } = props;
+  // const [userName, setUserDisplayName] = useState(null);
+
   const auth = getAuth();
-  
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const generateUserInitial = (fullName) => {
     const nameArray = fullName.split(" ");
     const firstNameInitial = nameArray[0].charAt(0).toUpperCase();
-    const lastNameInitial = nameArray[nameArray.length - 1].charAt(0).toUpperCase();
+    const lastNameInitial = nameArray[nameArray.length - 1]
+      .charAt(0)
+      .toUpperCase();
     if (nameArray.length === 1) {
       return firstNameInitial;
     }
@@ -26,24 +38,28 @@ function Auth(props) {
 
   onAuthStateChanged(auth, (currentUser) => {
     if (currentUser) {
-      console.log(currentUser)
-      dispatch({ type: "USER_NAME", payload: currentUser.displayName });
+      setUserName(currentUser.displayName);
     }
-  })
+  });
+
+  const goToLogInPage = () => {
+    const currentPath = location.pathname + location.search;
+    setCurrentPath(currentPath);
+    navigate(links.signIn);
+  };
 
   useEffect(() => {
-    console.log(props.userName);
-    if (props.userName) {
-      setUserInitial(generateUserInitial(props.userName));
-      setUserName(props.userName);
+    if (userName) {
+      setUserInitial(generateUserInitial(userName));
+      setUserName(userName);
       setLogin(true);
     } else {
       setLogin(false);
     }
-  }, [props]);
+  }, [userName]);
 
   return (
-    <div style={{ width: "45px" }}>
+    <AuthHeaderWrapper>
       {isLogin && userInitial && (
         <Dropdown
           overlay={<UserMenu userName={userName} />}
@@ -52,17 +68,24 @@ function Auth(props) {
           <NameInitialBox>{userInitial}</NameInitialBox>
         </Dropdown>
       )}
-      {!isLogin && (
-        <Link to={`signIn`}>
-          <DisplayText>LOGIN</DisplayText>
-        </Link>
-      )}
-    </div>
+      {!isLogin && <DisplayText onClick={goToLogInPage}>LOGIN</DisplayText>}
+    </AuthHeaderWrapper>
   );
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   return { userName: state.Auth.userName };
-}
+};
 
-export default connect(mapStateToProps)(Auth);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setUserName: (userName) => {
+      dispatch(setUserName(userName));
+    },
+    setCurrentPath: (currentPath) => {
+      dispatch(setCurrentPath(currentPath));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);
