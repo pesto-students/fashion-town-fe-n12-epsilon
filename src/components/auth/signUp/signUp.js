@@ -12,10 +12,10 @@ import { auth } from "../../../config/firebase-config";
 import { SignUpContainer, SignUpBox, FormItem } from "../authStyledComponent";
 import { Input, Row, Form } from "antd";
 
-import { setUserName } from "../../../redux/actions/authActions";
+import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
 import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
 
-function SignUp({ setUserName, redirectPath }) {
+function SignUp({ setUserName, redirectPath, setStoreAuth }) {
   const [registerEmail, setRegisterEmail] = useState(null);
   const [registerPassword, setRegisterPassword] = useState(null);
   const [registerName, setRegisterName] = useState(null);
@@ -24,13 +24,15 @@ function SignUp({ setUserName, redirectPath }) {
   const registerUser = async () => {
     try {
       await setPersistence(auth, inMemoryPersistence);
-      await createUserWithEmailAndPassword(
-        auth,
-        registerEmail,
-        registerPassword
-      );
+       const authResponse = await createUserWithEmailAndPassword(
+         auth,
+         registerEmail,
+         registerPassword
+       );
+      console.log(authResponse);
       await addUserNameToProfile(auth.currentUser);
       setUserName(registerName);
+      setStoreAuth(authResponse.user);
       navigate(redirectPath, { replace: true });
     } catch (error) {
       console.log(error);
@@ -117,6 +119,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setUserName: (userName) => {
       dispatch(setUserName(userName));
+    },
+    setStoreAuth: (auth) => {
+      dispatch(setStoreAuth(auth));
     },
   };
 };
