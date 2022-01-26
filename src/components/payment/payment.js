@@ -45,7 +45,7 @@ function Payment(props) {
 
   const handlePayment = async (OrderPrams) => {
     const options = {
-      key: "rzp_test_QufTPfjwjSmSGC", // Enter the Key ID generated from the Dashboard
+      key: process.env.REACT_APP_RAZOR_PAY_KEY, // Enter the Key ID generated from the Dashboard
       amount: OrderPrams.amount_due, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
       currency: OrderPrams.currency,
       name: "Fashion Town",
