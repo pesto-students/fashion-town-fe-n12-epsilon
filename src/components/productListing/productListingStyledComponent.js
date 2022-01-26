@@ -20,6 +20,14 @@ const FilterCheckboxWrapper = styled.div`
   height: 300px;
   overflow-y: scroll;
   width: 100%;
+  ::-webkit-scrollbar {
+    width: 0; /* Remove scrollbar space */
+    background: transparent; /* Optional: just make scrollbar invisible */
+  }
+  /* Optional: show position indicator in red */
+  ::-webkit-scrollbar-thumb {
+    background: #ff0000;
+  }
 `;
 const ListingBox = styled.div`
   min-height: 70vh;
