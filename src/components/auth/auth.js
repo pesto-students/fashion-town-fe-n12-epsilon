@@ -8,7 +8,7 @@ import {
   DisplayText,
   NameInitialBox,
 } from "./authStyledComponent";
-import { Dropdown } from "antd";
+import { Col, Dropdown } from "antd";
 
 import { setUserName } from "../../redux/actions/authActions";
 import { setCurrentPath } from "../../redux/actions/redirectActions";
@@ -59,17 +59,25 @@ function Auth({ setUserName, setCurrentPath, userName }) {
   }, [userName]);
 
   return (
-    <AuthHeaderWrapper>
-      {isLogin && userInitial && (
-        <Dropdown
-          overlay={<UserMenu userName={userName} />}
-          placement="bottomLeft"
-        >
-          <NameInitialBox>{userInitial}</NameInitialBox>
-        </Dropdown>
-      )}
-      {!isLogin && <DisplayText onClick={goToLogInPage}>LOGIN</DisplayText>}
-    </AuthHeaderWrapper>
+    <>
+      <Col xs={0} sm={0} md={0} lg={0} xl={24}>
+        <AuthHeaderWrapper>
+          {isLogin && userInitial && (
+            <Dropdown
+              overlay={<UserMenu userName={userName} />}
+              placement="bottomLeft"
+            >
+              <NameInitialBox>{userInitial}</NameInitialBox>
+            </Dropdown>
+          )}
+          {!isLogin && <DisplayText onClick={goToLogInPage}>LOGIN</DisplayText>}
+        </AuthHeaderWrapper>
+      </Col>
+      <Col xs={24} sm={24} md={24} lg={24} xl={0}>
+        {!isLogin && <DisplayText onClick={goToLogInPage}>LOGIN</DisplayText>}
+        {isLogin && userInitial && <UserMenu userName={userName} />}
+      </Col>
+    </>
   );
 }
 

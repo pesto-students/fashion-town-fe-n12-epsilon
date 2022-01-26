@@ -5,7 +5,6 @@ import { NavLink, Link } from "react-router-dom";
 import {
   NavBar,
   NavBarItems,
-  NavBarGroup,
   NavText,
   Logo,
   HamburgerIcon,
@@ -102,7 +101,7 @@ function Header() {
           </HamburgerIconCol>
         </Row>
       </NavBar>
-      
+
       <Drawer
         title="MENU"
         placement="right"

@@ -14,6 +14,7 @@ import {
   SocialMediaHandleCol,
   BottomFilterBox,
 } from "./footerStyledComponent";
+import links from "../../config/routeLinks";
 import Text from "antd/lib/typography/Text";
 import { FilterOutlined } from "@ant-design/icons";
 import Filter from "../productListing/filter";
@@ -23,6 +24,7 @@ function Footer() {
 
   const location = useLocation();
   const { pathname } = location;
+  const { shop } = links
 
   const showDrawer = () => {
     setVisible(true);
@@ -72,7 +74,7 @@ function Footer() {
           </Row>
         </FooterContainer>
       </Col>
-      {pathname === "/shop" && (
+      {pathname === `/${shop}`  && (
         <Col xs={24} sm={0} md={0} lg={0} xl={0}>
           <BottomFilterBox onClick={showDrawer}>
             <Space>

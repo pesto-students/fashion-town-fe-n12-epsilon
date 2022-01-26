@@ -1,11 +1,12 @@
 import React from "react";
 
 import { connect } from "react-redux";
-
+import { Link } from "react-router-dom";
 import { Badge, Col, Dropdown } from "antd";
 
 import CartPopUp from "./cartPopUp";
 import { CartIcon, CartText } from "./cartStyledComponent";
+import links from "../../config/routeLinks";
 
 function Cart({ cart }) {
   return (
@@ -23,7 +24,9 @@ function Cart({ cart }) {
         </Dropdown>
       </Col>
       <Col xs={24} sm={24} md={24} lg={24} xl={0}>
-        <CartText>CART</CartText>
+        <Link to={links.checkout}>
+          <CartText>CART</CartText>
+        </Link>
       </Col>
     </div>
   );
