@@ -1,7 +1,7 @@
 import React from "react";
 import Search from "../search/search";
 import { Space, Row, Col } from "antd";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import {
   NavBar,
   NavBarItems,
@@ -21,7 +21,7 @@ function header() {
       <Row gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
         <Col className="gutter-row" span={3}>
           <Link to={`/`}>
-              <Logo>Fashion Town</Logo>
+            <Logo>Fashion Town</Logo>
           </Link>
         </Col>
 
@@ -29,13 +29,24 @@ function header() {
           <NavBarGroup>
             <Space size={"large"}>
               <NavBarItems>
-                <NavText>MEN</NavText>
+                <NavLink to={`/shop?idealFor=Men&productCategory=Clothing`}>
+                  <NavText>MEN</NavText>
+                </NavLink>
               </NavBarItems>
               <NavBarItems>
-                <NavText>WOMEN</NavText>
+                <NavLink to={`/shop?idealFor=Women&productCategory=Clothing`}>
+                  <NavText>WOMEN</NavText>
+                </NavLink>
               </NavBarItems>
               <NavBarItems>
-                <NavText>ACCESSORIES</NavText>
+                <NavLink to={`/shop?productCategory=Accessories`}>
+                  <NavText>ACCESSORIES</NavText>
+                </NavLink>
+              </NavBarItems>
+              <NavBarItems>
+                <NavLink to={`/shop?productCategory=Home`}>
+                  <NavText>HOME</NavText>
+                </NavLink>
               </NavBarItems>
             </Space>
           </NavBarGroup>
@@ -50,23 +61,23 @@ function header() {
         {/* <Col className="gutter-row" span={1}></Col> */}
         <Col className="gutter-row" span={3}>
           <NavBarActionGroup>
-              <Row>
-                <Col>
-              <NavBarActionItems>
-                <Auth />
-              </NavBarActionItems>
+            <Row>
+              <Col>
+                <NavBarActionItems>
+                  <Auth />
+                </NavBarActionItems>
               </Col>
               <Col>
-              <NavBarActionItems >
-                <Wishlist />
-              </NavBarActionItems>
+                <NavBarActionItems>
+                  <Wishlist />
+                </NavBarActionItems>
               </Col>
               <Col>
-              <NavBarActionItems>
-                <Cart />
-              </NavBarActionItems>
+                <NavBarActionItems>
+                  <Cart />
+                </NavBarActionItems>
               </Col>
-              </Row>
+            </Row>
           </NavBarActionGroup>
         </Col>
       </Row>

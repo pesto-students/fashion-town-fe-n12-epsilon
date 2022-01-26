@@ -20,6 +20,7 @@ const NavText = styled.p`
   font-weight: normal;
   font-size: 18px;
   cursor: pointer;
+  color: black;
 `;
 const NavBarGroup = styled.div`
   margin-left: 1%;
