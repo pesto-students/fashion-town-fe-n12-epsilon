@@ -62,12 +62,7 @@ function SocialSignIn({ redirectPath, setUserName, setStoreAuth }) {
 
       <Row>
         <ActionButton background={"#FF7F3F"} block>
-          <Link to={links.signUp}>CREATE ACCOUNT</Link>
-        </ActionButton>
-      </Row>
-      <Row>
-        <ActionButton block background={"#808080"}>
-          GUEST LOGIN
+          <Link to={`/${links.signUp}`}>CREATE ACCOUNT</Link>
         </ActionButton>
       </Row>
     </FullWidthSpace>

@@ -12,10 +12,15 @@ import {
   SizeButton,
 } from "./productDetailsStyledComponent";
 
-import { Row, Col, Space, Input, message, Typography, Button } from "antd";
+import { Row, Col, Space, Input, Typography, Button, notification } from "antd";
 import { setCart } from "../../redux/actions/cartActions";
+import { CheckCircleOutlined, WarningOutlined } from "@ant-design/icons";
 const { Title, Text } = Typography;
 const { Search } = Input;
+
+notification.config({
+  top: 100
+});
 
 function ProductDescription({ productDetails, setCart, cart }) {
   const [sizeSelected, setSizeSelected] = useState(null);
@@ -40,6 +45,18 @@ function ProductDescription({ productDetails, setCart, cart }) {
     return true;
   };
 
+  const openNotification = (message, type) => {
+    notification.open({
+      message: message,
+      icon:
+        type === "success" ? (
+          <CheckCircleOutlined style={{ color: "green" }} />
+        ) : (
+          <WarningOutlined style={{ color: "red" }} />
+        ),
+    });
+  };
+
   const getIndexOfProductInCart = (cartArray, product) => {
     console.log(cartArray);
     let indexOfProductInCart = null;
@@ -56,7 +73,7 @@ function ProductDescription({ productDetails, setCart, cart }) {
 
   const getUpdatedCart = (cart, product) => {
     if (isCartFull(cart)) {
-      message.error(`Cart Full`);
+      openNotification(`Cart Full`, "error");
       return cart;
     }
     const cartArray = [...cart];
@@ -64,10 +81,10 @@ function ProductDescription({ productDetails, setCart, cart }) {
     const indexOfProductInCart = getIndexOfProductInCart(cartArray, product);
     if (indexOfProductInCart !== null) {
       const quantity = cartArray[indexOfProductInCart].qty++;
-      message.success(`Item Quantity increased to ${quantity + 1}`);
+      openNotification(`Item Quantity increased to ${quantity + 1}`, "success");
     } else {
       cartArray.push(product);
-      message.success("Item added to cart");
+      openNotification("Item added to cart", "success");
     }
     return cartArray;
   };
@@ -77,7 +94,7 @@ function ProductDescription({ productDetails, setCart, cart }) {
       productDetails.product_category === "Clothing" &&
       sizeSelected === null
     ) {
-      message.error("Please Select Size");
+      openNotification("Please Select Size", "error");
       return false;
     }
     return true;
@@ -89,7 +106,7 @@ function ProductDescription({ productDetails, setCart, cart }) {
 
       if (_.isEmpty(cart)) {
         cartItems = [product];
-        message.success("Item added to cart");
+        openNotification("Item added to cart", "success");
       } else {
         cartItems = getUpdatedCart(cartItems, product);
       }

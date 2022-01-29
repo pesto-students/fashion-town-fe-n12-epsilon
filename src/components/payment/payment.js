@@ -33,19 +33,19 @@ function Payment(props) {
 
   const Razorpay = useRazorpay();
 
+  const amount = parseInt(Math.floor(calculateTotalMRP()) + "00");
+  const orderId = "P" + moment().format("YYYYMMDDHHmmss");
+
   const [getRazorPayOrder, { error, loading, data }] = useMutation(
     RAZORPAY_ORDER_QUERY,
     {
       variables: { amount: amount, orderId: orderId },
     }
   );
-  
-  const amount = parseInt(Math.floor(calculateTotalMRP()) + "00");
-  const orderId = "P" + moment().format("YYYYMMDDHHmmss");
 
   const handlePayment = async (OrderPrams) => {
     const options = {
-      key: "rzp_test_QufTPfjwjSmSGC", // Enter the Key ID generated from the Dashboard
+      key: process.env.REACT_APP_RAZOR_PAY_KEY, // Enter the Key ID generated from the Dashboard
       amount: OrderPrams.amount_due, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
       currency: OrderPrams.currency,
       name: "Fashion Town",
@@ -82,7 +82,7 @@ function Payment(props) {
 
     rzp1.open();
   };
-  
+
   if (data) {
     console.log(data.createRazorPayOrder);
     handlePayment(data.createRazorPayOrder);

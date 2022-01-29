@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { MenuOutlined } from "@ant-design/icons";
+import { Col } from "antd";
 
 const NavBar = styled.nav`
   width: 100%;
@@ -11,7 +13,7 @@ const NavBar = styled.nav`
 const Logo = styled.div`
   font-style: normal;
   font-weight: 600;
-  font-size: 26px;
+  font-size: 2em;
   margin-top: -8px;
   color: black;
 `;
@@ -22,25 +24,30 @@ const NavText = styled.p`
   cursor: pointer;
   color: black;
 `;
-const NavBarGroup = styled.div`
-  margin-left: 1%;
-  display: inline-block;
-`;
 const NavBarItems = styled.div`
-  margin-left: 100px;
-`;
-const NavBarActionGroup = styled.div`
-  display: inline-block;
-  margin-top: "12px"
-  
+  padding: 0 40px;
 `;
 
-const NavBarActionItems = styled.div`
-   margin-right: 25px;
-`
 const NavBarSpace = styled.div`
-     width: 40%;
-     display: flex;
-`
-
-export { NavBar, NavBarGroup, NavBarItems, Logo, NavText, NavBarActionGroup,NavBarActionItems,NavBarSpace };
+  width: 40%;
+  display: flex;
+`;
+const HamburgerIcon = styled(MenuOutlined)`
+  font-size: 1.8em;
+`;
+const HamburgerIconCol = styled(Col)`
+  text-align: right;
+`;
+const SpaceCol = styled(Col)`
+  z-index: -1;
+`;
+export {
+  NavBar,
+  NavBarItems,
+  Logo,
+  NavText,
+  NavBarSpace,
+  HamburgerIcon,
+  HamburgerIconCol,
+  SpaceCol,
+};

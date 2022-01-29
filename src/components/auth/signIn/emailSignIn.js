@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import "dotenv/config"
 
 import {
   signInWithEmailAndPassword,
@@ -27,7 +28,7 @@ function EmailSignIn({ redirectPath, setUserName, setStoreAuth }) {
   const auth = getAuth();
   const navigate = useNavigate();
 
-  const emailSignIn = async () => {
+  const emailSignIn = async (signInEmail, signInPassword) => {
     try {
       await setPersistence(auth, inMemoryPersistence);
       const authResponse = await signInWithEmailAndPassword(
@@ -54,8 +55,17 @@ function EmailSignIn({ redirectPath, setUserName, setStoreAuth }) {
     }
   };
 
+  const handelGuestLogin = () => {
+    const guestEmailId = process.env.REACT_APP_GUEST_USER_EMAIL
+    const guestPassword = process.env.REACT_APP_GUEST_USER_PASSWORD;
+    emailSignIn(guestEmailId, guestPassword);
+  }
+
   return (
-    <Form autoComplete="off" onFinish={emailSignIn}>
+    <Form
+      autoComplete="off"
+      onFinish={() => emailSignIn(signInEmail, signInPassword)}
+    >
       <Row>
         <h2>Login</h2>
       </Row>
@@ -93,6 +103,11 @@ function EmailSignIn({ redirectPath, setUserName, setStoreAuth }) {
             LOGIN
           </ActionButton>
         </FormItem>
+      </Row>
+      <Row>
+        <ActionButton block background={"#808080"} onClick={handelGuestLogin}>
+          GUEST LOGIN
+        </ActionButton>
       </Row>
     </Form>
   );

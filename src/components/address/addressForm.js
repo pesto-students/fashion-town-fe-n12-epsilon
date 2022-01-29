@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-
 import { Card, Input, Form } from "antd";
 import { NextButton } from "./addressStyledComponent";
 import { setAddress, setStatus } from "../../redux/actions/cartActions";
 
-function AddressForm({ setAddress, setStatus }) {
+function AddressForm({ setAddress, setStatus, userName }) {
+
   const onFinish = (address) => {
     setAddress(address);
     setStatus("payment");
@@ -14,6 +14,19 @@ function AddressForm({ setAddress, setStatus }) {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
+  const autoFillAddressHandler = () => {
+    const address = {
+      name: "Guest User",
+      phone: "+91 9865329865",
+      street: "#57 7th cross",
+      city: "Bengaluru",
+      State: "Karnataka",
+      pin: "560098"
+    };
+     setAddress(address);
+     setStatus("payment");
+  }
 
   return (
     <Card title="DELIVERY ADDRESS">
@@ -97,14 +110,26 @@ function AddressForm({ setAddress, setStatus }) {
         >
           <Input placeholder="PIN code" />
         </Form.Item>
-
-        <Form.Item>
-          <NextButton htmlType="submit">CONTINUE</NextButton>
-        </Form.Item>
+        {userName === "Guest User" && (
+          <Form.Item>
+            <NextButton onClick={autoFillAddressHandler}>
+              AUTO FILL ADDRESS AND CONTINUE
+            </NextButton>
+          </Form.Item>
+        )}
+        {userName !== "Guest User" && (
+          <Form.Item>
+            <NextButton htmlType="submit">CONTINUE</NextButton>
+          </Form.Item>
+        )}
       </Form>
     </Card>
   );
 }
+
+const mapStateToProps = (state) => {
+  return { userName: state.Auth.userName };
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -117,4 +142,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(AddressForm);
+export default connect(mapStateToProps, mapDispatchToProps)(AddressForm);

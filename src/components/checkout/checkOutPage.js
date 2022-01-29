@@ -39,16 +39,12 @@ function CheckOutPage({ cart, address, status, order, storeAuth, setStatus }) {
     },
   });
 
-  const pushOrderDetailsToBackend = () => {
-    setStatus("orderPlaced");
-    createNewOrder();
-  };
-
   useEffect(() => {
     if (status === "paymentSuccessful") {
-      pushOrderDetailsToBackend();
+      setStatus("orderPlaced");
+      createNewOrder();
     }
-  }, [status]);
+  }, [status, setStatus, createNewOrder]);
 
   return (
     <CheckoutPageWrapper>

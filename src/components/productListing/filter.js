@@ -8,6 +8,7 @@ import {
 import { brandList } from "../../assets/data/brand";
 import { useSearchParams } from "react-router-dom";
 import { colorList } from "../../assets/data/color";
+import _ from "lodash";
 
 function Filter() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -17,7 +18,7 @@ function Filter() {
   const filterListArray = [
     {
       name: "brand",
-      options: brandList,
+      options: _.sortBy(brandList),
       defaultValue: brandFilters,
       setFilterCallback: setBrandFilters,
       title: "BRAND",
@@ -25,7 +26,7 @@ function Filter() {
     {
       name: "color",
       defaultValue: colorFilters,
-      options: colorList,
+      options: _.sortBy(colorList),
       setFilterCallback: setColorFilters,
       title: "COLOR",
     },
@@ -53,11 +54,11 @@ function Filter() {
 
   useEffect(() => {
     applyFilters("brand", brandFilters);
-  }, [brandFilters]);
+  }, [brandFilters]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     applyFilters("dominantColor", colorFilters);
-  }, [colorFilters]);
+  }, [colorFilters]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const checkBoxToggleHandler = (checkedValues, filterType) => {
     if (filterType === "brand") {
@@ -71,7 +72,7 @@ function Filter() {
     <Space direction="vertical" size={"large"}>
       {filterListArray.map((filter, index) => {
         return (
-          <Row xs={6} sm={6} md={24} lg={24} key={index}>
+          <Row key={index}>
             <FilterHeading>{filter.title}</FilterHeading>
             <FilterCheckboxWrapper>
               <FilterCheckBox

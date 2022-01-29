@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 import { updateProfile } from "firebase/auth";
 import {
   createUserWithEmailAndPassword,
@@ -12,24 +12,28 @@ import { auth } from "../../../config/firebase-config";
 import { SignUpContainer, SignUpBox, FormItem } from "../authStyledComponent";
 import { Input, Row, Form } from "antd";
 
-import { setUserName } from "../../../redux/actions/authActions";
+import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
 import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
 
-function SignUp({ setUserName }) {
+function SignUp({ setUserName, redirectPath, setStoreAuth }) {
   const [registerEmail, setRegisterEmail] = useState(null);
   const [registerPassword, setRegisterPassword] = useState(null);
   const [registerName, setRegisterName] = useState(null);
+  const navigate = useNavigate();
 
   const registerUser = async () => {
     try {
       await setPersistence(auth, inMemoryPersistence);
-      await createUserWithEmailAndPassword(
-        auth,
-        registerEmail,
-        registerPassword
-      );
+       const authResponse = await createUserWithEmailAndPassword(
+         auth,
+         registerEmail,
+         registerPassword
+       );
+      console.log(authResponse);
       await addUserNameToProfile(auth.currentUser);
       setUserName(registerName);
+      setStoreAuth(authResponse.user);
+      navigate(redirectPath, { replace: true });
     } catch (error) {
       console.log(error);
     }
@@ -108,13 +112,16 @@ function SignUp({ setUserName }) {
 }
 
 const mapStateToProps = (state) => {
-  return { userName: state.Auth.userName };
+  return { userName: state.Auth.userName, redirectPath: state.Redirect.path };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
     setUserName: (userName) => {
       dispatch(setUserName(userName));
+    },
+    setStoreAuth: (auth) => {
+      dispatch(setStoreAuth(auth));
     },
   };
 };

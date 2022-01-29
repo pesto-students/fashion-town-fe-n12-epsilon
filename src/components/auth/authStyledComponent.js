@@ -42,6 +42,7 @@ const SignUpBox = styled.div`
   background: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   padding: 2%;
+  border-radius: 10px;
 `;
 
 const SignInContainer = styled.div`
@@ -65,6 +66,7 @@ const SignInBox = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   padding: 2%;
   position: relative;
+  border-radius: 10px;
 `;
 const HorizontalLine = styled.div`
   border: 1px solid #cacaca;
