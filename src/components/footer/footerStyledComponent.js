@@ -17,6 +17,7 @@ const QuickLinksText = styled.span`
   font-weight: normal;
   font-size: 18px;
   cursor: pointer;
+  color: black;
 `;
 
 const HorizontalLine = styled.div`
