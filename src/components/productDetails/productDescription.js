@@ -18,6 +18,10 @@ import { CheckCircleOutlined, WarningOutlined } from "@ant-design/icons";
 const { Title, Text } = Typography;
 const { Search } = Input;
 
+notification.config({
+  top: 100
+});
+
 function ProductDescription({ productDetails, setCart, cart }) {
   const [sizeSelected, setSizeSelected] = useState(null);
   const sizeArray = config.sizeArray;
