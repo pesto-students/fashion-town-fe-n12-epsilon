@@ -8,6 +8,7 @@ import {
 import { brandList } from "../../assets/data/brand";
 import { useSearchParams } from "react-router-dom";
 import { colorList } from "../../assets/data/color";
+import _ from "lodash";
 
 function Filter() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -17,7 +18,7 @@ function Filter() {
   const filterListArray = [
     {
       name: "brand",
-      options: brandList,
+      options: _.sortBy(brandList),
       defaultValue: brandFilters,
       setFilterCallback: setBrandFilters,
       title: "BRAND",
@@ -25,7 +26,7 @@ function Filter() {
     {
       name: "color",
       defaultValue: colorFilters,
-      options: colorList,
+      options: _.sortBy(colorList),
       setFilterCallback: setColorFilters,
       title: "COLOR",
     },
