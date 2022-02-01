@@ -7,19 +7,24 @@ import { Badge, Col, Dropdown } from "antd";
 import CartPopUp from "./cartPopUp";
 import { CartIcon, CartText } from "./cartStyledComponent";
 import links from "../../config/routeLinks";
+import openNotification from "../notification/messageNotification";
 
 function Cart({ cart }) {
+ const handleCartIconClick = () => {
+    openNotification("Your cart is empty",'error')
+  }
   return (
     <>
       <Col xs={0} sm={0} md={0} lg={0} xl={24}>
         <Dropdown
+          trigger={["click"]}
           overlay={<CartPopUp cart={cart} />}
           placement="bottomLeft"
           disabled={cart.length <= 0}
           overlayStyle={{ background: "white", width: "500px" }}
         >
           <Badge count={cart.length}>
-            <CartIcon />
+            <CartIcon onClick={handleCartIconClick} />
           </Badge>
         </Dropdown>
       </Col>

@@ -12,16 +12,11 @@ import {
   SizeButton,
 } from "./productDetailsStyledComponent";
 
-import { Row, Col, Space, Input, Typography, Button, notification } from "antd";
+import { Row, Col, Space, Input, Typography, Button } from "antd";
 import { setCart } from "../../redux/actions/cartActions";
-import { CheckCircleOutlined, WarningOutlined } from "@ant-design/icons";
+import openNotification from "../notification/messageNotification";
 const { Title, Text } = Typography;
 const { Search } = Input;
-
-notification.config({
-  top: 100,
-  duration: 1,
-});
 
 function ProductDescription({ productDetails, setCart, cart }) {
   const [sizeSelected, setSizeSelected] = useState(null);
@@ -44,18 +39,6 @@ function ProductDescription({ productDetails, setCart, cart }) {
       return false;
     }
     return true;
-  };
-
-  const openNotification = (message, type) => {
-    notification.open({
-      message: message,
-      icon:
-        type === "success" ? (
-          <CheckCircleOutlined style={{ color: "green" }} />
-        ) : (
-          <WarningOutlined style={{ color: "red" }} />
-        ),
-    });
   };
 
   const getIndexOfProductInCart = (cartArray, product) => {

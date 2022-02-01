@@ -15,9 +15,8 @@ import { setCurrentPath } from "../../redux/actions/redirectActions";
 import { ActionButton } from "../globalStyledComponent/globalStyledComponents";
 import links from "../../config/routeLinks";
 
-function CartPopUp({ storeAuth, setStatus, setCurrentPath }) {
+function CartPopUp({ storeAuth, setStatus, setCurrentPath, cart }) {
   const navigate = useNavigate();
-
   const onClickCheckoutHandler = () => {
     setStatus("bag");
     if (storeAuth && storeAuth.email) {
@@ -35,19 +34,21 @@ function CartPopUp({ storeAuth, setStatus, setCurrentPath }) {
           <CartList />
         </Col>
       </CartBoxRow>
-      <Row>
-        <Col xs={24} sm={24} md={24} lg={24}>
-          <CheckoutButtonWrapper>
-            <ActionButton
-              block
-              background={"#FF7F3F"}
-              onClick={onClickCheckoutHandler}
-            >
-              CHECKOUT
-            </ActionButton>
-          </CheckoutButtonWrapper>
-        </Col>
-      </Row>
+      {cart.length && (
+        <Row>
+          <Col xs={24} sm={24} md={24} lg={24}>
+            <CheckoutButtonWrapper>
+              <ActionButton
+                block
+                background={"#FF7F3F"}
+                onClick={onClickCheckoutHandler}
+              >
+                CHECKOUT
+              </ActionButton>
+            </CheckoutButtonWrapper>
+          </Col>
+        </Row>
+      )}
     </CartBox>
   );
 }
@@ -55,6 +56,7 @@ function CartPopUp({ storeAuth, setStatus, setCurrentPath }) {
 const mapStateToProps = (state) => {
   return {
     storeAuth: state.Auth.storeAuth,
+    cart: state.Cart.cart,
   };
 };
 
