@@ -5,7 +5,9 @@ export const FILTER_QUERY = gql`
     $brand: [String]
     $productCategory: [String]
     $idealFor: [String]
-    $dominantColor: [String]  
+    $dominantColor: [String]
+    $page: [String]
+    $itemCount: [String]
   ) {
     productByFilters(
       product_id: $productId
@@ -13,12 +15,17 @@ export const FILTER_QUERY = gql`
       product_category: $productCategory
       ideal_for: $idealFor
       dominant_color: $dominantColor
+      page: $page
+      itemCount: $itemCount
     ) {
-      product_id
-      brand
-      title
-      images
-      price
+      products {
+        product_id
+        brand
+        title
+        images
+        price
+      }
+      totalCount
     }
   }
 `;
@@ -29,7 +36,7 @@ export const PRODUCT_BY_ID_FILTER_QUERY = gql`
     $brand: [String]
     $productCategory: [String]
     $idealFor: [String]
-    $dominantColor: [String]  
+    $dominantColor: [String]
   ) {
     productByFilters(
       product_id: $productId
@@ -38,17 +45,19 @@ export const PRODUCT_BY_ID_FILTER_QUERY = gql`
       ideal_for: $idealFor
       dominant_color: $dominantColor
     ) {
-      product_id
-      product_details
-      brand
-      title
-      images
-      price
-      dominant_color
-      size_fit
-      care_instructions
-      ideal_for
-      product_category
+      products {
+        product_id
+        product_details
+        brand
+        title
+        images
+        price
+        dominant_color
+        size_fit
+        care_instructions
+        ideal_for
+        product_category
+      }
     }
   }
 `;

@@ -19,7 +19,8 @@ const { Title, Text } = Typography;
 const { Search } = Input;
 
 notification.config({
-  top: 100
+  top: 100,
+  duration: 1,
 });
 
 function ProductDescription({ productDetails, setCart, cart }) {
@@ -125,7 +126,7 @@ function ProductDescription({ productDetails, setCart, cart }) {
         <TaxText>inclusive of all taxes</TaxText>
 
         {productDetails.product_category === "Clothing" && (
-          <div>
+          <>
             <Title level={5}>SELECT SIZE</Title>
             <ActionButtonWrapper>
               <Space size={"large"}>
@@ -144,7 +145,7 @@ function ProductDescription({ productDetails, setCart, cart }) {
                 })}
               </Space>
             </ActionButtonWrapper>
-          </div>
+          </>
         )}
         <ActionButtonWrapper>
           <Row>

@@ -13,6 +13,8 @@ import InvalidRoute from "./result/invalidRoute";
 import { ContentSectionWrapper } from "./contentSection/contentSectionStyledComponent";
 import links from "../config/routeLinks";
 import PrivateRoute from "./privateRoute/privateRoute";
+import Sell from "./sell/sell";
+import FreshArrivals from "./productListing/freshArrivals";
 
 export class Main extends Component {
   render() {
@@ -25,6 +27,10 @@ export class Main extends Component {
             <Route path={links.signIn} element={<SignIn />} />
             <Route path={links.signUp} element={<SignUp />} />
             <Route path={links.shop} element={<FilterAndProductListing />} />
+            <Route
+              path={links.freshArrivals}
+              element={<FilterAndProductListing />}
+            />
             <Route
               path={`${links.product}/:id`}
               element={<ProductDetailsPage />}
@@ -42,6 +48,14 @@ export class Main extends Component {
               element={
                 <PrivateRoute>
                   <OrderHistory />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path={links.sell}
+              element={
+                <PrivateRoute>
+                  <Sell />
                 </PrivateRoute>
               }
             />

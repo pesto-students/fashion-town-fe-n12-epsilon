@@ -16,7 +16,7 @@ import { NavLink } from "react-router-dom";
 
 function LandingPage() {
   return (
-    <div>
+    <>
       <HeroBanner>
         <HeroText>
           ITS TIME TO STAND
@@ -30,9 +30,16 @@ function LandingPage() {
                 SHOP NOW
               </Button>
             </NavLink>
-            {/* <Button size={"large"} shape="round">
-              SELL NOW               yet to implement this feature
-            </Button> */}
+            <NavLink to={links.sell}>
+              <Button size={"large"} shape="round">
+                SELL NOW
+              </Button>
+            </NavLink>
+            <NavLink to={links.freshArrivals}>
+              <Button size={"large"} shape="round">
+                Fresh Arrivals
+              </Button>
+            </NavLink>
           </Space>
         </ActionButtonContainer>
       </HeroBanner>
@@ -80,7 +87,7 @@ function LandingPage() {
           </CategoryButtonsWrapper>
         </AccessoriesBlock>
       </AccessoriesSection>
-    </div>
+    </>
   );
 }
 

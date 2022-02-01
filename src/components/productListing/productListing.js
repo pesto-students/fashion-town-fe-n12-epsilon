@@ -8,15 +8,17 @@ import ProductList from "./productList";
 import { connect } from "react-redux";
 import { getAppliedFilterArray } from "./productUtilFunctions";
 
-import { setProductIdMapList } from "../../redux/actions/productActions";
 import ProductListLoading from "../loadingAnimations/productListLoading";
 import ServerError from "../result/serverError";
 import { SEARCH_TEXT_QUERY } from "../../graphQlQueries/searchQuery";
+import { getAppliedFilterValueMap } from "../utils";
+import config from "../../config/config";
+import { Pagination } from "antd";
 
 function ProductListing() {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [resultType, setResultType] = useState(null);
-
+  const [currentPage, setCurrentPage] = useState(1);
   const [
     productByFilters,
     { error: filterError, loading: filterLoading, data: filterData },
@@ -36,8 +38,16 @@ function ProductListing() {
   };
 
   useEffect(() => {
-    const filterTypeValueArray = getAppliedFilterArray(searchParams);
+    if (currentPage) {
+      const filterTypeValueMap = getAppliedFilterValueMap(searchParams);
+      filterTypeValueMap["page"] = parseInt(currentPage);
+      filterTypeValueMap["itemCount"] = parseInt(config.itemsPerPage);
+      setSearchParams(filterTypeValueMap);
+    }
+  }, [currentPage]);
 
+  useEffect(() => {
+    const filterTypeValueArray = getAppliedFilterArray(searchParams);
     if (isSearchParamHasSearchInput(filterTypeValueArray)) {
       const searchInput = filterTypeValueArray["search"][0];
       setResultType("searchInput");
@@ -54,7 +64,16 @@ function ProductListing() {
         <ProductList productListData={searchQueryData.productBySearchInput} />
       )}
       {resultType === "filter" && filterData && (
-        <ProductList productListData={filterData.productByFilters} />
+        <>
+          <ProductList productListData={filterData.productByFilters.products} />
+          <Pagination
+            defaultCurrent={1}
+            total={filterData.productByFilters.totalCount}
+            current={currentPage}
+            onChange={(page) => setCurrentPage(page)}
+            style={{ textAlign: "center" }}
+          />
+        </>
       )}
       {(filterLoading || searchQueryLoading) && <ProductListLoading />}
       {(filterError || searchQueryError) && <ServerError />}
@@ -62,12 +81,4 @@ function ProductListing() {
   );
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    setProductIdMapList: (productIdMapList) => {
-      dispatch(setProductIdMapList(productIdMapList));
-    },
-  };
-};
-
-export default connect(null, mapDispatchToProps)(ProductListing);
+export default ProductListing;
