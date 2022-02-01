@@ -5,9 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import { FILTER_QUERY } from "../../graphQlQueries/filterQuery";
 
 import ProductList from "./productList";
-import { connect } from "react-redux";
 import { getAppliedFilterArray } from "./productUtilFunctions";
-
 import ProductListLoading from "../loadingAnimations/productListLoading";
 import ServerError from "../result/serverError";
 import { SEARCH_TEXT_QUERY } from "../../graphQlQueries/searchQuery";

@@ -14,7 +14,6 @@ import { ContentSectionWrapper } from "./contentSection/contentSectionStyledComp
 import links from "../config/routeLinks";
 import PrivateRoute from "./privateRoute/privateRoute";
 import Sell from "./sell/sell";
-import FreshArrivals from "./productListing/freshArrivals";
 
 export class Main extends Component {
   render() {

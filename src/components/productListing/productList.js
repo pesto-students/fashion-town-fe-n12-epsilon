@@ -1,24 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 
-import { List, Pagination } from "antd";
+import { List } from "antd";
 import ProductCard from "../productCard/productCard";
 import { createProductIdDetailsMap } from "./productUtilFunctions";
 import { setProductIdMapList } from "../../redux/actions/productActions";
-import { useSearchParams } from "react-router-dom";
-import { getAppliedFilterValueMap } from "../utils";
-import config from "../../config/config";
 
 function ProductList(props) {
-  const { productListData, totalCount } = props;
-  console.log(productListData);
+  const { productListData, setProductIdMapList } = props;
+
   const saveProductListDataToStore = (productListData) => {
     const productIdMapList = createProductIdDetailsMap(productListData);
-    props.setProductIdMapList(productIdMapList);
+    setProductIdMapList(productIdMapList);
   };
 
   saveProductListDataToStore(productListData);
-
 
   return (
     <>
@@ -38,7 +34,6 @@ function ProductList(props) {
           </List.Item>
         )}
       />
-      
     </>
   );
 }

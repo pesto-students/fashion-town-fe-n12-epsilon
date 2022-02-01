@@ -36,7 +36,7 @@ function Payment(props) {
   const amount = parseInt(Math.floor(calculateTotalMRP()) + "00");
   const orderId = "P" + moment().format("YYYYMMDDHHmmss");
 
-  const [getRazorPayOrder, { error, loading, data }] = useMutation(
+  const [getRazorPayOrder, { error, loading, data, reset }] = useMutation(
     RAZORPAY_ORDER_QUERY,
     {
       variables: { amount: amount, orderId: orderId },
@@ -55,6 +55,7 @@ function Payment(props) {
 
       handler: (response) => {
         console.log(response);
+        reset()
         setOrderItems(cart);
         setCart([]);
         setOrderId(orderId);
