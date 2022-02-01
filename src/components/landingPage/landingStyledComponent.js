@@ -13,6 +13,9 @@ const HeroBanner = styled.section`
   background-position: center;
   position: relative;
   background-size: cover;
+  @media (max-width: 768px) {
+    height: 40vh;
+  }
 `;
 
 const HeroText = styled.div`
@@ -21,12 +24,16 @@ const HeroText = styled.div`
   left: 8%;
   font-size: 3.5em;
   color: white;
+  @media (max-width: 768px) {
+    font-size: 2em;
+  }
 `;
 
 const ActionButtonContainer = styled.div`
   position: absolute;
   top: 70%;
   left: 8%;
+  bottom: 30%;
 `;
 
 const CategorySection = styled.section`
@@ -60,8 +67,8 @@ const FreshArrivalBlock = styled(CategoryBlock)`
 
 const CategoryButtonsWrapper = styled.div`
   position: absolute;
-  top: 90%;
   left: 50%;
+  bottom: 5%;
   transform: translate(-50%, -50%);
 `;
 

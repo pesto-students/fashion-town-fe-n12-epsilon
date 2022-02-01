@@ -8,7 +8,7 @@ import { setProductIdMapList } from "../../redux/actions/productActions";
 
 function ProductList(props) {
   const { productListData, setProductIdMapList } = props;
-
+  console.log(productListData);
   const saveProductListDataToStore = (productListData) => {
     const productIdMapList = createProductIdDetailsMap(productListData);
     setProductIdMapList(productIdMapList);

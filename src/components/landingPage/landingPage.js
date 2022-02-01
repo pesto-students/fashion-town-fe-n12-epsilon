@@ -71,18 +71,6 @@ function LandingPage() {
       <CategorySection>
         <SectionRow>
           <SectionCol xs={24} sm={12} md={12} lg={6} xl={6}>
-            <AccessoriesBlock>
-              <CategoryButtonsWrapper>
-                <NavLink to={links.shop + links.accessoriesSection}>
-                  <Button size={"large"} shape="round">
-                    ACCESSORIES
-                  </Button>
-                </NavLink>
-              </CategoryButtonsWrapper>
-            </AccessoriesBlock>
-          </SectionCol>
-
-          <SectionCol xs={24} sm={12} md={12} lg={6} xl={18}>
             <FreshArrivalBlock>
               <CategoryButtonsWrapper>
                 <NavLink to={links.freshArrivals}>
@@ -92,6 +80,17 @@ function LandingPage() {
                 </NavLink>
               </CategoryButtonsWrapper>
             </FreshArrivalBlock>
+          </SectionCol>
+          <SectionCol xs={24} sm={12} md={12} lg={18} xl={18}>
+            <AccessoriesBlock>
+              <CategoryButtonsWrapper>
+                <NavLink to={links.shop + links.accessoriesSection}>
+                  <Button size={"large"} shape="round">
+                    ACCESSORIES
+                  </Button>
+                </NavLink>
+              </CategoryButtonsWrapper>
+            </AccessoriesBlock>
           </SectionCol>
         </SectionRow>
       </CategorySection>

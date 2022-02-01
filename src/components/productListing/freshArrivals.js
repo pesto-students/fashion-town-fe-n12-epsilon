@@ -12,7 +12,7 @@ function FreshArrivals() {
     useLazyQuery(FRESH_ARRIVALS_QUERY);
 
   useEffect(() => {
-    getProductOrderBy({ variables: { orderBy: "listed_date", limit: 4 } });
+    getProductOrderBy({ variables: { orderBy: "listed_date", limit: 50 } });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
