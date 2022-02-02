@@ -5,8 +5,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { connect } from "react-redux";
 
 import Payment from "../payment/payment";
-import { Row, Col, Typography, Card } from "antd";
-import { HorizontalLine, NextButton } from "./checkoutStyledComponent";
+import { Row, Col, Typography } from "antd";
+import {
+  HorizontalLine,
+  NextButton,
+  OrderSummaryCard,
+} from "./checkoutStyledComponent";
 import { setStatus } from "../../redux/actions/cartActions";
 import { setCurrentPath } from "../../redux/actions/redirectActions";
 import links from "../../config/routeLinks";
@@ -27,7 +31,6 @@ function OrderSummary(props) {
   const navigate = useNavigate();
 
   const goToLogInPage = () => {
-    console.log(location);
     const currentPath = location.pathname + location.search;
     setCurrentPath(currentPath);
     navigate(links.signIn);
@@ -42,57 +45,57 @@ function OrderSummary(props) {
   };
 
   // if cart has Items ? show summary
-  if (cart.length) {
-    return (
-      <Card style={{ width: 300 }}>
-        <Row>
-          <Col xs={12} sm={12} md={12} lg={12}>
-            <Text type="secondary">PRICE DETAILS</Text>
-          </Col>
-          <Col xs={12} sm={12} md={12} lg={12}>
-            <Text type="secondary">({cart.length} Items)</Text>
-          </Col>
-        </Row>
-        <HorizontalLine />
-        <Row>
-          <Col xs={12} sm={12} md={12} lg={12}>
-            <Text>Total MRP</Text>
-          </Col>
-          <Col xs={12} sm={12} md={12} lg={12}>
-            Rs. {calculateTotalMRP()}
-          </Col>
-        </Row>
-        <Row>
-          <Col xs={12} sm={12} md={12} lg={12}>
-            <Text>Delivery charges</Text>
-          </Col>
-          <Col xs={12} sm={12} md={12} lg={12}>
-            Rs. 50
-          </Col>
-        </Row>
-        <HorizontalLine />
-        <Row>
-          <Col xs={12} sm={12} md={12} lg={12}>
-            <Text strong>Total Amount</Text>
-          </Col>
-          <Col xs={12} sm={12} md={12} lg={12}>
-            <Text strong> Rs. {calculateTotalMRP()}</Text>
-          </Col>
-        </Row>
+  return (
+    <>
+      {cart.length && (
+        <OrderSummaryCard>
+          <Row>
+            <Col xs={12} sm={12} md={12} lg={12}>
+              <Text type="secondary">PRICE DETAILS</Text>
+            </Col>
+            <Col xs={12} sm={12} md={12} lg={12}>
+              <Text type="secondary">({cart.length} Items)</Text>
+            </Col>
+          </Row>
+          <HorizontalLine />
+          <Row>
+            <Col xs={12} sm={12} md={12} lg={12}>
+              <Text>Total MRP</Text>
+            </Col>
+            <Col xs={12} sm={12} md={12} lg={12}>
+              Rs. {calculateTotalMRP()}
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12} sm={12} md={12} lg={12}>
+              <Text>Delivery charges</Text>
+            </Col>
+            <Col xs={12} sm={12} md={12} lg={12}>
+              Rs. 50
+            </Col>
+          </Row>
+          <HorizontalLine />
+          <Row>
+            <Col xs={12} sm={12} md={12} lg={12}>
+              <Text strong>Total Amount</Text>
+            </Col>
+            <Col xs={12} sm={12} md={12} lg={12}>
+              <Text strong> Rs. {calculateTotalMRP()}</Text>
+            </Col>
+          </Row>
 
-        {status === "bag" && (
-          <NextButton block onClick={nextStep}>
-            CONTINUE
-          </NextButton>
-        )}
-        {status === "payment" && (
-          <Payment calculateTotalMRP={calculateTotalMRP} />
-        )}
-      </Card>
-    );
-  } else {
-    return <></>;
-  }
+          {status === "bag" && (
+            <NextButton block onClick={nextStep}>
+              CONTINUE
+            </NextButton>
+          )}
+          {status === "payment" && (
+            <Payment calculateTotalMRP={calculateTotalMRP} />
+          )}
+        </OrderSummaryCard>
+      )}
+    </>
+  );
 }
 
 const mapStateToProps = (state) => {

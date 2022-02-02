@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Card, Input,Button} from "antd";
+import { Card, Input, Button } from "antd";
 const SellNowContainer = styled.div`
   height: 110vh;
   width: 100%;
@@ -13,11 +13,11 @@ const SellNowContainer = styled.div`
 `;
 
 const SellNowInput = styled(Input)`
-border-radius:5px;
-`
+  border-radius: 5px;
+`;
 const ProductDetailsWrapper = styled(Card)`
   width: 25%;
-`
+`;
 const NextButton = styled(Button)`
   background: #ff7f3f;
   border-radius: 5px;
@@ -38,4 +38,17 @@ const NextButton = styled(Button)`
   }
 `;
 
-export { SellNowContainer, SellNowInput, ProductDetailsWrapper, NextButton };
+const UploadTextWrapper = styled.div`
+  margin-top: 8;
+`;
+const UploadImageComponent = styled.img`
+width: 100%;
+`
+export {
+  SellNowContainer,
+  SellNowInput,
+  ProductDetailsWrapper,
+  NextButton,
+  UploadTextWrapper,
+  UploadImageComponent,
+};

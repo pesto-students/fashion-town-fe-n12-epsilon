@@ -12,6 +12,7 @@ import { SEARCH_TEXT_QUERY } from "../../graphQlQueries/searchQuery";
 import { getAppliedFilterValueMap } from "../utils";
 import config from "../../config/config";
 import { Pagination } from "antd";
+import { ProductListPagination } from "./productListingStyledComponent";
 
 function ProductListing() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -35,6 +36,12 @@ function ProductListing() {
     return filterTypeValueArray.hasOwnProperty("search");
   };
 
+  /**
+   * For pagination
+   * @param current page number
+   * @description set page no and item per page to url search prams
+   */
+
   useEffect(() => {
     if (currentPage) {
       const filterTypeValueMap = getAppliedFilterValueMap(searchParams);
@@ -43,6 +50,11 @@ function ProductListing() {
       setSearchParams(filterTypeValueMap);
     }
   }, [currentPage]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  /**
+   * @prams search prams from url
+   * @description get applied filters and search text from url and call apis accordingly
+   */
 
   useEffect(() => {
     const filterTypeValueArray = getAppliedFilterArray(searchParams);
@@ -66,12 +78,11 @@ function ProductListing() {
       {resultType === "filter" && filterData && (
         <>
           <ProductList productListData={filterData.productByFilters.products} />
-          <Pagination
+          <ProductListPagination
             defaultCurrent={1}
             total={filterData.productByFilters.totalCount}
             current={currentPage}
             onChange={(page) => setCurrentPage(page)}
-            style={{ textAlign: "center" }}
           />
         </>
       )}

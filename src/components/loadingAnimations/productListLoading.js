@@ -1,5 +1,9 @@
-import { Skeleton, List,Card } from "antd";
+import { Skeleton, List, Card } from "antd";
 import React from "react";
+import { ProductListItems } from "../productListing/productListingStyledComponent";
+import {
+  SkeletonImage
+} from "./loadingAnimationsStyledComponent";
 
 function ProductListLoading() {
   const listData = [];
@@ -18,12 +22,12 @@ function ProductListLoading() {
       }}
       dataSource={listData}
       renderItem={(item, index) => (
-        <List.Item style={{ width: "200px" }} key={index}>
-          <Card>
-            <Skeleton.Image style={{width:200,height:226}} active />
-            <Skeleton style={{width:200}} loading={true} active ></Skeleton>
+        <ProductListItems key={index}>
+          <Card bodyStyle={{ padding: 15 }}>
+            <SkeletonImage active />
+            <Skeleton loading={true} active></Skeleton>
           </Card>
-        </List.Item>
+        </ProductListItems>
       )}
     />
   );

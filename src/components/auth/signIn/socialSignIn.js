@@ -18,7 +18,7 @@ import {
 import { Row, Button } from "antd";
 import { GoogleOutlined, FacebookFilled } from "@ant-design/icons";
 
-import { FullWidthSpace, IconHolder } from "../authStyledComponent";
+import { FullWidthSpace, IconHolder, SocialRow } from "../authStyledComponent";
 import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
 import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
 import links from "../../../config/routeLinks";
@@ -42,23 +42,23 @@ function SocialSignIn({ redirectPath, setUserName, setStoreAuth }) {
 
   return (
     <FullWidthSpace direction="vertical" size={"large"}>
-      <Row style={{ position: "relative" }}>
+      <SocialRow>
         <IconHolder>
           <GoogleOutlined />
         </IconHolder>
         <Button onClick={() => handleSocialAuth(googleAuthProvider)} block>
           Sign in with Google
         </Button>
-      </Row>
+      </SocialRow>
 
-      <Row style={{ position: "relative" }}>
+      <SocialRow>
         <IconHolder>
           <FacebookFilled />
         </IconHolder>
         <Button block onClick={() => handleSocialAuth(facebookAuthProvider)}>
           Log in with Facebook
         </Button>
-      </Row>
+      </SocialRow>
 
       <Row>
         <ActionButton background={"#FF7F3F"} block>

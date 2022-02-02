@@ -9,7 +9,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../../../config/firebase-config";
 
-import { SignUpContainer, SignUpBox, FormItem } from "../authStyledComponent";
+import { AuthContainer, SignUpBox, FormItem } from "../authStyledComponent";
 import { Input, Row, Form } from "antd";
 
 import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
@@ -24,11 +24,11 @@ function SignUp({ setUserName, redirectPath, setStoreAuth }) {
   const registerUser = async () => {
     try {
       await setPersistence(auth, inMemoryPersistence);
-       const authResponse = await createUserWithEmailAndPassword(
-         auth,
-         registerEmail,
-         registerPassword
-       );
+      const authResponse = await createUserWithEmailAndPassword(
+        auth,
+        registerEmail,
+        registerPassword
+      );
       console.log(authResponse);
       await addUserNameToProfile(auth.currentUser);
       setUserName(registerName);
@@ -48,7 +48,7 @@ function SignUp({ setUserName, redirectPath, setStoreAuth }) {
   };
 
   return (
-    <SignUpContainer>
+    <AuthContainer>
       <SignUpBox>
         <Form autoComplete="off" onFinish={registerUser}>
           <Row>
@@ -107,7 +107,7 @@ function SignUp({ setUserName, redirectPath, setStoreAuth }) {
           </Row>
         </Form>
       </SignUpBox>
-    </SignUpContainer>
+    </AuthContainer>
   );
 }
 

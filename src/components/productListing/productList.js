@@ -5,6 +5,7 @@ import { List } from "antd";
 import ProductCard from "../productCard/productCard";
 import { createProductIdDetailsMap } from "./productUtilFunctions";
 import { setProductIdMapList } from "../../redux/actions/productActions";
+import { ProductListItems } from "./productListingStyledComponent";
 
 function ProductList(props) {
   const { productListData, setProductIdMapList } = props;
@@ -29,9 +30,9 @@ function ProductList(props) {
         }}
         dataSource={productListData}
         renderItem={(item, index) => (
-          <List.Item style={{ width: "200px" }} key={index + item.product_id}>
+          <ProductListItems key={index + item.product_id}>
             <ProductCard productData={item} />
-          </List.Item>
+          </ProductListItems>
         )}
       />
     </>

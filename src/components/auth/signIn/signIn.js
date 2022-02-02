@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  SignInContainer,
+  AuthContainer,
   SignInBox,
   HorizontalLine,
   FullWidthSpace,
@@ -12,7 +12,7 @@ import SocialSignIn from "./socialSignIn";
 
 function SignIn() {
   return (
-    <SignInContainer>
+    <AuthContainer>
       <SignInBox>
         <EmailSignIn />
         <FullWidthSpace direction="vertical" size={"large"}>
@@ -22,7 +22,7 @@ function SignIn() {
           <SocialSignIn />
         </FullWidthSpace>
       </SignInBox>
-    </SignInContainer>
+    </AuthContainer>
   );
 }
 

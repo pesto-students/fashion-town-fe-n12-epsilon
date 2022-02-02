@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Form, Space } from "antd";
+import { Form, Row, Space } from "antd";
 const DisplayText = styled.p`
   font-style: normal;
   font-weight: normal;
@@ -23,7 +23,7 @@ const UserNameCapitalize = styled.p`
   cursor: initial;
 `;
 
-const SignUpContainer = styled.div`
+const AuthContainer = styled.div`
   height: 90vh;
   width: 100%;
   background: #ff7878; /* fallback for old browsers */
@@ -43,18 +43,6 @@ const SignUpBox = styled.div`
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   padding: 2%;
   border-radius: 10px;
-`;
-
-const SignInContainer = styled.div`
-  height: 90vh;
-  width: 100%;
-  background: #ff7878; /* fallback for old browsers */
-  background: -webkit-linear-gradient(to right, #f9575782, #e9e7e7);
-  background: linear-gradient(to right, #f9575782, #e9e7e7);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 `;
 
 const SignInBox = styled.div`
@@ -100,12 +88,15 @@ const FullWidthSpace = styled(Space)`
 const AuthHeaderWrapper = styled.div`
   width: 45;
 `;
+const SocialRow = styled(Row)`
+  position: relative;
+`;
 
 export {
   DisplayText,
   NameInitialBox,
   UserNameCapitalize,
-  SignInContainer,
+  AuthContainer,
   SignInBox,
   HorizontalLine,
   AuthButtons,
@@ -114,6 +105,6 @@ export {
   FormItem,
   FullWidthSpace,
   SignUpBox,
-  SignUpContainer,
   AuthHeaderWrapper,
+  SocialRow,
 };

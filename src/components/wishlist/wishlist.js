@@ -3,7 +3,10 @@ import { HeartOutlined } from "@ant-design/icons";
 function wishlist() {
   return (
     <>
-      <HeartOutlined style={{ fontSize: "30px" }} />
+      {/**
+       * To be implemented in 2nd phase of development
+       */}
+      {/* <HeartOutlined  /> */} 
     </>
   );
 }

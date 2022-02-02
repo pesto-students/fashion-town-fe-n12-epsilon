@@ -10,6 +10,7 @@ import {
   HamburgerIcon,
   HamburgerIconCol,
   SpaceCol,
+  ContentCenterRow,
 } from "./headerStyledComponent";
 
 import Cart from "../cart/cart";
@@ -83,7 +84,7 @@ function Header() {
           </Col>
           <SpaceCol xs={0} sm={0} md={0} lg={0} xl={1}></SpaceCol>
           <Col xs={0} sm={0} md={0} lg={0} xl={1}>
-            <Row style={{ justifyContent: "center" }}>
+            <ContentCenterRow>
               <Space size={"large"}>
                 <Col>
                   <Auth />
@@ -92,7 +93,7 @@ function Header() {
                   <Cart />
                 </Col>
               </Space>
-            </Row>
+            </ContentCenterRow>
           </Col>
           <HamburgerIconCol xs={4} sm={4} md={2} lg={2} xl={0}>
             <HamburgerIcon onClick={showDrawer} />
