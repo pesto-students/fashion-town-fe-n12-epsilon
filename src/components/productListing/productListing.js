@@ -42,7 +42,7 @@ function ProductListing() {
       filterTypeValueMap["itemCount"] = parseInt(config.itemsPerPage);
       setSearchParams(filterTypeValueMap);
     }
-  }, [currentPage]);
+  }, [currentPage]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const filterTypeValueArray = getAppliedFilterArray(searchParams);
