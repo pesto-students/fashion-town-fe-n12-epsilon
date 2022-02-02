@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Select, notification } from "antd";
+import { Form, Select } from "antd";
 import { getStorage, ref, uploadString } from "firebase/storage";
 import {
   SellNowContainer,
@@ -9,7 +9,7 @@ import {
 } from "./sellStyledComponent";
 
 import { useMutation } from "@apollo/client";
-import { WarningOutlined } from "@ant-design/icons";
+import openNotification from "../notification/messageNotification";
 import Title from "antd/lib/typography/Title";
 import UploadImage from "./upload";
 import { ADD_PRODUCT_MUTATION } from "../../graphQlQueries/addProductQuery";
@@ -17,50 +17,48 @@ import config from "../../config/config";
 
 const { Option } = Select;
 
-notification.config({
-  top: 100,
-  duration: 1,
-});
-
-const openNotification = (message) => {
-  notification.open({
-    message: message,
-    icon: <WarningOutlined style={{ color: "red" }} />,
-  });
-};
-
 function Sell() {
   const [fileList, setFileList] = useState([]);
   const storage = getStorage();
 
   const [addNewProduct] = useMutation(ADD_PRODUCT_MUTATION);
 
-  const uploadImagesAndGetImageUrl = async () => {
-    const imageUrlArray = [];
-    fileList.forEach(async (imageFile) => {
-      const storageRef = ref(storage, imageFile.name);
-      const base64Image = imageFile.thumbUrl;
+  /**
+   *
+   * @returns cloud image link
+   */
+  const uploadImagesAndGetImageUrl = () => {
+    return new Promise((resolve, reject) => {
+      const imageUrlArray = [];
       try {
-        const snapShot = await uploadString(
-          storageRef,
-          base64Image,
-          "data_url"
-        );
-        const imageUrl =
-          config.googleCloudUrl + snapShot.metadata.fullPath + "?alt=media";
-        imageUrlArray.push(imageUrl);
+        fileList.forEach(async (imageFile) => {
+          const storageRef = ref(storage, imageFile.name);
+          const base64Image = imageFile.thumbUrl;
+          const snapShot = await uploadString(
+            storageRef,
+            base64Image,
+            "data_url"
+          );
+          const imageUrl =
+            config.googleCloudUrl + snapShot.metadata.fullPath + "?alt=media";
+          imageUrlArray.push(imageUrl);
+        });
+        resolve(imageUrlArray);
       } catch (error) {
-        console.log(error);
+        reject(error);
       }
     });
-    return imageUrlArray;
   };
 
   const addBodyAndImages = async (formData) => {
-    const imageUrlArray = await uploadImagesAndGetImageUrl();
-    const { brand, title, product_details } = formData;
-    formData["body"] = `${brand}, ${title}, ${product_details}`;
-    formData["images"] = imageUrlArray;
+    try {
+      const imageUrlArray = await uploadImagesAndGetImageUrl();
+      const { brand, title, product_details } = formData;
+      formData["body"] = `${brand}, ${title}, ${product_details}`;
+      formData["images"] = imageUrlArray;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const onFinish = async (formData) => {
@@ -69,7 +67,8 @@ function Sell() {
       return;
     }
     await addBodyAndImages(formData);
-    addNewProduct({ variables: { ...formData } });
+    console.log(formData);
+    await addNewProduct({ variables: { ...formData } });
   };
 
   const onFinishFailed = async (errorInfo) => {

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Card, Input,Button} from "antd";
 const SellNowContainer = styled.div`
-  height: 90vh;
+  height: 110vh;
   width: 100%;
   background: #ff7878; /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #f9575782, #e9e7e7);

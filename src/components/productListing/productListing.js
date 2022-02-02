@@ -46,12 +46,14 @@ function ProductListing() {
 
   useEffect(() => {
     const filterTypeValueArray = getAppliedFilterArray(searchParams);
+
     if (isSearchParamHasSearchInput(filterTypeValueArray)) {
       const searchInput = filterTypeValueArray["search"][0];
       setResultType("searchInput");
       productBySearchInput({ variables: { searchInput: searchInput } });
     } else {
       setResultType("filter");
+      console.log(filterTypeValueArray);
       productByFilters({ variables: filterTypeValueArray });
     }
   }, [searchParams]); // eslint-disable-line react-hooks/exhaustive-deps
