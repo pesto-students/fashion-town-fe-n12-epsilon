@@ -1,7 +1,7 @@
 import React from "react";
 import { Result, Button } from "antd";
 import { Link } from "react-router-dom";
-import links from "../../config/routeLinks";
+import links from "config/routeLinks";
 function ServerError() {
   return (
     <Result

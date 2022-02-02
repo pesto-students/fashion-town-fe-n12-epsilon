@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { Result, Button } from "antd";
-import { setStatus } from "../../redux/actions/cartActions";
-import links from "../../config/routeLinks";
+import { setStatus } from "redux/actions/cartActions";
+import links from "config/routeLinks";
 
 function PaymentResult({ setStatus, orderId }) {
   const navigate = useNavigate();

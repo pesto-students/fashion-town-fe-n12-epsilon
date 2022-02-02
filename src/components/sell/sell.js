@@ -13,7 +13,7 @@ import openNotification from "../notification/messageNotification";
 import Title from "antd/lib/typography/Title";
 import UploadImage from "./upload";
 import { ADD_PRODUCT_MUTATION } from "../../graphQlQueries/addProductQuery";
-import config from "../../config/config";
+import config from "config";
 
 const { Option } = Select;
 

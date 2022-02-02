@@ -10,15 +10,15 @@ import {
 } from "./authStyledComponent";
 import { Col, Dropdown } from "antd";
 
-import { setUserName } from "../../redux/actions/authActions";
-import { setCurrentPath } from "../../redux/actions/redirectActions";
-import links from "../../config/routeLinks";
+import { setUserName } from "redux/actions/authActions";
+import { setCurrentPath } from "redux/actions/redirectActions";
+import links from "config/routeLinks";
 import UserMenu from "./userMenu";
 
 function Auth({ setUserName, setCurrentPath, userName }) {
   const [isLogin, setLogin] = useState(false);
   const [userInitial, setUserInitial] = useState(null);
- 
+
   const auth = getAuth();
   const location = useLocation();
   const navigate = useNavigate();

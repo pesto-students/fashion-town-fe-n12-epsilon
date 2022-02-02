@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import ProductListing from "./productListing";
 import { FilterAndListingContainer } from "./productListingStyledComponent";
 import { Row, Col } from "antd";
-import links from "../../config/routeLinks";
+import links from "config/routeLinks";
 import FreshArrivals from "./freshArrivals";
 
 function FilterAndProductListing() {

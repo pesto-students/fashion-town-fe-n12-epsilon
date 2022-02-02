@@ -7,12 +7,12 @@ import {
   setPersistence,
   inMemoryPersistence,
 } from "firebase/auth";
-import { auth } from "../../../config/firebase-config";
+import { auth } from "config/firebase-config";
 
 import { SignUpContainer, SignUpBox, FormItem } from "../authStyledComponent";
 import { Input, Row, Form } from "antd";
 
-import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
+import { setStoreAuth, setUserName } from "redux/actions/authActions";
 import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
 
 function SignUp({ setUserName, redirectPath, setStoreAuth }) {
@@ -24,11 +24,11 @@ function SignUp({ setUserName, redirectPath, setStoreAuth }) {
   const registerUser = async () => {
     try {
       await setPersistence(auth, inMemoryPersistence);
-       const authResponse = await createUserWithEmailAndPassword(
-         auth,
-         registerEmail,
-         registerPassword
-       );
+      const authResponse = await createUserWithEmailAndPassword(
+        auth,
+        registerEmail,
+        registerPassword
+      );
       console.log(authResponse);
       await addUserNameToProfile(auth.currentUser);
       setUserName(registerName);

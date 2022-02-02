@@ -4,14 +4,14 @@ import LandingPage from "./landingPage/landingPage";
 import SignIn from "./auth/signIn/signIn";
 import SignUp from "./auth/signUp/signUp";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Footer from "./footer/footer";
+import Footer from "./footer";
 import FilterAndProductListing from "./productListing/filterAndProductListing";
 import ProductDetailsPage from "./productDetails/productDetailsPage.js";
 import CheckOutPage from "./checkout/checkOutPage";
 import OrderHistory from "./orderHistory/orderHistory";
 import InvalidRoute from "./result/invalidRoute";
-import { ContentSectionWrapper } from "./contentSection/contentSectionStyledComponent";
-import links from "../config/routeLinks";
+import ContentSectionWrapper from "./contentSection";
+import links from "config/routeLinks";
 import PrivateRoute from "./privateRoute/privateRoute";
 import Sell from "./sell/sell";
 

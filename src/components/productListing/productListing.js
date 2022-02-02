@@ -10,7 +10,7 @@ import ProductListLoading from "../loadingAnimations/productListLoading";
 import ServerError from "../result/serverError";
 import { SEARCH_TEXT_QUERY } from "../../graphQlQueries/searchQuery";
 import { getAppliedFilterValueMap } from "../utils";
-import config from "../../config/config";
+import config from "config";
 import { Pagination } from "antd";
 
 function ProductListing() {

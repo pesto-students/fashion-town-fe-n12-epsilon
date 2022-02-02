@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 
 import { Card, Image, Carousel } from "antd";
 import { BrandText, TitleText, PriceText } from "./productCardStyledComponents";
-import config from "../../config/config";
-import links from "../../config/routeLinks";
+import config from "config";
+import links from "config/routeLinks";
 
 function ProductCard({ isLoading, productData }) {
   const carousel = useRef();

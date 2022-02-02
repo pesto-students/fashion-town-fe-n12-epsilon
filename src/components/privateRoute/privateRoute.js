@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
-import { setCurrentPath } from "../../redux/actions/redirectActions";
+import { setCurrentPath } from "redux/actions/redirectActions";
 
 function PrivateRoute({ storeAuth, children, setCurrentPath }) {
   const location = useLocation();

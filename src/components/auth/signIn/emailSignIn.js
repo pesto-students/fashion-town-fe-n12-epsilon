@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import "dotenv/config"
+import "dotenv/config";
 
 import {
   signInWithEmailAndPassword,
@@ -10,7 +10,7 @@ import {
   inMemoryPersistence,
 } from "firebase/auth";
 
-import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
+import { setStoreAuth, setUserName } from "redux/actions/authActions";
 
 import { Input, Row, Form, message } from "antd";
 import { FormItem } from "../authStyledComponent";
@@ -56,10 +56,10 @@ function EmailSignIn({ redirectPath, setUserName, setStoreAuth }) {
   };
 
   const handelGuestLogin = () => {
-    const guestEmailId = process.env.REACT_APP_GUEST_USER_EMAIL
+    const guestEmailId = process.env.REACT_APP_GUEST_USER_EMAIL;
     const guestPassword = process.env.REACT_APP_GUEST_USER_PASSWORD;
     emailSignIn(guestEmailId, guestPassword);
-  }
+  };
 
   return (
     <Form

@@ -13,8 +13,8 @@ import CheckOutSteps from "./checkOutSteps";
 import AddressDisplay from "../address/addressDisplay";
 import AddressForm from "../address/addressForm";
 import PaymentResult from "../payment/paymentResult";
-import config from "../../config/config";
-import { setStatus } from "../../redux/actions/cartActions";
+import config from "config";
+import { setStatus } from "redux/actions/cartActions";
 
 function CheckOutPage({ cart, address, status, order, storeAuth, setStatus }) {
   const deliveryCharge = config.deliveryCharge;

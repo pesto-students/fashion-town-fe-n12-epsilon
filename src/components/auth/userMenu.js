@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import { Col, Menu } from "antd";
 import { DisplayText, UserNameCapitalize } from "./authStyledComponent";
 
-import { setStoreAuth, setUserName } from "../../redux/actions/authActions";
-import links from "../../config/routeLinks";
+import { setStoreAuth, setUserName } from "redux/actions/authActions";
+import links from "config/routeLinks";
 
 function UserMenu(props) {
   const { setUserName, setStoreAuth, userName } = props;

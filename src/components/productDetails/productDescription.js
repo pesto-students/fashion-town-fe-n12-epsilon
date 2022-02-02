@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import config from "../../config/config";
+import config from "config";
 
 import _ from "lodash";
 import {
@@ -13,7 +13,7 @@ import {
 } from "./productDetailsStyledComponent";
 
 import { Row, Col, Space, Input, Typography, Button } from "antd";
-import { setCart } from "../../redux/actions/cartActions";
+import { setCart } from "redux/actions/cartActions";
 import openNotification from "../notification/messageNotification";
 const { Title, Text } = Typography;
 const { Search } = Input;

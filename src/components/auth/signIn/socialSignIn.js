@@ -3,10 +3,7 @@ import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import {
-  googleAuthProvider,
-  facebookAuthProvider,
-} from "../../../config/authMethods";
+import { googleAuthProvider, facebookAuthProvider } from "config/authMethods";
 
 import {
   getAuth,
@@ -19,9 +16,9 @@ import { Row, Button } from "antd";
 import { GoogleOutlined, FacebookFilled } from "@ant-design/icons";
 
 import { FullWidthSpace, IconHolder } from "../authStyledComponent";
-import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
+import { setStoreAuth, setUserName } from "redux/actions/authActions";
 import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
-import links from "../../../config/routeLinks";
+import links from "config/routeLinks";
 
 function SocialSignIn({ redirectPath, setUserName, setStoreAuth }) {
   const navigate = useNavigate();

@@ -11,4 +11,5 @@ config.fallbackImage = image;
 config.googleCloudUrl =
   "https://firebasestorage.googleapis.com/v0/b/fashion-town.appspot.com/o/";
 config.itemsPerPage = 25;
+
 export default config;

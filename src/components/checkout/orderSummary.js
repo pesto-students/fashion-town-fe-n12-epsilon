@@ -7,9 +7,9 @@ import { connect } from "react-redux";
 import Payment from "../payment/payment";
 import { Row, Col, Typography, Card } from "antd";
 import { HorizontalLine, NextButton } from "./checkoutStyledComponent";
-import { setStatus } from "../../redux/actions/cartActions";
-import { setCurrentPath } from "../../redux/actions/redirectActions";
-import links from "../../config/routeLinks";
+import { setStatus } from "redux/actions/cartActions";
+import { setCurrentPath } from "redux/actions/redirectActions";
+import links from "config/routeLinks";
 
 const { Text } = Typography;
 

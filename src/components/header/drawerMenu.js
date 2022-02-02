@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { NavText } from "./headerStyledComponent";
-import links from "../../config/routeLinks";
+import links from "config/routeLinks";
 import Auth from "../auth/auth";
 import Cart from "../cart/cart";
 function DrawerMenu() {

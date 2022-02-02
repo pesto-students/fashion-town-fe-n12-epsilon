@@ -2,10 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import { Card, Input, Form } from "antd";
 import { NextButton } from "./addressStyledComponent";
-import { setAddress, setStatus } from "../../redux/actions/cartActions";
+import { setAddress, setStatus } from "redux/actions/cartActions";
 
 function AddressForm({ setAddress, setStatus, userName }) {
-
   const onFinish = (address) => {
     setAddress(address);
     setStatus("payment");
@@ -22,11 +21,11 @@ function AddressForm({ setAddress, setStatus, userName }) {
       street: "#57 7th cross",
       city: "Bengaluru",
       State: "Karnataka",
-      pin: "560098"
+      pin: "560098",
     };
-     setAddress(address);
-     setStatus("payment");
-  }
+    setAddress(address);
+    setStatus("payment");
+  };
 
   return (
     <Card title="DELIVERY ADDRESS">

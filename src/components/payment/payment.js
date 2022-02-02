@@ -5,7 +5,7 @@ import { useMutation } from "@apollo/client";
 import { RAZORPAY_ORDER_QUERY } from "../../graphQlQueries/razorPayOrder";
 import useRazorpay from "react-razorpay";
 
-import config from "../../config/config";
+import config from "config";
 import moment from "moment";
 
 import { NextButton } from "../cart/cartStyledComponent";
@@ -14,8 +14,8 @@ import {
   setOrderId,
   setOrderItems,
   setPaymentDetails,
-} from "../../redux/actions/orderActions";
-import { setCart, setStatus } from "../../redux/actions/cartActions";
+} from "redux/actions/orderActions";
+import { setCart, setStatus } from "redux/actions/cartActions";
 import ServerError from "../result/serverError";
 import { Spin } from "antd";
 
@@ -55,7 +55,7 @@ function Payment(props) {
 
       handler: (response) => {
         console.log(response);
-        reset()
+        reset();
         setOrderItems(cart);
         setCart([]);
         setOrderId(orderId);

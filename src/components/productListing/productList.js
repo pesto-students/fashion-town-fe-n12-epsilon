@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { List } from "antd";
 import ProductCard from "../productCard/productCard";
 import { createProductIdDetailsMap } from "./productUtilFunctions";
-import { setProductIdMapList } from "../../redux/actions/productActions";
+import { setProductIdMapList } from "redux/actions/productActions";
 
 function ProductList(props) {
   const { productListData, setProductIdMapList } = props;
