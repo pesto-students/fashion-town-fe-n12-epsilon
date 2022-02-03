@@ -85,7 +85,7 @@ function Header() {
           <SpaceCol xs={0} sm={0} md={0} lg={0} xl={1}></SpaceCol>
           <Col xs={0} sm={0} md={0} lg={0} xl={1}>
             <ContentCenterRow>
-              <Space size={"large"}>
+              <Space size={"large"} align="start">
                 <Col>
                   <Auth />
                 </Col>

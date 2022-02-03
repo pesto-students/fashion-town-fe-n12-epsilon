@@ -11,7 +11,6 @@ import ServerError from "../result/serverError";
 import { SEARCH_TEXT_QUERY } from "../../graphQlQueries/searchQuery";
 import { getAppliedFilterValueMap } from "../utils";
 import config from "../../config/config";
-import { Pagination } from "antd";
 import { ProductListPagination } from "./productListingStyledComponent";
 
 function ProductListing() {
@@ -21,7 +20,7 @@ function ProductListing() {
   const [
     productByFilters,
     { error: filterError, loading: filterLoading, data: filterData },
-  ] = useLazyQuery(FILTER_QUERY);
+  ] = useLazyQuery(FILTER_QUERY, { fetchPolicy: "network-only" });
 
   const [
     productBySearchInput,

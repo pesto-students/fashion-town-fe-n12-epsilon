@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { Space, Row } from "antd";
+import React, { useState } from "react";
+import { Space, Row, Col, Button } from "antd";
 import {
   FilterCheckBox,
   FilterCheckboxWrapper,
   FilterHeading,
+  FilterHeadingRow,
 } from "./productListingStyledComponent";
 import { brandList } from "../../assets/data/brand";
 import { useSearchParams } from "react-router-dom";
 import { colorList } from "../../assets/data/color";
 import _ from "lodash";
 import { getAppliedFilterValueMap } from "../utils";
+import { HorizontalLine } from "../productDetails/productDetailsStyledComponent";
 
 function Filter() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -20,58 +22,82 @@ function Filter() {
     {
       name: "brand",
       options: _.sortBy(brandList),
-      defaultValue: brandFilters,
+      selectedValues: brandFilters,
       setFilterCallback: setBrandFilters,
       title: "BRAND",
     },
     {
-      name: "color",
-      defaultValue: colorFilters,
+      name: "dominantColor",
+      selectedValues: colorFilters,
       options: _.sortBy(colorList),
       setFilterCallback: setColorFilters,
       title: "COLOR",
     },
   ];
 
-  const applyFilters = (filterType, selectedValueArray) => {
-    if (Array.isArray(selectedValueArray)) {
-      const filterTypeValueMap = getAppliedFilterValueMap(searchParams);
-      filterTypeValueMap[filterType] = selectedValueArray;
-      setSearchParams(filterTypeValueMap);
-    }
+  const applyFilters = () => {
+    const filterTypeValueMap = getAppliedFilterValueMap(searchParams);
+    filterListArray.forEach(({ selectedValues, name }) => {
+      if (Array.isArray(selectedValues)) {
+        filterTypeValueMap[name] = selectedValues;
+      }
+    });
+    setSearchParams(filterTypeValueMap);
   };
 
-  useEffect(() => {
-    applyFilters("brand", brandFilters);
-  }, [brandFilters]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    applyFilters("dominantColor", colorFilters);
-  }, [colorFilters]); // eslint-disable-line react-hooks/exhaustive-deps
+  const resetFilters = () => {
+    const filterTypeValueMap = getAppliedFilterValueMap(searchParams);
+    filterListArray.forEach(({ selectedValues, name, setFilterCallback }) => {
+      if (Array.isArray(selectedValues)) {
+        delete filterTypeValueMap[name];
+      }
+      setFilterCallback([]);
+    });
+    setSearchParams(filterTypeValueMap);
+  };
 
   const checkBoxToggleHandler = (checkedValues, filterType) => {
-    if (filterType === "brand") {
-      setBrandFilters(checkedValues);
-    } else if (filterType === "color") {
-      setColorFilters(checkedValues);
-    }
+    filterListArray.forEach(({ name, setFilterCallback }) => {
+      if (name === filterType) {
+        setFilterCallback(checkedValues);
+      }
+    });
   };
 
   return (
     <Space direction="vertical" size={"large"}>
+      <FilterHeadingRow>
+        <Space>
+          <Col span={6}>
+            <h3>
+              <strong>FILTERS</strong>
+            </h3>
+          </Col>
+          <Col></Col>
+          <Col span={16}>
+            <Button onClick={resetFilters}>Reset</Button>
+          </Col>
+          <Col>
+            <Button onClick={applyFilters}>Apply</Button>
+          </Col>
+        </Space>
+      </FilterHeadingRow>
+      <HorizontalLine />
       {filterListArray.map((filter, index) => {
         return (
           <Row key={index}>
             <FilterHeading>{filter.title}</FilterHeading>
+
             <FilterCheckboxWrapper>
               <FilterCheckBox
                 options={filter.options}
-                defaultValue={filter.defaultValue}
+                value={filter.selectedValues}
                 onChange={(checkedValues) =>
                   checkBoxToggleHandler(checkedValues, filter.name)
                 }
               />
             </FilterCheckboxWrapper>
+            <HorizontalLine />
           </Row>
         );
       })}
