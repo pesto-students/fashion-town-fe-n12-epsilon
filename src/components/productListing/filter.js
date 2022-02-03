@@ -65,7 +65,7 @@ function Filter() {
   };
 
   return (
-    <Space direction="vertical" size={"large"}>
+    <>
       <FilterHeadingRow>
         <Space>
           <Col span={6}>
@@ -82,26 +82,28 @@ function Filter() {
           </Col>
         </Space>
       </FilterHeadingRow>
-      <HorizontalLine />
-      {filterListArray.map((filter, index) => {
-        return (
-          <Row key={index}>
-            <FilterHeading>{filter.title}</FilterHeading>
+      <Space direction="vertical" size={"large"}>
+        <HorizontalLine />
+        {filterListArray.map((filter, index) => {
+          return (
+            <Row key={index}>
+              <FilterHeading>{filter.title}</FilterHeading>
 
-            <FilterCheckboxWrapper>
-              <FilterCheckBox
-                options={filter.options}
-                value={filter.selectedValues}
-                onChange={(checkedValues) =>
-                  checkBoxToggleHandler(checkedValues, filter.name)
-                }
-              />
-            </FilterCheckboxWrapper>
-            <HorizontalLine />
-          </Row>
-        );
-      })}
-    </Space>
+              <FilterCheckboxWrapper>
+                <FilterCheckBox
+                  options={filter.options}
+                  value={filter.selectedValues}
+                  onChange={(checkedValues) =>
+                    checkBoxToggleHandler(checkedValues, filter.name)
+                  }
+                />
+              </FilterCheckboxWrapper>
+              <HorizontalLine />
+            </Row>
+          );
+        })}
+      </Space>
+    </>
   );
 }
 

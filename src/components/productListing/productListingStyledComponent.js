@@ -49,7 +49,9 @@ const FilterCol = styled(Col)`
   border-right: 1px solid #e8e8e8;
 `;
 
-const FilterHeadingRow = styled(Row)`padding-top: 20px`
+const FilterHeadingRow = styled(Row)`
+  padding-top: 10px;
+`;
 export {
   FilterAndListingContainer,
   ListingBox,
