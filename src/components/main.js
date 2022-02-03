@@ -11,7 +11,7 @@ import CheckOutPage from "./checkout/checkOutPage";
 import OrderHistory from "./orderHistory/orderHistory";
 import InvalidRoute from "./result/invalidRoute";
 import { ContentSectionWrapper } from "./contentSection/contentSectionStyledComponent";
-import links from "../config/routeLinks";
+import links from "config/routeLinks";
 import PrivateRoute from "./privateRoute/privateRoute";
 import Sell from "./sell/sell";
 
@@ -43,18 +43,18 @@ export class Main extends Component {
               }
             />
             <Route
-              path={links.orderHistory}
-              element={
-                <PrivateRoute>
-                  <OrderHistory />
-                </PrivateRoute>
-              }
-            />
-            <Route
               path={links.sell}
               element={
                 <PrivateRoute>
                   <Sell />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path={links.orderHistory}
+              element={
+                <PrivateRoute>
+                  <OrderHistory />
                 </PrivateRoute>
               }
             />

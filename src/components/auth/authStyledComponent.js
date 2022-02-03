@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Form, Row, Space } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 const DisplayText = styled.p`
   font-style: normal;
   font-weight: normal;
@@ -46,10 +47,9 @@ const SignUpBox = styled.div`
 `;
 
 const SignInBox = styled.div`
-  height: 90%;
+  height: 65%;
   width: 20%;
-  width: 391px;
-  height: 565px;
+  min-width: 300px;
   background: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   padding: 2%;
@@ -92,6 +92,10 @@ const SocialRow = styled(Row)`
   position: relative;
 `;
 
+const LoadingIcon = styled(LoadingOutlined)`
+  font-size: 50px;
+`;
+
 export {
   DisplayText,
   NameInitialBox,
@@ -107,4 +111,5 @@ export {
   SignUpBox,
   AuthHeaderWrapper,
   SocialRow,
+  LoadingIcon,
 };

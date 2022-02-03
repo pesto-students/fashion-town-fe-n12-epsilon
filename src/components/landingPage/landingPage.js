@@ -70,7 +70,7 @@ function LandingPage() {
 
       <CategorySection>
         <SectionRow>
-          <SectionCol xs={24} sm={12} md={12} lg={6} xl={6}>
+          <SectionCol xs={24} sm={24} md={12} lg={6} xl={6}>
             <FreshArrivalBlock>
               <CategoryButtonsWrapper>
                 <NavLink to={links.freshArrivals}>
@@ -81,7 +81,7 @@ function LandingPage() {
               </CategoryButtonsWrapper>
             </FreshArrivalBlock>
           </SectionCol>
-          <SectionCol xs={24} sm={12} md={12} lg={18} xl={18}>
+          <SectionCol xs={24} sm={24} md={12} lg={18} xl={18}>
             <AccessoriesBlock>
               <CategoryButtonsWrapper>
                 <NavLink to={links.shop + links.accessoriesSection}>

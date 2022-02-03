@@ -12,3 +12,10 @@ export const setStoreAuth = (auth) => {
         payload: auth
     }
 };
+
+export const setAuthLoader = (status) => {
+  return {
+    type: "AUTH_LOADER",
+    payload: status,
+  };
+};

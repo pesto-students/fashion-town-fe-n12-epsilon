@@ -9,8 +9,13 @@ import {
 } from "firebase/auth";
 import { auth } from "../../../config/firebase-config";
 
-import { AuthContainer, SignUpBox, FormItem } from "../authStyledComponent";
-import { Input, Row, Form } from "antd";
+import {
+  AuthContainer,
+  SignUpBox,
+  FormItem,
+  LoadingIcon,
+} from "../authStyledComponent";
+import { Input, Row, Form, Spin } from "antd";
 
 import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
 import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
@@ -19,20 +24,22 @@ function SignUp({ setUserName, redirectPath, setStoreAuth }) {
   const [registerEmail, setRegisterEmail] = useState(null);
   const [registerPassword, setRegisterPassword] = useState(null);
   const [registerName, setRegisterName] = useState(null);
+  const [authLoader, setAuthLoader] = useState(false);
   const navigate = useNavigate();
 
   const registerUser = async () => {
     try {
+      setAuthLoader(true)
       await setPersistence(auth, inMemoryPersistence);
       const authResponse = await createUserWithEmailAndPassword(
         auth,
         registerEmail,
         registerPassword
       );
-      console.log(authResponse);
       await addUserNameToProfile(auth.currentUser);
       setUserName(registerName);
       setStoreAuth(authResponse.user);
+      setAuthLoader(false);
       navigate(redirectPath, { replace: true });
     } catch (error) {
       console.log(error);
@@ -47,72 +54,77 @@ function SignUp({ setUserName, redirectPath, setStoreAuth }) {
     }
   };
 
+  const antIcon = <LoadingIcon style={{ fontSize: 50 }} spin />;
   return (
     <AuthContainer>
-      <SignUpBox>
-        <Form autoComplete="off" onFinish={registerUser}>
-          <Row>
-            <h2>Signup</h2>
-          </Row>
+      <Spin indicator={antIcon} spinning={authLoader}>
+        <SignUpBox>
+          <Form autoComplete="off" onFinish={registerUser}>
+            <Row>
+              <h2>Signup</h2>
+            </Row>
 
-          <Row>
-            <FormItem
-              name="Name"
-              rules={[{ required: true, message: "Please enter your name!" }]}
-            >
-              <Input
-                size="large"
-                placeholder="Name"
-                type={"text"}
-                onChange={(e) => setRegisterName(e.target.value)}
-              />
-            </FormItem>
-          </Row>
-          <Row>
-            <FormItem
-              name="email"
-              rules={[{ required: true, message: "Please enter your email!" }]}
-            >
-              <Input
-                size="large"
-                placeholder="Email"
-                type={"email"}
-                onChange={(e) => setRegisterEmail(e.target.value)}
-              />
-            </FormItem>
-          </Row>
+            <Row>
+              <FormItem
+                name="Name"
+                rules={[{ required: true, message: "Please enter your name!" }]}
+              >
+                <Input
+                  size="large"
+                  placeholder="Name"
+                  type={"text"}
+                  onChange={(e) => setRegisterName(e.target.value)}
+                />
+              </FormItem>
+            </Row>
+            <Row>
+              <FormItem
+                name="email"
+                rules={[
+                  { required: true, message: "Please enter your email!" },
+                ]}
+              >
+                <Input
+                  size="large"
+                  placeholder="Email"
+                  type={"email"}
+                  onChange={(e) => setRegisterEmail(e.target.value)}
+                />
+              </FormItem>
+            </Row>
 
-          <Row>
-            <FormItem
-              name="password"
-              rules={[
-                { required: true, message: "Please enter your password!" },
-              ]}
-            >
-              <Input.Password
-                size="large"
-                placeholder="Password"
-                type={"password"}
-                onChange={(e) => setRegisterPassword(e.target.value)}
-              />
-            </FormItem>
-          </Row>
+            <Row>
+              <FormItem
+                name="password"
+                rules={[
+                  { required: true, message: "Please enter your password!" },
+                ]}
+              >
+                <Input.Password
+                  size="large"
+                  placeholder="Password"
+                  type={"password"}
+                  onChange={(e) => setRegisterPassword(e.target.value)}
+                />
+              </FormItem>
+            </Row>
 
-          <Row>
-            <FormItem>
-              <ActionButton htmlType="submit" block background={"#FF7F3F"}>
-                CREATE ACCOUNT
-              </ActionButton>
-            </FormItem>
-          </Row>
-        </Form>
-      </SignUpBox>
+            <Row>
+              <FormItem>
+                <ActionButton htmlType="submit" block background={"#FF7F3F"}>
+                  CREATE ACCOUNT
+                </ActionButton>
+              </FormItem>
+            </Row>
+          </Form>
+        </SignUpBox>
+      </Spin>
     </AuthContainer>
   );
 }
 
-const mapStateToProps = (state) => {
-  return { userName: state.Auth.userName, redirectPath: state.Redirect.path };
+const mapStateToProps = ({ Auth, Redirect }) => {
+  return { userName: Auth.userName, redirectPath: Redirect.path };
 };
 
 const mapDispatchToProps = (dispatch) => {

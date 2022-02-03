@@ -3,10 +3,7 @@ import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import {
-  googleAuthProvider,
-  facebookAuthProvider,
-} from "../../../config/authMethods";
+import { googleAuthProvider } from "../../../config/authMethods";
 
 import {
   getAuth,
@@ -16,26 +13,38 @@ import {
 } from "firebase/auth";
 
 import { Row, Button } from "antd";
-import { GoogleOutlined, FacebookFilled } from "@ant-design/icons";
+import { GoogleOutlined } from "@ant-design/icons";
 
 import { FullWidthSpace, IconHolder, SocialRow } from "../authStyledComponent";
-import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
+import {
+  setAuthLoader,
+  setStoreAuth,
+  setUserName,
+} from "../../../redux/actions/authActions";
 import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
 import links from "../../../config/routeLinks";
 
-function SocialSignIn({ redirectPath, setUserName, setStoreAuth }) {
+function SocialSignIn({
+  redirectPath,
+  setUserName,
+  setStoreAuth,
+  setAuthLoader,
+}) {
   const navigate = useNavigate();
 
   const handleSocialAuth = async (provider) => {
     const auth = getAuth();
     try {
       await setPersistence(auth, inMemoryPersistence);
+      setAuthLoader(true);
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       setUserName(user.displayName);
       setStoreAuth(user);
+      setAuthLoader(false);
       navigate(redirectPath, { replace: true });
     } catch (error) {
+      setAuthLoader(false);
       console.log(error);
     }
   };
@@ -51,14 +60,14 @@ function SocialSignIn({ redirectPath, setUserName, setStoreAuth }) {
         </Button>
       </SocialRow>
 
-      <SocialRow>
+      {/* <SocialRow>
         <IconHolder>
           <FacebookFilled />
         </IconHolder>
-        <Button block onClick={() => handleSocialAuth(facebookAuthProvider)}>
+        <Button block onClick={() => handleSocialAuth(facebookAuthProvider)}>   To be implemented in phase 2
           Log in with Facebook
         </Button>
-      </SocialRow>
+      </SocialRow> */}
 
       <Row>
         <ActionButton background={"#FF7F3F"} block>
@@ -69,8 +78,8 @@ function SocialSignIn({ redirectPath, setUserName, setStoreAuth }) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return { redirectPath: state.Redirect.path };
+const mapStateToProps = ({ Redirect }) => {
+  return { redirectPath: Redirect.path };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -80,6 +89,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setStoreAuth: (auth) => {
       dispatch(setStoreAuth(auth));
+    },
+    setAuthLoader: (status) => {
+      dispatch(setAuthLoader(status));
     },
   };
 };
