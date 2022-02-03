@@ -13,7 +13,7 @@ import EmailSignIn from "./emailSignIn";
 import SocialSignIn from "./socialSignIn";
 
 function SignIn({ authLoader }) {
-  const antIcon = <LoadingIcon style={{ fontSize: 50 }} spin />;
+  const antIcon = <LoadingIcon spin />;
   return (
     <>
       <Spin indicator={antIcon} spinning={authLoader}>
@@ -32,7 +32,7 @@ function SignIn({ authLoader }) {
     </>
   );
 }
-const mapStateToProps = ({Auth}) => {
+const mapStateToProps = ({ Auth }) => {
   return { authLoader: Auth.authLoader };
 };
 export default connect(mapStateToProps)(SignIn);

@@ -29,7 +29,7 @@ function SignUp({ setUserName, redirectPath, setStoreAuth }) {
 
   const registerUser = async () => {
     try {
-      setAuthLoader(true)
+      setAuthLoader(true);
       await setPersistence(auth, inMemoryPersistence);
       const authResponse = await createUserWithEmailAndPassword(
         auth,
@@ -54,72 +54,76 @@ function SignUp({ setUserName, redirectPath, setStoreAuth }) {
     }
   };
 
-  const antIcon = <LoadingIcon style={{ fontSize: 50 }} spin />;
+  const antIcon = <LoadingIcon spin />;
   return (
-    <AuthContainer>
+    <>
       <Spin indicator={antIcon} spinning={authLoader}>
-        <SignUpBox>
-          <Form autoComplete="off" onFinish={registerUser}>
-            <Row>
-              <h2>Signup</h2>
-            </Row>
+        <AuthContainer>
+          <SignUpBox>
+            <Form autoComplete="off" onFinish={registerUser}>
+              <Row>
+                <h2>Signup</h2>
+              </Row>
 
-            <Row>
-              <FormItem
-                name="Name"
-                rules={[{ required: true, message: "Please enter your name!" }]}
-              >
-                <Input
-                  size="large"
-                  placeholder="Name"
-                  type={"text"}
-                  onChange={(e) => setRegisterName(e.target.value)}
-                />
-              </FormItem>
-            </Row>
-            <Row>
-              <FormItem
-                name="email"
-                rules={[
-                  { required: true, message: "Please enter your email!" },
-                ]}
-              >
-                <Input
-                  size="large"
-                  placeholder="Email"
-                  type={"email"}
-                  onChange={(e) => setRegisterEmail(e.target.value)}
-                />
-              </FormItem>
-            </Row>
+              <Row>
+                <FormItem
+                  name="Name"
+                  rules={[
+                    { required: true, message: "Please enter your name!" },
+                  ]}
+                >
+                  <Input
+                    size="large"
+                    placeholder="Name"
+                    type={"text"}
+                    onChange={(e) => setRegisterName(e.target.value)}
+                  />
+                </FormItem>
+              </Row>
+              <Row>
+                <FormItem
+                  name="email"
+                  rules={[
+                    { required: true, message: "Please enter your email!" },
+                  ]}
+                >
+                  <Input
+                    size="large"
+                    placeholder="Email"
+                    type={"email"}
+                    onChange={(e) => setRegisterEmail(e.target.value)}
+                  />
+                </FormItem>
+              </Row>
 
-            <Row>
-              <FormItem
-                name="password"
-                rules={[
-                  { required: true, message: "Please enter your password!" },
-                ]}
-              >
-                <Input.Password
-                  size="large"
-                  placeholder="Password"
-                  type={"password"}
-                  onChange={(e) => setRegisterPassword(e.target.value)}
-                />
-              </FormItem>
-            </Row>
+              <Row>
+                <FormItem
+                  name="password"
+                  rules={[
+                    { required: true, message: "Please enter your password!" },
+                  ]}
+                >
+                  <Input.Password
+                    size="large"
+                    placeholder="Password"
+                    type={"password"}
+                    onChange={(e) => setRegisterPassword(e.target.value)}
+                  />
+                </FormItem>
+              </Row>
 
-            <Row>
-              <FormItem>
-                <ActionButton htmlType="submit" block background={"#FF7F3F"}>
-                  CREATE ACCOUNT
-                </ActionButton>
-              </FormItem>
-            </Row>
-          </Form>
-        </SignUpBox>
+              <Row>
+                <FormItem>
+                  <ActionButton htmlType="submit" block background={"#FF7F3F"}>
+                    CREATE ACCOUNT
+                  </ActionButton>
+                </FormItem>
+              </Row>
+            </Form>
+          </SignUpBox>
+        </AuthContainer>
       </Spin>
-    </AuthContainer>
+    </>
   );
 }
 

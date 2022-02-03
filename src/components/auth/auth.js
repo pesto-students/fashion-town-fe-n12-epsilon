@@ -63,6 +63,7 @@ function Auth({ setUserName, setCurrentPath, userName }) {
         <AuthHeaderWrapper>
           {isLogin && userInitial && (
             <Dropdown
+              trigger={["click"]}
               overlay={<UserMenu userName={userName} />}
               placement="bottomLeft"
             >
