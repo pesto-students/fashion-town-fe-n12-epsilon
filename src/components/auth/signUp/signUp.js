@@ -13,13 +13,13 @@ import {
   AuthContainer,
   SignUpBox,
   FormItem,
-  LoadingIcon,
 } from "../authStyledComponent";
 import { Input, Row, Form, Spin } from "antd";
 
 import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
 import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
 import openNotification from "components/notification/messageNotification";
+import { LoadingIcon } from "components/loadingAnimations/loadingAnimationsStyledComponent";
 
 function SignUp({ setUserName, redirectPath, setStoreAuth }) {
   const [registerEmail, setRegisterEmail] = useState(null);

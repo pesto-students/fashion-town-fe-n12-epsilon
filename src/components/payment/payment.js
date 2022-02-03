@@ -14,10 +14,12 @@ import {
   setOrderId,
   setOrderItems,
   setPaymentDetails,
+  setPaymentLoader,
 } from "../../redux/actions/orderActions";
 import { setCart, setStatus } from "../../redux/actions/cartActions";
 import ServerError from "../result/serverError";
 import { Spin } from "antd";
+import openNotification from "components/notification/messageNotification";
 
 function Payment(props) {
   const {
@@ -55,7 +57,7 @@ function Payment(props) {
 
       handler: (response) => {
         console.log(response);
-        reset()
+        reset();
         setOrderItems(cart);
         setCart([]);
         setOrderId(orderId);
@@ -83,16 +85,25 @@ function Payment(props) {
 
     rzp1.open();
   };
-
   if (data) {
-    console.log(data.createRazorPayOrder);
+    setPaymentLoader(false);
     handlePayment(data.createRazorPayOrder);
+  }
+  if (loading) {
+    setPaymentLoader(true);
+  }
+  if (error) {
+    setPaymentLoader(false);
+    openNotification("Payment server is temporarily down. Please try after some time");
+    console.log(error);
+  }
+  const generateRazorpayOrder = () => {
+    setPaymentLoader(true);
+    getRazorPayOrder()
   }
   return (
     <>
-      {loading && <Spin size="large" />}
-      {error && <ServerError />}
-      <NextButton onClick={getRazorPayOrder}>CONTINUE</NextButton>
+      <NextButton onClick={generateRazorpayOrder}>CONTINUE</NextButton>
     </>
   );
 }
@@ -117,6 +128,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setStatus: (status) => {
       dispatch(setStatus(status));
+    },
+    setPaymentLoader: (status) => {
+      dispatch(setPaymentLoader(status));
     },
   };
 };

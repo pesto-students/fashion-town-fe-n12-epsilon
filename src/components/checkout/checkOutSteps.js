@@ -16,8 +16,8 @@ function CheckOutSteps({ status }) {
   const stepsArray = ["BAG", "ADDRESS", "PAYMENT"];
   return (
     <CheckOutStepsWrapper current={stepsMap[status]}>
-      {stepsArray.map((step) => (
-        <Step title={step} />
+      {stepsArray.map((step,index) => (
+        <Step title={step} key={index} />
       ))}
     </CheckOutStepsWrapper>
   );

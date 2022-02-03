@@ -44,7 +44,7 @@ const CheckOutStepsWrapper = styled(Steps)`
   margin-bottom: 2%;
 `;
 const OrderSummaryCard = styled(Card)`
-  width: 300;
+  width: 300px;
 `
 
 export {

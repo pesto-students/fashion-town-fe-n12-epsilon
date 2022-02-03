@@ -1,3 +1,4 @@
+import { LoadingOutlined } from "@ant-design/icons";
 import { Card, Skeleton } from "antd";
 import styled from "styled-components";
 
@@ -16,4 +17,7 @@ export const DefaultLoadingWrapper = styled.div`
 export const SkeletonImage = styled(Skeleton.Image)`
   width: 167;
   height: 226;
+`;
+export const LoadingIcon = styled(LoadingOutlined)`
+  font-size: 50px;
 `;

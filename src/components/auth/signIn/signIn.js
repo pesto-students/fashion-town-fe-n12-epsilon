@@ -5,12 +5,12 @@ import {
   SignInBox,
   HorizontalLine,
   FullWidthSpace,
-  LoadingIcon,
 } from "../authStyledComponent";
 
 import { Row, Spin } from "antd";
 import EmailSignIn from "./emailSignIn";
 import SocialSignIn from "./socialSignIn";
+import { LoadingIcon } from "components/loadingAnimations/loadingAnimationsStyledComponent";
 
 function SignIn({ authLoader }) {
   const antIcon = <LoadingIcon spin />;

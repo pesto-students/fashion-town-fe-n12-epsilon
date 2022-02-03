@@ -16,3 +16,9 @@ export const setOrderItems = (orderItems) => {
         payload: orderItems
     }
 };
+export const setPaymentLoader = (status) => {
+  return {
+    type: "PAYMENT_LOADER",
+    payload: status,
+  };
+};

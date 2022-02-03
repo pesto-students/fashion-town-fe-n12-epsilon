@@ -92,9 +92,7 @@ const SocialRow = styled(Row)`
   position: relative;
 `;
 
-const LoadingIcon = styled(LoadingOutlined)`
-  font-size: 50px;
-`;
+
 
 export {
   DisplayText,
@@ -111,5 +109,4 @@ export {
   SignUpBox,
   AuthHeaderWrapper,
   SocialRow,
-  LoadingIcon,
 };
