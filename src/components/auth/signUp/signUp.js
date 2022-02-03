@@ -19,6 +19,7 @@ import { Input, Row, Form, Spin } from "antd";
 
 import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
 import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
+import openNotification from "components/notification/messageNotification";
 
 function SignUp({ setUserName, redirectPath, setStoreAuth }) {
   const [registerEmail, setRegisterEmail] = useState(null);
@@ -43,7 +44,16 @@ function SignUp({ setUserName, redirectPath, setStoreAuth }) {
       navigate(redirectPath, { replace: true });
     } catch (error) {
       console.log(error);
+      setAuthLoader(false);
+      handleError(error);
     }
+  };
+  const extractErrorMessage = (error) => {
+    return error.message.split("/")[1].replaceAll("-", " ").replace(")", "");
+  };
+  const handleError = (error) => {
+    const message = extractErrorMessage(error);
+    openNotification(message);
   };
 
   const addUserNameToProfile = async (user) => {

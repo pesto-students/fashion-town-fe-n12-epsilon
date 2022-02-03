@@ -23,6 +23,7 @@ import {
 } from "../../../redux/actions/authActions";
 import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
 import links from "../../../config/routeLinks";
+import openNotification from "components/notification/messageNotification";
 
 function SocialSignIn({
   redirectPath,
@@ -46,6 +47,7 @@ function SocialSignIn({
     } catch (error) {
       setAuthLoader(false);
       console.log(error);
+      openNotification("Error occurred");
     }
   };
 

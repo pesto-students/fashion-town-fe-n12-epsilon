@@ -19,6 +19,7 @@ import {
 import { Input, Row, Form, message } from "antd";
 import { FormItem } from "../authStyledComponent";
 import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
+import openNotification from "components/notification/messageNotification";
 message.config({
   top: 100,
   right: 50,
@@ -52,17 +53,18 @@ function EmailSignIn({
       navigate(redirectPath, { replace: true });
     } catch (error) {
       console.log(error.message);
-      handleError(error.message);
+      setAuthLoader(false);
+      handleError(error.message); 
     }
   };
 
   const handleError = (errorMessage) => {
     if (errorMessage.includes("wrong-password")) {
-      message.error("Invalid Password !");
+      openNotification("Invalid Password !");
     } else if (errorMessage.includes("user-not-found")) {
-      message.error("Invalid email !");
+      openNotification("Invalid email !");
     } else if (errorMessage.includes("too-many-requests")) {
-      message.error("Too many attempts! try after sometime");
+      openNotification("Too many attempts! try after sometime");
     }
   };
 

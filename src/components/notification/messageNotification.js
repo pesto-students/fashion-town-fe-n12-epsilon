@@ -4,7 +4,7 @@ import { SuccessIcon, WarningIcon } from "./messageNotificationStyledComponent";
 
 notification.config({
   top: 100,
-  duration: 1,
+  duration: 2,
 });
 const openNotification = (message, type) => {
   notification.open({
