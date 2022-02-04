@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import { useMutation } from "@apollo/client";
@@ -17,8 +17,6 @@ import {
   setPaymentLoader,
 } from "../../redux/actions/orderActions";
 import { setCart, setStatus } from "../../redux/actions/cartActions";
-import ServerError from "../result/serverError";
-import { Spin } from "antd";
 import openNotification from "components/notification/messageNotification";
 
 function Payment(props) {
@@ -31,6 +29,7 @@ function Payment(props) {
     setPaymentDetails,
     setStatus,
     calculateTotalMRP,
+    setPaymentLoader,
   } = props;
 
   const Razorpay = useRazorpay();
@@ -45,15 +44,15 @@ function Payment(props) {
     }
   );
 
-  const handlePayment = async (OrderPrams) => {
+  const handlePayment = async ({ amount_due, currency, id }) => {
     const options = {
       key: process.env.REACT_APP_RAZOR_PAY_KEY, // Enter the Key ID generated from the Dashboard
-      amount: OrderPrams.amount_due, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-      currency: OrderPrams.currency,
+      amount: amount_due, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      currency: currency,
       name: "Fashion Town",
       description: "Test Transaction",
       image: "https://example.com/your_logo",
-      order_id: OrderPrams.id, //This is a sample Order ID. Pass the `id` obtained in the response of createOrder().
+      order_id: id, //This is a sample Order ID. Pass the `id` obtained in the response of createOrder().
 
       handler: (response) => {
         console.log(response);
@@ -80,27 +79,34 @@ function Payment(props) {
     const rzp1 = new Razorpay(options);
 
     rzp1.on("payment.failed", (response) => {
+      openNotification("Payment failed");
       console.log(response);
     });
 
     rzp1.open();
   };
-  if (data) {
-    setPaymentLoader(false);
-    handlePayment(data.createRazorPayOrder);
-  }
-  if (loading) {
-    setPaymentLoader(true);
-  }
-  if (error) {
-    setPaymentLoader(false);
-    openNotification("Payment server is temporarily down. Please try after some time");
-    console.log(error);
-  }
+  
+  useEffect(() => {
+    if (data) {
+      setPaymentLoader(false);
+      handlePayment(data.createRazorPayOrder);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (error) {
+      setPaymentLoader(false);
+      openNotification(
+        "Payment server is temporarily down. Please try after some time"
+      );
+      console.log(error);
+    }
+  }, [error]);
+
   const generateRazorpayOrder = () => {
     setPaymentLoader(true);
-    getRazorPayOrder()
-  }
+    getRazorPayOrder();
+  };
   return (
     <>
       <NextButton onClick={generateRazorpayOrder}>CONTINUE</NextButton>
