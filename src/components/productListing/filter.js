@@ -9,6 +9,7 @@ import { brandList } from "../../assets/data/brand";
 import { useSearchParams } from "react-router-dom";
 import { colorList } from "../../assets/data/color";
 import _ from "lodash";
+import { getAppliedFilterValueMap } from "../utils";
 
 function Filter() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -32,21 +33,9 @@ function Filter() {
     },
   ];
 
-  const getAppliedFilterValueMap = () => {
-    let filterTypeValueMap = {};
-    searchParams.forEach((filter, keys) => {
-      if (filterTypeValueMap[keys]) {
-        filterTypeValueMap[keys].push(filter);
-      } else {
-        filterTypeValueMap[keys] = [filter];
-      }
-    });
-    return filterTypeValueMap;
-  };
-
   const applyFilters = (filterType, selectedValueArray) => {
     if (Array.isArray(selectedValueArray)) {
-      const filterTypeValueMap = getAppliedFilterValueMap();
+      const filterTypeValueMap = getAppliedFilterValueMap(searchParams);
       filterTypeValueMap[filterType] = selectedValueArray;
       setSearchParams(filterTypeValueMap);
     }

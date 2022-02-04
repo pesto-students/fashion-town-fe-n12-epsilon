@@ -1,22 +1,24 @@
 import React from "react";
-import { Button, Space, Row, Col } from "antd";
+import { Button, Space } from "antd";
 import {
   HeroBanner,
   HeroText,
   ActionButtonContainer,
-  MenWomenSection,
+  CategorySection,
   MenBlock,
   WomenBlock,
-  AccessoriesSection,
   AccessoriesBlock,
   CategoryButtonsWrapper,
+  FreshArrivalBlock,
+  SectionRow,
+  SectionCol,
 } from "./landingStyledComponent";
 import links from "../../config/routeLinks";
 import { NavLink } from "react-router-dom";
 
 function LandingPage() {
   return (
-    <div>
+    <>
       <HeroBanner>
         <HeroText>
           ITS TIME TO STAND
@@ -30,22 +32,18 @@ function LandingPage() {
                 SHOP NOW
               </Button>
             </NavLink>
-            {/* <Button size={"large"} shape="round">
-              SELL NOW               yet to implement this feature
-            </Button> */}
+            <NavLink to={links.sell}>
+              <Button size={"large"} shape="round">
+                SELL NOW
+              </Button>
+            </NavLink>
           </Space>
         </ActionButtonContainer>
       </HeroBanner>
-      <MenWomenSection>
-        <Row style={{ height: "100%" }}>
-          <Col
-            xs={24}
-            sm={12}
-            md={12}
-            lg={18}
-            xl={18}
-            style={{ padding: "5px" }}
-          >
+
+      <CategorySection>
+        <SectionRow>
+          <SectionCol xs={24} sm={12} md={12} lg={18} xl={18}>
             <MenBlock>
               <CategoryButtonsWrapper>
                 <NavLink to={links.shop + links.menSection}>
@@ -55,8 +53,8 @@ function LandingPage() {
                 </NavLink>
               </CategoryButtonsWrapper>
             </MenBlock>
-          </Col>
-          <Col xs={24} sm={12} md={12} lg={6} xl={6} style={{ padding: "5px" }}>
+          </SectionCol>
+          <SectionCol xs={24} sm={12} md={12} lg={6} xl={6}>
             <WomenBlock>
               <CategoryButtonsWrapper>
                 <NavLink to={links.shop + links.womenSection}>
@@ -66,21 +64,37 @@ function LandingPage() {
                 </NavLink>
               </CategoryButtonsWrapper>
             </WomenBlock>
-          </Col>
-        </Row>
-      </MenWomenSection>
-      <AccessoriesSection>
-        <AccessoriesBlock>
-          <CategoryButtonsWrapper>
-            <NavLink to={links.shop + links.accessoriesSection}>
-              <Button size={"large"} shape="round">
-                ACCESSORIES
-              </Button>
-            </NavLink>
-          </CategoryButtonsWrapper>
-        </AccessoriesBlock>
-      </AccessoriesSection>
-    </div>
+          </SectionCol>
+        </SectionRow>
+      </CategorySection>
+
+      <CategorySection>
+        <SectionRow>
+          <SectionCol xs={24} sm={12} md={12} lg={6} xl={6}>
+            <FreshArrivalBlock>
+              <CategoryButtonsWrapper>
+                <NavLink to={links.freshArrivals}>
+                  <Button size={"large"} shape="round">
+                    FRESH ARRIVALS
+                  </Button>
+                </NavLink>
+              </CategoryButtonsWrapper>
+            </FreshArrivalBlock>
+          </SectionCol>
+          <SectionCol xs={24} sm={12} md={12} lg={18} xl={18}>
+            <AccessoriesBlock>
+              <CategoryButtonsWrapper>
+                <NavLink to={links.shop + links.accessoriesSection}>
+                  <Button size={"large"} shape="round">
+                    ACCESSORIES
+                  </Button>
+                </NavLink>
+              </CategoryButtonsWrapper>
+            </AccessoriesBlock>
+          </SectionCol>
+        </SectionRow>
+      </CategorySection>
+    </>
   );
 }
 

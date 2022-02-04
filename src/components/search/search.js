@@ -5,13 +5,15 @@ import { useSearchParams } from "react-router-dom";
 import { SearchInput } from "./searchStyledComponent";
 import { useLocation, useNavigate } from "react-router-dom";
 import links from "../../config/routeLinks";
+import config from "../../config/config";
 
 function Search() {
-  const [, setSearchParams] = useSearchParams(); 
+  const [, setSearchParams] = useSearchParams();
   const location = useLocation();
   const navigate = useNavigate();
   const { pathname } = location;
   const { shop } = links;
+  const { itemsPerPage } = config;
 
   const pathnameIsNotShop = () => {
     return pathname !== `/${shop}`;
@@ -25,6 +27,7 @@ function Search() {
   const handleSearchInputWithDebounce = _.debounce((search) => {
     if (_.isEmpty(search)) {
       setSearchParams();
+      navigate(`${shop}?page=1&itemCount=${itemsPerPage}`);
     } else {
       setSearchParams({ search });
     }
