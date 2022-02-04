@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Form, Row, Space } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
 const DisplayText = styled.p`
   font-style: normal;
   font-weight: normal;

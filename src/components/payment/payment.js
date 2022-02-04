@@ -37,7 +37,7 @@ function Payment(props) {
   const amount = parseInt(Math.floor(calculateTotalMRP()) + "00");
   const orderId = "P" + moment().format("YYYYMMDDHHmmss");
 
-  const [getRazorPayOrder, { error, loading, data, reset }] = useMutation(
+  const [getRazorPayOrder, { error, data, reset }] = useMutation(
     RAZORPAY_ORDER_QUERY,
     {
       variables: { amount: amount, orderId: orderId },
@@ -85,13 +85,13 @@ function Payment(props) {
 
     rzp1.open();
   };
-  
+
   useEffect(() => {
     if (data) {
       setPaymentLoader(false);
       handlePayment(data.createRazorPayOrder);
     }
-  }, [data]);
+  }, [data]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (error) {
@@ -101,7 +101,7 @@ function Payment(props) {
       );
       console.log(error);
     }
-  }, [error]);
+  }, [error]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const generateRazorpayOrder = () => {
     setPaymentLoader(true);
