@@ -54,8 +54,8 @@ function UserMenu(props) {
     </>
   );
 }
-const mapStateToProps = (state) => {
-  return { userName: state.Auth.userName };
+const mapStateToProps = ({ Auth }) => {
+  return { userName: Auth.userName };
 };
 
 const mapDispatchToProps = (dispatch) => {

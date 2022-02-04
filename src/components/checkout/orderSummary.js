@@ -98,13 +98,13 @@ function OrderSummary(props) {
   );
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ Cart, Auth, Order }) => {
   return {
-    cart: state.Cart.cart,
-    address: state.Cart.address,
-    status: state.Cart.status,
-    storeAuth: state.Auth.storeAuth,
-    order: state.Order,
+    cart: Cart.cart,
+    address: Cart.address,
+    status: Cart.status,
+    storeAuth: Auth.storeAuth,
+    order: Order,
   };
 };
 

@@ -18,7 +18,7 @@ import UserMenu from "./userMenu";
 function Auth({ setUserName, setCurrentPath, userName }) {
   const [isLogin, setLogin] = useState(false);
   const [userInitial, setUserInitial] = useState(null);
- 
+
   const auth = getAuth();
   const location = useLocation();
   const navigate = useNavigate();
@@ -81,8 +81,8 @@ function Auth({ setUserName, setCurrentPath, userName }) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return { userName: state.Auth.userName };
+const mapStateToProps = ({ Auth }) => {
+  return { userName: Auth.userName };
 };
 
 const mapDispatchToProps = (dispatch) => {

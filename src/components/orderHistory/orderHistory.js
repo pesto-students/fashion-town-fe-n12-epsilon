@@ -22,8 +22,8 @@ function OrderHistory({ storeAuth }) {
     </>
   );
 }
-const mapStateToProps = (state) => {
-  return { storeAuth: state.Auth.storeAuth };
+const mapStateToProps = ({ Auth }) => {
+  return { storeAuth: Auth.storeAuth };
 };
 
 export default connect(mapStateToProps)(OrderHistory);

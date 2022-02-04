@@ -4,9 +4,7 @@ import { connect } from "react-redux";
 import { Card, Space, Typography } from "antd";
 const { Text, Title } = Typography;
 
-function AddressDisplay(props) {
-  const { address } = props;
-
+function AddressDisplay({ address }) {
   return (
     <Card>
       <Space direction="vertical">
@@ -22,8 +20,8 @@ function AddressDisplay(props) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return { address: state.Cart.address };
+const mapStateToProps = ({ Cart }) => {
+  return { address: Cart.address };
 };
 
 export default connect(mapStateToProps)(AddressDisplay);

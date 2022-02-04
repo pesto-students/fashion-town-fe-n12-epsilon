@@ -172,8 +172,8 @@ function ProductDescription({ productDetails, setCart, cart }) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return { cart: state.Cart.cart };
+const mapStateToProps = ({ Cart }) => {
+  return { cart: Cart.cart };
 };
 
 const mapDispatchToProps = (dispatch) => {
