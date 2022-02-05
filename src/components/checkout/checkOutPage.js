@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { ORDER_DETAILS_MUTATION } from "../../graphQlQueries/orderDetails";
 
@@ -16,6 +16,8 @@ import PaymentResult from "../payment/paymentResult";
 import config from "../../config/config";
 import { setStatus } from "../../redux/actions/cartActions";
 import { LoadingIcon } from "components/loadingAnimations/loadingAnimationsStyledComponent";
+import links from "config/routeLinks";
+import openNotification from "components/notification/messageNotification";
 
 function CheckOutPage({
   cart,
@@ -27,7 +29,8 @@ function CheckOutPage({
   userName,
 }) {
   const deliveryCharge = config.deliveryCharge;
-
+  const navigate = useNavigate();
+  
   const calculateTotalMRP = () => {
     let totalMRP = 0;
     cart.forEach((product) => {
@@ -56,6 +59,13 @@ function CheckOutPage({
       createNewOrder();
     }
   }, [status, setStatus, createNewOrder]);
+
+  useEffect(() => {
+    if (cart.length === 0) {
+      openNotification("All items are removed from cart")
+      navigate(links.home)
+    }
+  },[cart])
 
   const antIcon = <LoadingIcon spin />;
   console.log(paymentLoader);
