@@ -10,8 +10,8 @@ function PrivateRoute({ storeAuth, children, setCurrentPath }) {
   return storeAuth ? children : <Navigate to="/signIn" />;
 }
 
-const mapStateToProps = (state) => {
-  return { storeAuth: state.Auth.storeAuth };
+const mapStateToProps = ({ Auth }) => {
+  return { storeAuth: Auth.storeAuth };
 };
 
 const mapDispatchToProps = (dispatch) => {

@@ -1,4 +1,4 @@
-import { Checkbox } from "antd";
+import { Checkbox, Col, List, Pagination, Row } from "antd";
 import styled from "styled-components";
 
 const FilterAndListingContainer = styled.section`
@@ -37,6 +37,21 @@ const FilterCheckBox = styled(Checkbox.Group)`
   margin-left: 10px;
   flex-direction: column;
 `;
+const ProductListItems = styled(List.Item)`
+  width: 200px;
+`;
+
+const ProductListPagination = styled(Pagination)`
+  text-align: center;
+`;
+
+const FilterCol = styled(Col)`
+  border-right: 1px solid #e8e8e8;
+`;
+
+const FilterHeadingRow = styled(Row)`
+  padding-top: 10px;
+`;
 export {
   FilterAndListingContainer,
   ListingBox,
@@ -44,4 +59,8 @@ export {
   FilterHeading,
   FilterCheckboxWrapper,
   FilterCheckBox,
+  ProductListItems,
+  ProductListPagination,
+  FilterCol,
+  FilterHeadingRow,
 };

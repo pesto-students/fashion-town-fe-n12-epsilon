@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Button as AntButton } from "antd";
+import { Button as AntButton, Button, Col } from "antd";
+import Text from "antd/lib/typography/Text";
 const ProductDetailsWrapper = styled.div`
   min-height: 90vh;
   width: 100%;
@@ -35,6 +36,19 @@ const SizeButton = styled(AntButton)`
   border-color: ${(props) => (props.selected === props.size ? "orange" : "")};
   color: ${(props) => (props.selected === props.size ? "orange" : "")};
 `;
+
+const ProductTitle = styled(Text)`
+  font-size: 1.3em;
+`;
+const AddToCartButton = styled(Button)`
+  background: #ff7f3f;
+  border-radius: 5px;
+  color: white;
+  height: 60px;
+`;
+const ProductImageCol = styled(Col)`
+  padding: 2;
+`;
 export {
   ProductDetailsWrapper,
   ProductDescriptionWrapper,
@@ -43,4 +57,7 @@ export {
   ActionButtonWrapper,
   ProductSubText,
   SizeButton,
+  ProductTitle,
+  AddToCartButton,
+  ProductImageCol,
 };

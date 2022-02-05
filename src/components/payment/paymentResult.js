@@ -26,8 +26,8 @@ function PaymentResult({ setStatus, orderId }) {
     />
   );
 }
-const mapStateToProps = (state) => {
-  return { orderId: state.Order.id };
+const mapStateToProps = ({ Order }) => {
+  return { orderId: Order.id };
 };
 
 const mapDispatchToProps = (dispatch) => {

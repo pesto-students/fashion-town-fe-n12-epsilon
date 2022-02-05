@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import "dotenv/config"
+import "dotenv/config";
 
 import {
   signInWithEmailAndPassword,
@@ -10,18 +10,28 @@ import {
   inMemoryPersistence,
 } from "firebase/auth";
 
-import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
+import {
+  setAuthLoader,
+  setStoreAuth,
+  setUserName,
+} from "../../../redux/actions/authActions";
 
 import { Input, Row, Form, message } from "antd";
 import { FormItem } from "../authStyledComponent";
 import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
+import openNotification from "components/notification/messageNotification";
 message.config({
   top: 100,
   right: 50,
   duration: 2,
 });
 
-function EmailSignIn({ redirectPath, setUserName, setStoreAuth }) {
+function EmailSignIn({
+  redirectPath,
+  setUserName,
+  setStoreAuth,
+  setAuthLoader,
+}) {
   const [signInEmail, setSignInEmail] = useState(null);
   const [signInPassword, setSignInPassword] = useState(null);
 
@@ -31,6 +41,7 @@ function EmailSignIn({ redirectPath, setUserName, setStoreAuth }) {
   const emailSignIn = async (signInEmail, signInPassword) => {
     try {
       await setPersistence(auth, inMemoryPersistence);
+      setAuthLoader(true);
       const authResponse = await signInWithEmailAndPassword(
         auth,
         signInEmail,
@@ -38,28 +49,30 @@ function EmailSignIn({ redirectPath, setUserName, setStoreAuth }) {
       );
       setUserName(authResponse.user.displayName);
       setStoreAuth(authResponse.user);
+      setAuthLoader(false);
       navigate(redirectPath, { replace: true });
     } catch (error) {
       console.log(error.message);
-      handleError(error.message);
+      setAuthLoader(false);
+      handleError(error.message); 
     }
   };
 
   const handleError = (errorMessage) => {
     if (errorMessage.includes("wrong-password")) {
-      message.error("Invalid Password !");
+      openNotification("Invalid Password !");
     } else if (errorMessage.includes("user-not-found")) {
-      message.error("Invalid email !");
+      openNotification("Invalid email !");
     } else if (errorMessage.includes("too-many-requests")) {
-      message.error("Too many attempts! try after sometime");
+      openNotification("Too many attempts! try after sometime");
     }
   };
 
   const handelGuestLogin = () => {
-    const guestEmailId = process.env.REACT_APP_GUEST_USER_EMAIL
+    const guestEmailId = process.env.REACT_APP_GUEST_USER_EMAIL;
     const guestPassword = process.env.REACT_APP_GUEST_USER_PASSWORD;
     emailSignIn(guestEmailId, guestPassword);
-  }
+  };
 
   return (
     <Form
@@ -113,8 +126,8 @@ function EmailSignIn({ redirectPath, setUserName, setStoreAuth }) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return { userName: state.Auth.userName, redirectPath: state.Redirect.path };
+const mapStateToProps = ({ Redirect }) => {
+  return { redirectPath: Redirect.path };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -124,6 +137,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setStoreAuth: (auth) => {
       dispatch(setStoreAuth(auth));
+    },
+    setAuthLoader: (status) => {
+      dispatch(setAuthLoader(status));
     },
   };
 };

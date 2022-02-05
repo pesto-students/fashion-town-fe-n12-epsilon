@@ -10,9 +10,9 @@ import links from "../../config/routeLinks";
 import openNotification from "../notification/messageNotification";
 
 function Cart({ cart }) {
- const handleCartIconClick = () => {
-    openNotification("Your cart is empty",'error')
-  }
+  const handleCartIconClick = () => {
+    openNotification("Your cart is empty", "error");
+  };
   return (
     <>
       <Col xs={0} sm={0} md={0} lg={0} xl={24}>
@@ -36,8 +36,8 @@ function Cart({ cart }) {
     </>
   );
 }
-const mapStateToProps = (state) => {
-  return { cart: state.Cart.cart };
+const mapStateToProps = ({ Cart }) => {
+  return { cart: Cart.cart };
 };
 
 export default connect(mapStateToProps)(Cart);

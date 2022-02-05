@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Upload, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import { UploadImageComponent, UploadTextWrapper } from "./sellStyledComponent";
 
 function getBase64(file) {
   return new Promise((resolve, reject) => {
@@ -32,10 +33,10 @@ function UploadImage({ fileList, setFileList }) {
   const handleChange = ({ fileList }) => setFileList(fileList);
 
   const uploadButton = (
-    <div>
+    <>
       <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </div>
+      <UploadTextWrapper>Upload</UploadTextWrapper>
+    </>
   );
   return (
     <>
@@ -53,7 +54,7 @@ function UploadImage({ fileList, setFileList }) {
         footer={null}
         onCancel={handleCancel}
       >
-        <img alt="example" style={{ width: "100%" }} src={previewImage} />
+        <UploadImageComponent alt="example" src={previewImage} />
       </Modal>
     </>
   );

@@ -132,8 +132,8 @@ function ProductDisplay({ product, cart, setCart }) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return { cart: state.Cart.cart };
+const mapStateToProps = ({ Cart }) => {
+  return { cart: Cart.cart };
 };
 
 const mapDispatchToProps = (dispatch) => {

@@ -26,8 +26,8 @@ function CartList({ cart }) {
     </>
   );
 }
-const mapStateToProps = (state) => {
-  return { cart: state.Cart.cart };
+const mapStateToProps = ({ Cart }) => {
+  return { cart: Cart.cart };
 };
 
 export default connect(mapStateToProps)(CartList);

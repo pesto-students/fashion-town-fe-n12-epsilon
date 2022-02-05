@@ -7,9 +7,10 @@ import { DisplayText, UserNameCapitalize } from "./authStyledComponent";
 
 import { setStoreAuth, setUserName } from "../../redux/actions/authActions";
 import links from "../../config/routeLinks";
+import { setCart } from "../../redux/actions/cartActions";
 
 function UserMenu(props) {
-  const { setUserName, setStoreAuth, userName } = props;
+  const { setUserName, setStoreAuth, userName, setCart } = props;
 
   const logout = async () => {
     const auth = getAuth();
@@ -17,6 +18,7 @@ function UserMenu(props) {
       await signOut(auth);
       setUserName(null);
       setStoreAuth(null);
+      setCart([]);
     } catch (error) {
       console.log(error);
     }
@@ -52,8 +54,8 @@ function UserMenu(props) {
     </>
   );
 }
-const mapStateToProps = (state) => {
-  return { userName: state.Auth.userName };
+const mapStateToProps = ({ Auth }) => {
+  return { userName: Auth.userName };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -63,6 +65,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     setStoreAuth: (auth) => {
       dispatch(setStoreAuth(auth));
+    },
+    setCart: (cart) => {
+      dispatch(setCart(cart));
     },
   };
 };

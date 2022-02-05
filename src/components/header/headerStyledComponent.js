@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { MenuOutlined } from "@ant-design/icons";
-import { Col } from "antd";
+import { Col, Row } from "antd";
 
 const NavBar = styled.nav`
   width: 100%;
@@ -41,6 +41,10 @@ const HamburgerIconCol = styled(Col)`
 const SpaceCol = styled(Col)`
   z-index: -1;
 `;
+
+const ContentCenterRow = styled(Row)`
+justify-content: center;
+`
 export {
   NavBar,
   NavBarItems,
@@ -50,4 +54,5 @@ export {
   HamburgerIcon,
   HamburgerIconCol,
   SpaceCol,
+  ContentCenterRow,
 };

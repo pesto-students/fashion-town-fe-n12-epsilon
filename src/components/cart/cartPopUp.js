@@ -53,10 +53,10 @@ function CartPopUp({ storeAuth, setStatus, setCurrentPath, cart }) {
   );
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ Auth, Cart }) => {
   return {
-    storeAuth: state.Auth.storeAuth,
-    cart: state.Cart.cart,
+    storeAuth: Auth.storeAuth,
+    cart: Cart.cart,
   };
 };
 

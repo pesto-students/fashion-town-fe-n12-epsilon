@@ -1,21 +1,16 @@
-import React from 'react';
+import React from "react";
 import { notification } from "antd";
-import { CheckCircleOutlined, WarningOutlined } from '@ant-design/icons';
+import { SuccessIcon, WarningIcon } from "./messageNotificationStyledComponent";
 
 notification.config({
   top: 100,
-  duration: 1,
+  duration: 2,
 });
- const openNotification = (message, type) => {
-   notification.open({
-     message: message,
-     icon:
-       type === "success" ? (
-         <CheckCircleOutlined style={{ color: "green" }} />
-       ) : (
-         <WarningOutlined style={{ color: "red" }} />
-       ),
-   });
- };
+const openNotification = (message, type) => {
+  notification.open({
+    message: message,
+    icon: type === "success" ? <SuccessIcon /> : <WarningIcon />,
+  });
+};
 
 export default openNotification;
