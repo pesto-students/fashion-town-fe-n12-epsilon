@@ -17,7 +17,7 @@ import AddressDisplay from "../address/addressDisplay";
 import AddressForm from "../address/addressForm";
 import PaymentResult from "../payment/paymentResult";
 import config from "../../config/config";
-import { setStatus } from "../../redux/actions/cartActions";
+import { setCart, setStatus } from "../../redux/actions/cartActions";
 import { LoadingIcon } from "components/loadingAnimations/loadingAnimationsStyledComponent";
 import links from "config/routeLinks";
 import openNotification from "components/notification/messageNotification";
@@ -30,6 +30,7 @@ function CheckOutPage({
   storeAuth,
   setStatus,
   userName,
+  setCart,
 }) {
   const deliveryCharge = config.deliveryCharge;
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ function CheckOutPage({
       const productTotalPrice = product.price * product.qty;
       totalMRP += productTotalPrice;
     });
+    console.log(totalMRP + deliveryCharge);
     return parseInt(totalMRP + deliveryCharge);
   };
 
@@ -60,6 +62,7 @@ function CheckOutPage({
     if (status === "paymentSuccessful") {
       setStatus("orderPlaced");
       createNewOrder();
+      setCart([])
     }
   }, [status, setStatus, createNewOrder]);
 
@@ -154,6 +157,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setStatus: (status) => {
       dispatch(setStatus(status));
+    },
+    setCart: (cart) => {
+      dispatch(setCart(cart));
     },
   };
 };
