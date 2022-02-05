@@ -11,7 +11,9 @@ import openNotification from "../notification/messageNotification";
 
 function Cart({ cart }) {
   const handleCartIconClick = () => {
-    openNotification("Your cart is empty", "error");
+    if (cart.length === 0) {
+      openNotification("Your cart is empty", "error");
+    } 
   };
   return (
     <>
