@@ -5,7 +5,7 @@ import { useMutation } from "@apollo/client";
 import { ORDER_DETAILS_MUTATION } from "../../graphQlQueries/orderDetails";
 
 import { Row, Col, Spin } from "antd";
-import { CheckoutPageWrapper } from "./checkoutStyledComponent";
+import { CheckoutPageWrapper, SamplePaymentInfo } from "./checkoutStyledComponent";
 
 import CartList from "../cart/cartList";
 import OrderSummary from "./orderSummary";
@@ -17,7 +17,15 @@ import config from "../../config/config";
 import { setStatus } from "../../redux/actions/cartActions";
 import { LoadingIcon } from "components/loadingAnimations/loadingAnimationsStyledComponent";
 
-function CheckOutPage({ cart, address, status, order, storeAuth, setStatus }) {
+function CheckOutPage({
+  cart,
+  address,
+  status,
+  order,
+  storeAuth,
+  setStatus,
+  userName,
+}) {
   const deliveryCharge = config.deliveryCharge;
 
   const calculateTotalMRP = () => {
@@ -77,6 +85,30 @@ function CheckOutPage({ cart, address, status, order, storeAuth, setStatus }) {
                         <OrderSummary calculateTotalMRP={calculateTotalMRP} />
                       </Col>
                     </Row>
+                    <Row>
+                      <Col xs={24} sm={8} md={8} lg={12}></Col>
+                      <Col lg={12}>
+                        {userName === "Guest User" && status === "payment" && (
+                          <SamplePaymentInfo>
+                            <p>Test card Number: 5267 3181 8797 5449</p>
+                            <p>CVV: 123</p>
+                            <p>Exp date : 10/2030</p>
+
+                            <br />
+                            <ul>
+                              <li>
+                                Test payment success flow using{" "}
+                                <code>success@razorpay</code>.
+                              </li>
+                              <li>
+                                Test payment failure flow using{" "}
+                                <code>failure@razorpay</code>.
+                              </li>
+                            </ul>
+                          </SamplePaymentInfo>
+                        )}
+                      </Col>
+                    </Row>
                   </>
                 )}
                 {status === "orderPlaced" && (
@@ -102,6 +134,7 @@ const mapStateToProps = ({ Cart, Auth, Order }) => {
     status: Cart.status,
     storeAuth: Auth.storeAuth,
     order: Order,
+    userName: Auth.userName
   };
 };
 
