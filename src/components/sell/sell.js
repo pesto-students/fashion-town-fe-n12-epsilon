@@ -7,20 +7,21 @@ import {
   ProductDetailsWrapper,
   NextButton,
 } from "./sellStyledComponent";
-
+import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import openNotification from "../notification/messageNotification";
 import Title from "antd/lib/typography/Title";
 import UploadImage from "./upload";
 import { ADD_PRODUCT_MUTATION } from "../../graphQlQueries/addProductQuery";
 import config from "../../config/config";
+import links from "config/routeLinks";
 
 const { Option } = Select;
 
 function Sell() {
   const [fileList, setFileList] = useState([]);
   const storage = getStorage();
-
+  const navigate = useNavigate();
   const [addNewProduct] = useMutation(ADD_PRODUCT_MUTATION);
 
   /**
@@ -52,23 +53,25 @@ function Sell() {
 
   const addBodyAndImages = async (formData) => {
     try {
-      const imageUrlArray = await uploadImagesAndGetImageUrl();
+      // const imageUrlArray = await uploadImagesAndGetImageUrl();
       const { brand, title, product_details } = formData;
       formData["body"] = `${brand}, ${title}, ${product_details}`;
-      formData["images"] = imageUrlArray;
+      formData["images"] = ["load fallback image"]; //imageUrlArray;  Upload Image to be implemented In phase 2
     } catch (error) {
       console.log(error);
     }
   };
 
   const onFinish = async (formData) => {
-    if (fileList.length === 0) {
-      openNotification("Please upload images");
-      return;
-    }
+    // if (fileList.length === 0) {
+    //   openNotification("Please upload images");
+    //   return;
+    // }
     await addBodyAndImages(formData);
     console.log(formData);
     await addNewProduct({ variables: { ...formData } });
+    openNotification("Product added", "success");
+    navigate(links.home)
   };
 
   const onFinishFailed = async (errorInfo) => {
@@ -195,10 +198,10 @@ function Sell() {
             ]}
           >
             <SellNowInput placeholder="Care instructions" />
-          </Form.Item>
+            {/* </Form.Item>
           <UploadImage fileList={fileList} setFileList={setFileList} />
 
-          <Form.Item>
+          <Form.Item> */}
             <NextButton htmlType="submit">CONTINUE</NextButton>
           </Form.Item>
         </Form>
