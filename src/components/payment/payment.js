@@ -16,7 +16,7 @@ import {
   setPaymentDetails,
   setPaymentLoader,
 } from "../../redux/actions/orderActions";
-import { setCart, setStatus } from "../../redux/actions/cartActions";
+import { setStatus } from "../../redux/actions/cartActions";
 import openNotification from "components/notification/messageNotification";
 
 function Payment(props) {
@@ -24,7 +24,6 @@ function Payment(props) {
     address,
     cart,
     setOrderItems,
-    setCart,
     setOrderId,
     setPaymentDetails,
     setStatus,
@@ -58,7 +57,6 @@ function Payment(props) {
         console.log(response);
         reset();
         setOrderItems(cart);
-        setCart([]);
         setOrderId(orderId);
         setPaymentDetails(response);
         setStatus("paymentSuccessful");
@@ -128,9 +126,6 @@ const mapDispatchToProps = (dispatch) => {
     },
     setOrderId: (orderId) => {
       dispatch(setOrderId(orderId));
-    },
-    setCart: (cart) => {
-      dispatch(setCart(cart));
     },
     setStatus: (status) => {
       dispatch(setStatus(status));

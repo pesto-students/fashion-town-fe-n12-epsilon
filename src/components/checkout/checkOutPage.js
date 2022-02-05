@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { ORDER_DETAILS_MUTATION } from "../../graphQlQueries/orderDetails";
 
-import { Row, Col, Spin } from "antd";
-import { CheckoutPageWrapper } from "./checkoutStyledComponent";
+import { Row, Col, Spin, Card } from "antd";
+import {
+  CheckoutPageWrapper,
+  SamplePaymentInfo,
+} from "./checkoutStyledComponent";
 
 import CartList from "../cart/cartList";
 import OrderSummary from "./orderSummary";
@@ -14,11 +17,23 @@ import AddressDisplay from "../address/addressDisplay";
 import AddressForm from "../address/addressForm";
 import PaymentResult from "../payment/paymentResult";
 import config from "../../config/config";
-import { setStatus } from "../../redux/actions/cartActions";
+import { setCart, setStatus } from "../../redux/actions/cartActions";
 import { LoadingIcon } from "components/loadingAnimations/loadingAnimationsStyledComponent";
+import links from "config/routeLinks";
+import openNotification from "components/notification/messageNotification";
 
-function CheckOutPage({ cart, address, status, order, storeAuth, setStatus }) {
+function CheckOutPage({
+  cart,
+  address,
+  status,
+  order,
+  storeAuth,
+  setStatus,
+  userName,
+  setCart,
+}) {
   const deliveryCharge = config.deliveryCharge;
+  const navigate = useNavigate();
 
   const calculateTotalMRP = () => {
     let totalMRP = 0;
@@ -26,6 +41,7 @@ function CheckOutPage({ cart, address, status, order, storeAuth, setStatus }) {
       const productTotalPrice = product.price * product.qty;
       totalMRP += productTotalPrice;
     });
+    console.log(totalMRP + deliveryCharge);
     return parseInt(totalMRP + deliveryCharge);
   };
 
@@ -46,8 +62,16 @@ function CheckOutPage({ cart, address, status, order, storeAuth, setStatus }) {
     if (status === "paymentSuccessful") {
       setStatus("orderPlaced");
       createNewOrder();
+      setCart([]);
     }
-  }, [status, setStatus, createNewOrder]);
+  }, [status, setStatus, createNewOrder, setCart]);
+
+  useEffect(() => {
+    if (cart.length === 0 && status === "bag") {
+      openNotification("All items are removed from cart");
+      navigate(links.home);
+    }
+  }, [cart, status, navigate]);
 
   const antIcon = <LoadingIcon spin />;
   console.log(paymentLoader);
@@ -77,6 +101,29 @@ function CheckOutPage({ cart, address, status, order, storeAuth, setStatus }) {
                         <OrderSummary calculateTotalMRP={calculateTotalMRP} />
                       </Col>
                     </Row>
+                    <Row>
+                      <Col xs={24} sm={8} md={8} lg={12}></Col>
+                      <Col lg={12}>
+                        {userName === "Guest User" && status === "payment" && (
+                          <Card title="Test payment details">
+                            <SamplePaymentInfo>
+                              <p>Card Number: 5267 3181 8797 5449</p>
+                              <p>CVV: 123</p>
+                              <p>Exp date : 10/2030</p>
+
+                              <br />
+                              <p>
+                                UPI ID: <code>success@razorpay</code>
+                              </p>
+                              <p>
+                                <strong>Note: </strong>Only visible to Guest
+                                user
+                              </p>
+                            </SamplePaymentInfo>
+                          </Card>
+                        )}
+                      </Col>
+                    </Row>
                   </>
                 )}
                 {status === "orderPlaced" && (
@@ -102,6 +149,7 @@ const mapStateToProps = ({ Cart, Auth, Order }) => {
     status: Cart.status,
     storeAuth: Auth.storeAuth,
     order: Order,
+    userName: Auth.userName,
   };
 };
 
@@ -109,6 +157,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     setStatus: (status) => {
       dispatch(setStatus(status));
+    },
+    setCart: (cart) => {
+      dispatch(setCart(cart));
     },
   };
 };

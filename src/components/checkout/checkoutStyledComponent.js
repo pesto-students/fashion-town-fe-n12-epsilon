@@ -45,7 +45,10 @@ const CheckOutStepsWrapper = styled(Steps)`
 `;
 const OrderSummaryCard = styled(Card)`
   width: 300px;
-`
+`;
+const SamplePaymentInfo = styled.div`
+  color: red;
+`;
 
 export {
   CartBox,
@@ -55,4 +58,5 @@ export {
   NextButton,
   CheckOutStepsWrapper,
   OrderSummaryCard,
+  SamplePaymentInfo,
 };

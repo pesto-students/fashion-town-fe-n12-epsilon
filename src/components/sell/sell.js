@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Form, Select } from "antd";
-import { getStorage, ref, uploadString } from "firebase/storage";
+// import { getStorage, ref, uploadString } from "firebase/storage";
 import {
   SellNowContainer,
   SellNowInput,
@@ -11,16 +11,16 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import openNotification from "../notification/messageNotification";
 import Title from "antd/lib/typography/Title";
-import UploadImage from "./upload";
+// import UploadImage from "./upload";
 import { ADD_PRODUCT_MUTATION } from "../../graphQlQueries/addProductQuery";
-import config from "../../config/config";
+// import config from "../../config/config";
 import links from "config/routeLinks";
 
 const { Option } = Select;
 
 function Sell() {
-  const [fileList, setFileList] = useState([]);
-  const storage = getStorage();
+  // const [fileList, setFileList] = useState([]);
+  // const storage = getStorage();
   const navigate = useNavigate();
   const [addNewProduct] = useMutation(ADD_PRODUCT_MUTATION);
 
@@ -28,28 +28,28 @@ function Sell() {
    *
    * @returns cloud image link
    */
-  const uploadImagesAndGetImageUrl = () => {
-    return new Promise((resolve, reject) => {
-      const imageUrlArray = [];
-      try {
-        fileList.forEach(async (imageFile) => {
-          const storageRef = ref(storage, imageFile.name);
-          const base64Image = imageFile.thumbUrl;
-          const snapShot = await uploadString(
-            storageRef,
-            base64Image,
-            "data_url"
-          );
-          const imageUrl =
-            config.googleCloudUrl + snapShot.metadata.fullPath + "?alt=media";
-          imageUrlArray.push(imageUrl);
-        });
-        resolve(imageUrlArray);
-      } catch (error) {
-        reject(error);
-      }
-    });
-  };
+  // const uploadImagesAndGetImageUrl = () => {
+  //   return new Promise((resolve, reject) => {
+  //     const imageUrlArray = [];
+  //     try {
+  //       fileList.forEach(async (imageFile) => {
+  //         const storageRef = ref(storage, imageFile.name);
+  //         const base64Image = imageFile.thumbUrl;
+  //         const snapShot = await uploadString(
+  //           storageRef,
+  //           base64Image,
+  //           "data_url"
+  //         );
+  //         const imageUrl =
+  //           config.googleCloudUrl + snapShot.metadata.fullPath + "?alt=media";
+  //         imageUrlArray.push(imageUrl);
+  //       });
+  //       resolve(imageUrlArray);
+  //     } catch (error) {
+  //       reject(error);
+  //     }
+  //   });
+  // };
 
   const addBodyAndImages = async (formData) => {
     try {
