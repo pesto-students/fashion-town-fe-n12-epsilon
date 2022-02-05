@@ -4,8 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { ORDER_DETAILS_MUTATION } from "../../graphQlQueries/orderDetails";
 
-import { Row, Col, Spin } from "antd";
-import { CheckoutPageWrapper, SamplePaymentInfo } from "./checkoutStyledComponent";
+import { Row, Col, Spin, Card } from "antd";
+import {
+  CheckoutPageWrapper,
+  SamplePaymentInfo,
+} from "./checkoutStyledComponent";
 
 import CartList from "../cart/cartList";
 import OrderSummary from "./orderSummary";
@@ -30,7 +33,7 @@ function CheckOutPage({
 }) {
   const deliveryCharge = config.deliveryCharge;
   const navigate = useNavigate();
-  
+
   const calculateTotalMRP = () => {
     let totalMRP = 0;
     cart.forEach((product) => {
@@ -61,11 +64,11 @@ function CheckOutPage({
   }, [status, setStatus, createNewOrder]);
 
   useEffect(() => {
-    if (cart.length === 0) {
-      openNotification("All items are removed from cart")
-      navigate(links.home)
+    if (cart.length === 0 && status === "bag") {
+      openNotification("All items are removed from cart");
+      navigate(links.home);
     }
-  },[cart])
+  }, [cart, status]);
 
   const antIcon = <LoadingIcon spin />;
   console.log(paymentLoader);
@@ -99,23 +102,22 @@ function CheckOutPage({
                       <Col xs={24} sm={8} md={8} lg={12}></Col>
                       <Col lg={12}>
                         {userName === "Guest User" && status === "payment" && (
-                          <SamplePaymentInfo>
-                            <p>Test card Number: 5267 3181 8797 5449</p>
-                            <p>CVV: 123</p>
-                            <p>Exp date : 10/2030</p>
+                          <Card title="Test payment details">
+                            <SamplePaymentInfo>
+                              <p>Card Number: 5267 3181 8797 5449</p>
+                              <p>CVV: 123</p>
+                              <p>Exp date : 10/2030</p>
 
-                            <br />
-                            <ul>
-                              <li>
-                                Test payment success flow using{" "}
-                                <code>success@razorpay</code>.
-                              </li>
-                              <li>
-                                Test payment failure flow using{" "}
-                                <code>failure@razorpay</code>.
-                              </li>
-                            </ul>
-                          </SamplePaymentInfo>
+                              <br />
+                              <p>
+                                UPI ID: <code>success@razorpay</code>
+                              </p>
+                              <p>
+                                <strong>Note: </strong>Only visible to Guest
+                                user
+                              </p>
+                            </SamplePaymentInfo>
+                          </Card>
                         )}
                       </Col>
                     </Row>
@@ -144,7 +146,7 @@ const mapStateToProps = ({ Cart, Auth, Order }) => {
     status: Cart.status,
     storeAuth: Auth.storeAuth,
     order: Order,
-    userName: Auth.userName
+    userName: Auth.userName,
   };
 };
 
