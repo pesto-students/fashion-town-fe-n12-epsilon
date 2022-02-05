@@ -62,16 +62,16 @@ function CheckOutPage({
     if (status === "paymentSuccessful") {
       setStatus("orderPlaced");
       createNewOrder();
-      setCart([])
+      setCart([]);
     }
-  }, [status, setStatus, createNewOrder]);
+  }, [status, setStatus, createNewOrder, setCart]);
 
   useEffect(() => {
     if (cart.length === 0 && status === "bag") {
       openNotification("All items are removed from cart");
       navigate(links.home);
     }
-  }, [cart, status]);
+  }, [cart, status, navigate]);
 
   const antIcon = <LoadingIcon spin />;
   console.log(paymentLoader);
