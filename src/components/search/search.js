@@ -31,7 +31,7 @@ function Search() {
     } else {
       setSearchParams({ search });
     }
-  }, 500);
+  }, 800);
 
   return (
     <Input.Group>
