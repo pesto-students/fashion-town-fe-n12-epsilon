@@ -8,8 +8,10 @@ import ServerError from "../result/serverError";
 import { FRESH_ARRIVALS_QUERY } from "../../graphQlQueries/freshArrivalsQuery";
 
 function FreshArrivals() {
-  const [getProductOrderBy, { error, loading, data }] =
-    useLazyQuery(FRESH_ARRIVALS_QUERY);
+  const [getProductOrderBy, { error, loading, data }] = useLazyQuery(
+    FRESH_ARRIVALS_QUERY,
+    { fetchPolicy: "network-only" }
+  );
 
   useEffect(() => {
     getProductOrderBy({ variables: { orderBy: "listed_date", limit: 50 } });
