@@ -56,33 +56,35 @@ function ProductDisplay({ product, cart, setCart }) {
               <Row>
                 <Col xs={24} sm={24} md={9} lg={12}>
                   <Space>
-                    <Text> Qty: {product.qty}</Text>
+                    <Text> Qty: </Text>
                     <Button.Group>
-                      <Button
-                        size="small"
-                        onClick={() =>
-                          changeProductAttribute(
-                            product.productId,
-                            "qty",
-                            product.qty === 1 ? 1 : product.qty - 1
-                          )
-                        }
-                      >
-                        <MinusOutlined />
-                      </Button>
-
-                      <Button
-                        size="small"
-                        onClick={() =>
-                          changeProductAttribute(
-                            product.productId,
-                            "qty",
-                            product.qty + 1
-                          )
-                        }
-                      >
-                        <PlusOutlined />
-                      </Button>
+                      <Space>
+                        <Button
+                          size="small"
+                          onClick={() =>
+                            changeProductAttribute(
+                              product.productId,
+                              "qty",
+                              product.qty === 1 ? 1 : product.qty - 1
+                            )
+                          }
+                        >
+                          <MinusOutlined />
+                        </Button>
+                        <Text> {product.qty}</Text>
+                        <Button
+                          size="small"
+                          onClick={() =>
+                            changeProductAttribute(
+                              product.productId,
+                              "qty",
+                              product.qty + 1
+                            )
+                          }
+                        >
+                          <PlusOutlined />
+                        </Button>
+                      </Space>
                     </Button.Group>
                   </Space>
                 </Col>
