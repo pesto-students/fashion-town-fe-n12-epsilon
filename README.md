@@ -2,6 +2,7 @@
 
 The Fashion Town is an online one-stop shop for all fashion and lifestyle needs. where users can easily search and filter out the product based on their needs, and seller can list their product post admin approval
 
+[Backend](https://github.com/pesto-students/fashion-town-be-n12-epsilon)
 <br/>
 
 # Table of Contents
