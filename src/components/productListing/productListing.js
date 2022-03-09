@@ -34,7 +34,12 @@ function ProductListing() {
   const isSearchParamHasSearchInput = (filterTypeValueArray) => {
     return filterTypeValueArray.hasOwnProperty("search");
   };
-
+  const isSearchPramHasPageAndItemCount = (filterTypeValueArray) => {
+    return (
+      filterTypeValueArray.hasOwnProperty("page") &&
+      filterTypeValueArray.hasOwnProperty("itemCount")
+    );
+  };
   /**
    * For pagination
    * @param current page number
@@ -62,7 +67,7 @@ function ProductListing() {
       const searchInput = filterTypeValueArray["search"][0];
       setResultType("searchInput");
       productBySearchInput({ variables: { searchInput: searchInput } });
-    } else {
+    } else if (isSearchPramHasPageAndItemCount(filterTypeValueArray)) {
       setResultType("filter");
       console.log(filterTypeValueArray);
       productByFilters({ variables: filterTypeValueArray });
