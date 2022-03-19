@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import { connect } from "react-redux";
 
-import Payment from "../payment/payment";
+import Payment from "../payment";
 import { Row, Col, Typography } from "antd";
 import {
   HorizontalLine,

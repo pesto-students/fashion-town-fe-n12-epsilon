@@ -1,7 +1,7 @@
 import React from "react";
 import Filter from "./filter";
 import { useLocation } from "react-router-dom";
-import ProductListing from "./productListing";
+import ProductListing from ".";
 import {
   FilterAndListingContainer,
   FilterCol,

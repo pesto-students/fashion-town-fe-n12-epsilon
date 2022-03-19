@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
 
-import ProductList from "./productList";
+import ProductList from ".";
 
 import ProductListLoading from "../loadingAnimations/productListLoading";
 import ServerError from "../result/serverError";

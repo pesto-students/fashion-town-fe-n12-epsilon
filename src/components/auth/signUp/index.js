@@ -17,7 +17,7 @@ import {
 import { Input, Row, Form, Spin } from "antd";
 
 import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
-import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
+import { ActionButton } from "../../globalStyledComponent";
 import openNotification from "components/notification/messageNotification";
 import { LoadingIcon } from "components/loadingAnimations/loadingAnimationsStyledComponent";
 

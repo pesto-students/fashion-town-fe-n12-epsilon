@@ -18,7 +18,7 @@ import {
 
 import { Input, Row, Form, message } from "antd";
 import { FormItem } from "../authStyledComponent";
-import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
+import { ActionButton } from "../../globalStyledComponent";
 import openNotification from "components/notification/messageNotification";
 message.config({
   top: 100,

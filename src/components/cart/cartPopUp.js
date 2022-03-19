@@ -12,7 +12,7 @@ import { Row, Col } from "antd";
 import CartList from "./cartList";
 import { setStatus } from "../../redux/actions/cartActions";
 import { setCurrentPath } from "../../redux/actions/redirectActions";
-import { ActionButton } from "../globalStyledComponent/globalStyledComponents";
+import { ActionButton } from "../globalStyledComponent";
 import links from "../../config/routeLinks";
 
 function CartPopUp({ storeAuth, setStatus, setCurrentPath, cart }) {

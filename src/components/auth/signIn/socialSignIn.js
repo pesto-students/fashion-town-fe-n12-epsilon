@@ -21,7 +21,7 @@ import {
   setStoreAuth,
   setUserName,
 } from "../../../redux/actions/authActions";
-import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
+import { ActionButton } from "../../globalStyledComponent";
 import links from "../../../config/routeLinks";
 import openNotification from "components/notification/messageNotification";
 
