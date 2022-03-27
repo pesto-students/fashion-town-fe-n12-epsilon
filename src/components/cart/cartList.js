@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import { List, Row, Col } from "antd";
 
-import ProductDisplay from "../checkout/productDisplay";
+import ProductDisplay from "components/checkout/productDisplay";
 import { CartListContainer } from "./cartStyledComponent";
 
 function CartList({ cart }) {

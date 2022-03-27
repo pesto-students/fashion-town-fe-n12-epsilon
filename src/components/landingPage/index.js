@@ -13,7 +13,7 @@ import {
   SectionRow,
   SectionCol,
 } from "./landingStyledComponent";
-import links from "../../config/routeLinks";
+import links from "config/routeLinks";
 import { NavLink } from "react-router-dom";
 
 function LandingPage() {

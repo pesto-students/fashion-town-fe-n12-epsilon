@@ -1,19 +1,19 @@
 import React, { Component } from "react";
-import Header from "./header/header";
-import LandingPage from "./landingPage/landingPage";
-import SignIn from "./auth/signIn/signIn";
-import SignUp from "./auth/signUp/signUp";
+import Header from "./header";
+import LandingPage from "./landingPage";
+import SignIn from "./auth/signIn";
+import SignUp from "./auth/signUp";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Footer from "./footer/footer";
+import Footer from "./footer";
 import FilterAndProductListing from "./productListing/filterAndProductListing";
-import ProductDetailsPage from "./productDetails/productDetailsPage.js";
-import CheckOutPage from "./checkout/checkOutPage";
-import OrderHistory from "./orderHistory/orderHistory";
+import ProductDetailsPage from "./productDetails/index.js";
+import CheckOutPage from "./checkout";
+import OrderHistory from "./orderHistory";
 import InvalidRoute from "./result/invalidRoute";
 import { ContentSectionWrapper } from "./contentSection/contentSectionStyledComponent";
 import links from "config/routeLinks";
-import PrivateRoute from "./privateRoute/privateRoute";
-import Sell from "./sell/sell";
+import PrivateRoute from "./privateRoute";
+import Sell from "./sell";
 
 export class Main extends Component {
   render() {

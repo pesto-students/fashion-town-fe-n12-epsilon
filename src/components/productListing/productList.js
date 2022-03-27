@@ -2,9 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { List } from "antd";
-import ProductCard from "../productCard/productCard";
+import ProductCard from "components/productCard";
 import { createProductIdDetailsMap } from "./productUtilFunctions";
-import { setProductIdMapList } from "../../redux/actions/productActions";
+import { setProductIdMapList } from "redux/actions/productActions";
 import { ProductListItems } from "./productListingStyledComponent";
 
 function ProductList(props) {

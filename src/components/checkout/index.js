@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
-import { ORDER_DETAILS_MUTATION } from "../../graphQlQueries/orderDetails";
+import { ORDER_DETAILS_MUTATION } from "graphQlQueries/orderDetails";
 
 import { Row, Col, Spin, Card } from "antd";
 import {
@@ -10,14 +10,14 @@ import {
   SamplePaymentInfo,
 } from "./checkoutStyledComponent";
 
-import CartList from "../cart/cartList";
+import CartList from "components/cart/cartList";
 import OrderSummary from "./orderSummary";
 import CheckOutSteps from "./checkOutSteps";
-import AddressDisplay from "../address/addressDisplay";
-import AddressForm from "../address/addressForm";
-import PaymentResult from "../payment/paymentResult";
-import config from "../../config/config";
-import { setCart, setStatus } from "../../redux/actions/cartActions";
+import AddressDisplay from "components/address/addressDisplay";
+import AddressForm from "components/address/addressForm";
+import PaymentResult from "components/payment/paymentResult";
+import config from "config/config";
+import { setCart, setStatus } from "redux/actions/cartActions";
 import { LoadingIcon } from "components/loadingAnimations/loadingAnimationsStyledComponent";
 import links from "config/routeLinks";
 import openNotification from "components/notification/messageNotification";

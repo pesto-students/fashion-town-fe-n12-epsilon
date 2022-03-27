@@ -4,16 +4,16 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import { connect } from "react-redux";
 
-import Payment from "../payment/payment";
+import Payment from "components/payment";
 import { Row, Col, Typography } from "antd";
 import {
   HorizontalLine,
   NextButton,
   OrderSummaryCard,
 } from "./checkoutStyledComponent";
-import { setStatus } from "../../redux/actions/cartActions";
-import { setCurrentPath } from "../../redux/actions/redirectActions";
-import links from "../../config/routeLinks";
+import { setStatus } from "redux/actions/cartActions";
+import { setCurrentPath } from "redux/actions/redirectActions";
+import links from "config/routeLinks";
 
 const { Text } = Typography;
 

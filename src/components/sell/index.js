@@ -9,11 +9,11 @@ import {
 } from "./sellStyledComponent";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
-import openNotification from "../notification/messageNotification";
+import openNotification from "components/notification/messageNotification";
 import Title from "antd/lib/typography/Title";
 import UploadImage from "./upload";
-import { ADD_PRODUCT_MUTATION } from "../../graphQlQueries/addProductQuery";
-import config from "../../config/config";
+import { ADD_PRODUCT_MUTATION } from "graphQlQueries/addProductQuery";
+import config from "config/config";
 import links from "config/routeLinks";
 import { LoadingIcon } from "components/loadingAnimations/loadingAnimationsStyledComponent";
 

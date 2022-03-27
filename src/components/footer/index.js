@@ -14,10 +14,10 @@ import {
   SocialMediaHandleCol,
   BottomFilterBox,
 } from "./footerStyledComponent";
-import links from "../../config/routeLinks";
+import links from "config/routeLinks";
 import Text from "antd/lib/typography/Text";
 import { FilterOutlined } from "@ant-design/icons";
-import Filter from "../productListing/filter";
+import Filter from "components/productListing/filter";
 import openNotification from "components/notification/messageNotification";
 
 function Footer() {

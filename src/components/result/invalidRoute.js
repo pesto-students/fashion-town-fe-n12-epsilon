@@ -1,7 +1,7 @@
 import { Button, Result } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
-import links from "../../config/routeLinks";
+import links from "config/routeLinks";
 function InvalidRoute() {
   return (
     <Result

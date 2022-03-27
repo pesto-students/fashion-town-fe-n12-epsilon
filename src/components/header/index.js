@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Search from "../search/search";
+import Search from "components/search";
 import { Space, Row, Col, Drawer } from "antd";
 import { NavLink, Link } from "react-router-dom";
 import {
@@ -13,9 +13,9 @@ import {
   ContentCenterRow,
 } from "./headerStyledComponent";
 
-import Cart from "../cart/cart";
-import Auth from "../auth/auth";
-import links from "../../config/routeLinks";
+import Cart from "components/cart";
+import Auth from "components/auth";
+import links from "config/routeLinks";
 import DrawerMenu from "./drawerMenu";
 
 function Header() {

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import config from "../../config/config";
+import config from "config/config";
 
 import {
   Image,
@@ -14,7 +14,7 @@ import {
   Card,
 } from "antd";
 import { MinusOutlined, PlusOutlined, CloseOutlined } from "@ant-design/icons";
-import { setCart } from "../../redux/actions/cartActions";
+import { setCart } from "redux/actions/cartActions";
 
 const { Text } = Typography;
 const { Option } = Select;

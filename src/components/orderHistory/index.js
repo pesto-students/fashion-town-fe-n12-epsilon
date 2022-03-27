@@ -2,10 +2,10 @@ import React from "react";
 import { connect } from "react-redux";
 import { useQuery } from "@apollo/client";
 
-import { ORDER_HISTORY_QUERY } from "../../graphQlQueries/orderHistory";
+import { ORDER_HISTORY_QUERY } from "graphQlQueries/orderHistory";
 
-import OrderHistoryLoading from "../loadingAnimations/orderHistoryLoading";
-import ServerError from "../result/serverError";
+import OrderHistoryLoading from "components/loadingAnimations/orderHistoryLoading";
+import ServerError from "components/result/serverError";
 import OrderHistoryList from "./orderHistoryList";
 
 function OrderHistory({ storeAuth }) {

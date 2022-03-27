@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Card, Input, Form } from "antd";
-import { NextButton } from "./addressStyledComponent";
-import { setAddress, setStatus } from "../../redux/actions/cartActions";
+import { NextButton } from "components/address/addressStyledComponent";
+import { setAddress, setStatus } from "redux/actions/cartActions";
 
 function AddressForm({ setAddress, setStatus, userName }) {
 

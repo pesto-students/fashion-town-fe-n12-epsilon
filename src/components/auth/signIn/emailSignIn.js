@@ -14,11 +14,11 @@ import {
   setAuthLoader,
   setStoreAuth,
   setUserName,
-} from "../../../redux/actions/authActions";
+} from "redux/actions/authActions";
 
 import { Input, Row, Form, message } from "antd";
-import { FormItem } from "../authStyledComponent";
-import { ActionButton } from "../../globalStyledComponent/globalStyledComponents";
+import { FormItem } from "components/auth/authStyledComponent";
+import { ActionButton } from "components/globalStyledComponent";
 import openNotification from "components/notification/messageNotification";
 message.config({
   top: 100,

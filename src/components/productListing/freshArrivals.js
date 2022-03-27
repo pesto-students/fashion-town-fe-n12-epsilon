@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
 
-import ProductList from "./productList";
+import ProductList from ".";
 
-import ProductListLoading from "../loadingAnimations/productListLoading";
-import ServerError from "../result/serverError";
-import { FRESH_ARRIVALS_QUERY } from "../../graphQlQueries/freshArrivalsQuery";
+import ProductListLoading from "components/loadingAnimations/productListLoading";
+import ServerError from "components/result/serverError";
+import { FRESH_ARRIVALS_QUERY } from "graphQlQueries/freshArrivalsQuery";
 
 function FreshArrivals() {
   const [getProductOrderBy, { error, loading, data }] = useLazyQuery(

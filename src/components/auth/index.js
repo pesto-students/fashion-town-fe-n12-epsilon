@@ -7,13 +7,13 @@ import {
   AuthHeaderWrapper,
   DisplayText,
   NameInitialBox,
-} from "./authStyledComponent";
+} from "components/auth/authStyledComponent";
 import { Col, Dropdown } from "antd";
 
-import { setUserName } from "../../redux/actions/authActions";
-import { setCurrentPath } from "../../redux/actions/redirectActions";
-import links from "../../config/routeLinks";
-import UserMenu from "./userMenu";
+import { setUserName } from "redux/actions/authActions";
+import { setCurrentPath } from "redux/actions/redirectActions";
+import links from "config/routeLinks";
+import UserMenu from "components/auth/userMenu";
 
 function Auth({ setUserName, setCurrentPath, userName }) {
   const [isLogin, setLogin] = useState(false);
