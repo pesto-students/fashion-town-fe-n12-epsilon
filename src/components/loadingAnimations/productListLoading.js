@@ -1,6 +1,6 @@
 import { Skeleton, List, Card } from "antd";
 import React from "react";
-import { ProductListItems } from "../productListing/productListingStyledComponent";
+import { ProductListItems } from "components/productListing/productListingStyledComponent";
 import {
   SkeletonImage
 } from "./loadingAnimationsStyledComponent";

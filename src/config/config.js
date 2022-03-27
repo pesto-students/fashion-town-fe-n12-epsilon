@@ -1,4 +1,4 @@
-import { image } from "../assets/images/fallbackImage";
+import { image } from "assets/images/fallbackImage";
 
 const config = {};
 config.themeColor = "#FF7F3F";

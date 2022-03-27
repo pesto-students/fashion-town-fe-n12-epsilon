@@ -6,12 +6,12 @@ import {
   FilterHeading,
   FilterHeadingRow,
 } from "./productListingStyledComponent";
-import { brandList } from "../../assets/data/brand";
+import { brandList } from "assets/data/brand";
 import { useSearchParams } from "react-router-dom";
-import { colorList } from "../../assets/data/color";
+import { colorList } from "assets/data/color";
 import _ from "lodash";
-import { getAppliedFilterValueMap } from "../utils";
-import { HorizontalLine } from "../productDetails/productDetailsStyledComponent";
+import { getAppliedFilterValueMap } from "components/utils";
+import { HorizontalLine } from "components/productDetails/productDetailsStyledComponent";
 
 function Filter() {
   const [searchParams, setSearchParams] = useSearchParams();

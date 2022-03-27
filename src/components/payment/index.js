@@ -2,21 +2,21 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import { useMutation } from "@apollo/client";
-import { RAZORPAY_ORDER_QUERY } from "../../graphQlQueries/razorPayOrder";
+import { RAZORPAY_ORDER_QUERY } from "graphQlQueries/razorPayOrder";
 import useRazorpay from "react-razorpay";
 
-import config from "../../config/config";
+import config from "config/config";
 import moment from "moment";
 
-import { NextButton } from "../cart/cartStyledComponent";
+import { NextButton } from "components/cart/cartStyledComponent";
 
 import {
   setOrderId,
   setOrderItems,
   setPaymentDetails,
   setPaymentLoader,
-} from "../../redux/actions/orderActions";
-import { setStatus } from "../../redux/actions/cartActions";
+} from "redux/actions/orderActions";
+import { setStatus } from "redux/actions/cartActions";
 import openNotification from "components/notification/messageNotification";
 
 function Payment(props) {

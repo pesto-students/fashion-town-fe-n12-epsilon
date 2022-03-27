@@ -2,15 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { useSearchParams } from "react-router-dom";
 
-import { FILTER_QUERY } from "../../graphQlQueries/filterQuery";
+import { FILTER_QUERY } from "graphQlQueries/filterQuery";
 
 import ProductList from "./productList";
 import { getAppliedFilterArray } from "./productUtilFunctions";
-import ProductListLoading from "../loadingAnimations/productListLoading";
-import ServerError from "../result/serverError";
-import { SEARCH_TEXT_QUERY } from "../../graphQlQueries/searchQuery";
-import { getAppliedFilterValueMap } from "../utils";
-import config from "../../config/config";
+import ProductListLoading from "components/loadingAnimations/productListLoading";
+import ServerError from "components/result/serverError";
+import { SEARCH_TEXT_QUERY } from "graphQlQueries/searchQuery";
+import { getAppliedFilterValueMap } from "components/utils";
+import config from "config/config";
 import { ProductListPagination } from "./productListingStyledComponent";
 
 function ProductListing() {

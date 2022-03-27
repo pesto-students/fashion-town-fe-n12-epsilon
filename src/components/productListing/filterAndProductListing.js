@@ -7,7 +7,7 @@ import {
   FilterCol,
 } from "./productListingStyledComponent";
 import { Row, Col } from "antd";
-import links from "../../config/routeLinks";
+import links from "config/routeLinks";
 import FreshArrivals from "./freshArrivals";
 
 function FilterAndProductListing() {

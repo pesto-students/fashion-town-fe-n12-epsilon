@@ -4,8 +4,8 @@ import _ from "lodash";
 import { useSearchParams } from "react-router-dom";
 import { SearchInput } from "./searchStyledComponent";
 import { useLocation, useNavigate } from "react-router-dom";
-import links from "../../config/routeLinks";
-import config from "../../config/config";
+import links from "config/routeLinks";
+import config from "config/config";
 
 function Search() {
   const [, setSearchParams] = useSearchParams();

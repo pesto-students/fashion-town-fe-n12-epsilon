@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import HeroBannerImage from "../../assets/images/hero-banner.jpg";
-import MenBannerImage from "../../assets/images/men.jpg";
-import WomenBannerImage from "../../assets/images/women.jpg";
-import AccessoriesBannerImage from "../../assets/images/accessories.jpg";
-import FreshArrival from "../../assets/images/freshArrivals.jpg";
+import HeroBannerImage from "assets/images/hero-banner.jpg";
+import MenBannerImage from "assets/images/men.jpg";
+import WomenBannerImage from "assets/images/women.jpg";
+import AccessoriesBannerImage from "assets/images/accessories.jpg";
+import FreshArrival from "assets/images/freshArrivals.jpg";
 import { Col, Row } from "antd";
 const HeroBanner = styled.section`
   height: 80vh;

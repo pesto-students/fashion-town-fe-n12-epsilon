@@ -6,8 +6,8 @@ import { Badge, Col, Dropdown } from "antd";
 
 import CartPopUp from "./cartPopUp";
 import { CartIcon, CartText } from "./cartStyledComponent";
-import links from "../../config/routeLinks";
-import openNotification from "../notification/messageNotification";
+import links from "config/routeLinks";
+import openNotification from "components/notification/messageNotification";
 
 function Cart({ cart }) {
   const handleCartIconClick = () => {

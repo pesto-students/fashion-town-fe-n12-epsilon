@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import { googleAuthProvider } from "../../../config/authMethods";
+import { googleAuthProvider } from "config/authMethods";
 
 import {
   getAuth,
@@ -15,14 +15,14 @@ import {
 import { Row, Button } from "antd";
 import { GoogleOutlined } from "@ant-design/icons";
 
-import { FullWidthSpace, IconHolder, SocialRow } from "../authStyledComponent";
+import { FullWidthSpace, IconHolder, SocialRow } from "components/auth/authStyledComponent";
 import {
   setAuthLoader,
   setStoreAuth,
   setUserName,
-} from "../../../redux/actions/authActions";
-import { ActionButton } from "../../globalStyledComponent";
-import links from "../../../config/routeLinks";
+} from "redux/actions/authActions";
+import { ActionButton } from "components/globalStyledComponent";
+import links from "config/routeLinks";
 import openNotification from "components/notification/messageNotification";
 
 function SocialSignIn({

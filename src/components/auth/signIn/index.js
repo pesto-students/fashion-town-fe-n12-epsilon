@@ -5,11 +5,11 @@ import {
   SignInBox,
   HorizontalLine,
   FullWidthSpace,
-} from "../authStyledComponent";
+} from "components/auth/authStyledComponent";
 
 import { Row, Spin } from "antd";
-import EmailSignIn from "./emailSignIn";
-import SocialSignIn from "./socialSignIn";
+import EmailSignIn from "components/auth/signIn/emailSignIn";
+import SocialSignIn from "components/auth/signIn/socialSignIn";
 import { LoadingIcon } from "components/loadingAnimations/loadingAnimationsStyledComponent";
 
 function SignIn({ authLoader }) {

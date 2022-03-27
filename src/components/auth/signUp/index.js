@@ -7,17 +7,17 @@ import {
   setPersistence,
   inMemoryPersistence,
 } from "firebase/auth";
-import { auth } from "../../../config/firebase-config";
+import { auth } from "config/firebase-config";
 
 import {
   AuthContainer,
   SignUpBox,
   FormItem,
-} from "../authStyledComponent";
+} from "components/auth/authStyledComponent";
 import { Input, Row, Form, Spin } from "antd";
 
-import { setStoreAuth, setUserName } from "../../../redux/actions/authActions";
-import { ActionButton } from "../../globalStyledComponent";
+import { setStoreAuth, setUserName } from "redux/actions/authActions";
+import { ActionButton } from "components/globalStyledComponent";
 import openNotification from "components/notification/messageNotification";
 import { LoadingIcon } from "components/loadingAnimations/loadingAnimationsStyledComponent";
 

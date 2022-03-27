@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import { getAuth, signOut } from "firebase/auth";
 import { Link } from "react-router-dom";
 import { Col, Menu } from "antd";
-import { DisplayText, UserNameCapitalize } from "./authStyledComponent";
+import { DisplayText, UserNameCapitalize } from "components/auth/authStyledComponent";
 
-import { setStoreAuth, setUserName } from "../../redux/actions/authActions";
-import links from "../../config/routeLinks";
-import { setCart } from "../../redux/actions/cartActions";
+import { setStoreAuth, setUserName } from "redux/actions/authActions";
+import links from "config/routeLinks";
+import { setCart } from "redux/actions/cartActions";
 
 function UserMenu(props) {
   const { setUserName, setStoreAuth, userName, setCart } = props;
