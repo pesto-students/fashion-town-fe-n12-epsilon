@@ -1,0 +1,43 @@
+import React from "react";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+
+import { PRODUCT_BY_ID_FILTER_QUERY } from "graphQlQueries/filterQuery";
+
+import ProductImages from "./productImages";
+import ProductDescription from "./productDescription";
+
+import { Row, Col } from "antd";
+import { ProductDetailsWrapper } from "./productDetailsStyledComponent";
+import ServerError from "components/result/serverError";
+import DefaultLoading from "components/loadingAnimations/defaultLoading";
+
+function ProductDetailsPage() {
+  const { id } = useParams();
+
+  const { error, loading, data } = useQuery(PRODUCT_BY_ID_FILTER_QUERY, {
+    variables: { productId: id },
+  });
+  if (data) {
+    console.log(data)
+  }
+
+  return (
+    <>
+      {loading && <DefaultLoading />}
+      {data && (
+        <ProductDetailsWrapper>
+          <Row>
+            <ProductImages productDetails={data.productByFilters.products[0]} />
+            <Col xs={24} sm={24} md={12} lg={12}>
+              <ProductDescription productDetails={data.productByFilters.products[0]} />
+            </Col>
+          </Row>
+        </ProductDetailsWrapper>
+      )}
+      {error && <ServerError />}
+    </>
+  );
+}
+
+export default ProductDetailsPage;

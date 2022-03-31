@@ -1,0 +1,70 @@
+import React, { Component } from "react";
+import Header from "./header";
+import LandingPage from "./landingPage";
+import SignIn from "./auth/signIn";
+import SignUp from "./auth/signUp";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Footer from "./footer";
+import FilterAndProductListing from "./productListing/filterAndProductListing";
+import ProductDetailsPage from "./productDetails/index.js";
+import CheckOutPage from "./checkout";
+import OrderHistory from "./orderHistory";
+import InvalidRoute from "./result/invalidRoute";
+import { ContentSectionWrapper } from "./contentSection/contentSectionStyledComponent";
+import links from "config/routeLinks";
+import PrivateRoute from "./privateRoute";
+import Sell from "./sell";
+
+export class Main extends Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <Header />
+        <ContentSectionWrapper>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path={links.signIn} element={<SignIn />} />
+            <Route path={links.signUp} element={<SignUp />} />
+            <Route path={links.shop} element={<FilterAndProductListing />} />
+            <Route
+              path={links.freshArrivals}
+              element={<FilterAndProductListing />}
+            />
+            <Route
+              path={`${links.product}/:id`}
+              element={<ProductDetailsPage />}
+            />
+            <Route
+              path={links.checkout}
+              element={
+                <PrivateRoute>
+                  <CheckOutPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path={links.sell}
+              element={
+                <PrivateRoute>
+                  <Sell />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path={links.orderHistory}
+              element={
+                <PrivateRoute>
+                  <OrderHistory />
+                </PrivateRoute>
+              }
+            />
+            <Route path="*" element={<InvalidRoute />} />
+          </Routes>
+        </ContentSectionWrapper>
+        <Footer />
+      </BrowserRouter>
+    );
+  }
+}
+
+export default Main;
