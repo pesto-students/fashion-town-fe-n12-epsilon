@@ -29,6 +29,7 @@ Type the command **npm start** to run the application server.
 2. Redux 
 3. Apollo Client 
 4. Ant Design
+5. Styled components
 
 # Author
 1. Vikram
