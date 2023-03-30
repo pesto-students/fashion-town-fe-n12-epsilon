@@ -46,28 +46,28 @@ function Header() {
           <Col xs={0} sm={0} md={0} lg={0} xl={8}>
             <Row>
               <Space size={"large"}>
-                <Col>
+                <Col xs={0} sm={0} md={0} lg={0} xl={6}>
                   <NavBarItems>
                     <NavLink to={links.shop + links.menSection}>
                       <NavText>MEN</NavText>
                     </NavLink>
                   </NavBarItems>
                 </Col>
-                <Col>
+                <Col xs={0} sm={0} md={0} lg={0} xl={6}>
                   <NavBarItems>
                     <NavLink to={links.shop + links.womenSection}>
                       <NavText>WOMEN</NavText>
                     </NavLink>
                   </NavBarItems>
                 </Col>
-                <Col>
+                <Col xs={0} sm={0} md={0} lg={0} xl={6}>
                   <NavBarItems>
                     <NavLink to={links.shop + links.accessoriesSection}>
                       <NavText>ACCESSORIES</NavText>
                     </NavLink>
                   </NavBarItems>
                 </Col>
-                <Col>
+                <Col xs={0} sm={0} md={0} lg={0} xl={6}>
                   <NavBarItems>
                     <NavLink to={links.shop + links.livingSections}>
                       <NavText>LIVING</NavText>

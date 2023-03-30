@@ -25,7 +25,7 @@ const NavText = styled.p`
   color: black;
 `;
 const NavBarItems = styled.div`
-  padding: 0 40px;
+  padding: 0 20px;
 `;
 
 const NavBarSpace = styled.div`
